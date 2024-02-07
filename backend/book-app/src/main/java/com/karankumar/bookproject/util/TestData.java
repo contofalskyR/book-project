@@ -37,10 +37,10 @@ import java.util.stream.Stream;
 
 public final class TestData {
   private static final ThreadLocalRandom threadLocalRandom = ThreadLocalRandom.current();
-  private static final List<String> recommenders =
-      Arrays.asList("John", "Thomas", "Christina", "Luke", "Sally");
+  private static final List<String> recommenders = Arrays.asList("John", "Thomas", "Christina", "Luke", "Sally");
 
-  private TestData() {}
+  private TestData() {
+  }
 
   public static int generateRandomNumberInRange() {
     int min = 300;
@@ -50,12 +50,12 @@ public final class TestData {
 
   public static List<Author> generateAuthors() {
     return Stream.of(
-            "J.K. Rowling",
-            "Neil Gaiman",
-            "J.R.R Tolkien",
-            "Roald Dahl",
-            "Robert Galbraith",
-            "Dan Brown")
+        "J.K. Rowling",
+        "Neil Gaiman",
+        "J.R.R Tolkien",
+        "Roald Dahl",
+        "Robert Galbraith",
+        "Dan Brown")
         .map(
             name -> {
               return new Author(name);
@@ -69,17 +69,25 @@ public final class TestData {
       List<PredefinedShelf> predefinedShelves,
       List<Publisher> publishers) {
     return Stream.of(
-            "Harry Potter and the Philosopher's stone",
-            "Stardust",
-            "Harry Potter and the Chamber of Secrets",
-            "Harry Potter and the Prisoner of Azkaban",
-            "Origin",
-            "Harry Potter and the Goblet of Fire",
-            "Harry Potter and the Order of Phoenix",
-            "Matilda",
-            "Harry Potter and the Half-Blood Prince",
-            "The Hobbit",
-            "Harry Potter and the Deathly Hallows")
+        "Harry Potter and the Philosopher's stone",
+        "Stardust",
+        "Harry Potter and the Chamber of Secrets",
+        "Harry Potter and the Prisoner of Azkaban",
+        "Origin",
+        "Harry Potter and the Goblet of Fire",
+        "Harry Potter and the Order of Phoenix",
+        "Matilda",
+        "Sun",
+        "Planet",
+        "Earth",
+        "Mars",
+        "Venus",
+        "Satrun",
+        "Juptier",
+        "Neptune",
+        "Harry Potter and the Half-Blood Prince",
+        "The Hobbit",
+        "Harry Potter and the Deathly Hallows")
         .map(title -> createBook(authors, title, tags, predefinedShelves, publishers))
         .collect(Collectors.toList());
   }
@@ -102,12 +110,11 @@ public final class TestData {
       List<Tag> tags,
       List<PredefinedShelf> predefinedShelves,
       List<Publisher> publishers) {
-    Book book =
-        new Book(
-            title,
-            generateRandomAuthor(authors),
-            generateRandomPredefinedShelf(predefinedShelves),
-            generateRandomPublishers(publishers));
+    Book book = new Book(
+        title,
+        generateRandomAuthor(authors),
+        generateRandomPredefinedShelf(predefinedShelves),
+        generateRandomPublishers(publishers));
 
     book.setBookGenre(generateRandomGenre());
     book.setBookRecommendedBy(generateRandomRecommender());
@@ -151,7 +158,7 @@ public final class TestData {
 
   public static PredefinedShelf generateRandomPredefinedShelf(
       List<PredefinedShelf> predefinedShelves) {
-    return predefinedShelves.get(threadLocalRandom.nextInt(predefinedShelves.size()));
+    return predefinedShelves.get(0);
   }
 
   public static int generateRandomPublicationYear() {

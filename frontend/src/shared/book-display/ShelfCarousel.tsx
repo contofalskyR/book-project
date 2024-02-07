@@ -20,6 +20,7 @@ import './ShelfCarousel.css'
 import { Icon, Paper } from '@material-ui/core';
 import { Book } from '../types/Book';
 import { Component } from 'react';
+import { log } from 'console';
 
 function ShelfBook(props: BookProps): JSX.Element {
     const bookClass = 'book' + (props.img === "" ? '' : ' image');
@@ -80,6 +81,18 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
       }
 
     render(): JSX.Element {
+        const books:any = [];
+                            this.renderShelfBookByGenre(this.state.books).forEach((value,key) => {
+                                console.log(value);
+                                console.log(key);
+                                books.push(                                    <div>
+                                    {key}
+                                    {value}
+                                    </div>
+)
+                                
+                                
+                            })
         return (
             <div className="shelf-container">
                 <span className="shelf-title">{this.state.title}</span>
@@ -88,8 +101,9 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
                 <div className="books-and-shelf">
                     <div className="book-wrap">
                         {
-                            this.renderShelfBook(this.state.books)
+                            books
                         }
+                        <ShelfBook key="test" title="test" img='test' />
                         <AddBook />
                         <div className="clear" />
                     </div>
@@ -99,13 +113,26 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
         );
     }
 
-    renderShelfBook(books: Book[]): ReactElement[] {
+    renderShelfBook(books: Book[]): ReactElement<Book>[] {
         const elements = Array<ReactElement>();
         const maxBooksToDisplay = Math.min(books.length, 6)
         for (let i = 0; i < maxBooksToDisplay; i++) {
             elements.push(<ShelfBook key={i} title={books[i].title} img={books[i].img} />)
         }
         return elements;
+    }
+    renderShelfBookByGenre(books: Book[]): Map<string,Array<ReactElement>> {
+        const elements = Array<ReactElement>();
+        const maxBooksToDisplay = Math.min(books.length, 6)
+        const map = new Map(); // book genres to list of shelfbooks
+        for (let i = 0; i < maxBooksToDisplay; i++) {
+            if(map.get(books[i].bookGenre) == undefined){
+                map.set(books[i].bookGenre,Array<ReactElement>());
+            }
+            // eslint-disable-next-line max-len
+            map.get(books[i].bookGenre).push(<ShelfBook key={i} title={books[i].title} img={books[i].img} />)
+        }
+        return map;
     }
 }
 type ShelfCarouselProps = {
