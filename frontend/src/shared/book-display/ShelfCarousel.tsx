@@ -20,7 +20,6 @@ import './ShelfCarousel.css'
 import { Icon, Paper } from '@material-ui/core';
 import { Book } from '../types/Book';
 import { Component } from 'react';
-import { log } from 'console';
 
 function ShelfBook(props: BookProps): JSX.Element {
     const bookClass = 'book' + (props.img === "" ? '' : ' image');
@@ -43,6 +42,14 @@ type BookProps = {
 interface IShelfCarouselState {
     title: string;
     books: Book[];
+    genre: string;
+}
+
+type ShelfCarouselProps = {
+    title: string;
+    books: Book[];
+    searchText: string;
+    genre: string;
 }
 
 function AddBook() {
@@ -61,37 +68,45 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
         this.state = {
             title: props.title,
             books: props.books,
+            genre: props.genre
         }
         this.searchText = props.searchText
     }
 
     componentDidMount(): void {
-        if(this.searchText !== '') {
+        if(this.searchText === '') {
             this.setState({
-                books: this.filterBooks()
+                books: this.filterBooks(),
+                genre: this.props.genre
             })
         } 
+        console.log("from the shelf carousl:" + this.state.genre);
+        
     }
     searchText = '';
 
     filterBooks(): Book[] {
+        if(this.state.genre !== ''){
+            console.log("rerendering by genre!");
+            return this.state.books.filter(book => {
+                return book.bookGenre[0].toLowerCase() === this.state.genre.toLowerCase();
+            });
+      }
         return this.state.books.filter(book => {
+                console.log("rerendering by all books!");
+                console.log(book.bookGenre[0]);
           return book.title.toLowerCase().includes(this.searchText.toLowerCase());
         });
-      }
 
+    }
     render(): JSX.Element {
         const books:any = [];
                             this.renderShelfBookByGenre(this.state.books).forEach((value,key) => {
-                                console.log(value);
-                                console.log(key);
                                 books.push(                                    <div>
                                     {key}
                                     {value}
                                     </div>
 )
-                                
-                                
                             })
         return (
             <div className="shelf-container">
@@ -103,7 +118,7 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
                         {
                             books
                         }
-                        <ShelfBook key="test" title="test" img='test' />
+                        {/* <ShelfBook key="test" title="test" img='test' /> */}
                         <AddBook />
                         <div className="clear" />
                     </div>
@@ -134,9 +149,4 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
         }
         return map;
     }
-}
-type ShelfCarouselProps = {
-    title: string;
-    books: Book[];
-    searchText: string;
 }

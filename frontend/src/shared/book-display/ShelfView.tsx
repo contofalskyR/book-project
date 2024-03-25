@@ -25,6 +25,7 @@ interface IShelfState {
     readBooks: Book[];
     didNotFinishBooks: Book[];
     searchText: string;
+    genre: string;
 }
 
 export default class ShelfView extends Component<IShelfState, IShelfState> {
@@ -35,8 +36,13 @@ export default class ShelfView extends Component<IShelfState, IShelfState> {
             readBooks: props.readBooks,
             readingBooks: props.readingBooks,
             toReadBooks: props.toReadBooks,
-            searchText: props.searchText
+            searchText: props.searchText,
+            genre: props.genre
         };
+    }
+    componentDidMount(): void {
+        console.log("from shelf view porsp:" + this.state.genre);
+        
     }
 
     render(): ReactElement {
@@ -45,19 +51,27 @@ export default class ShelfView extends Component<IShelfState, IShelfState> {
                 <ShelfCarousel 
                     title="Reading"
                     books={this.state.readingBooks}
+                    genre={this.state.genre}
                     searchText={this.state.searchText} />
+
                 <ShelfCarousel 
                     title="To Read" 
                     books={this.state.toReadBooks}
+                    genre={this.state.genre}
                     searchText={this.state.searchText} />
+
                 <ShelfCarousel 
                     title="Read"
                     books={this.state.readBooks}
+                    genre={this.state.genre}
                     searchText={this.state.searchText} />
+
                 <ShelfCarousel 
                     title="Did not finish"
                     books={this.state.didNotFinishBooks}
+                    genre={this.state.genre}
                     searchText={this.state.searchText} />
+
             </div>
         )
     }

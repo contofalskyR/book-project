@@ -22,13 +22,13 @@ import Button from "@material-ui/core/Button";
 import ShelfModal from "./ShelfModal";
 import { Layout } from "../shared/components/Layout";
 import BookList from '../shared/book-display/BookList';
+import { Genres } from "../shared/types/Genres";
 import { Book } from '../shared/types/Book';
 import HttpClient from '../shared/http/HttpClient';
 import Endpoints from '../shared/api/endpoints';
 import "./MyBooks.css";
 import ShelfView from "../shared/book-display/ShelfView";
-
-
+import { FormControl, InputLabel, Select } from "@material-ui/core";
 interface IState {
     showShelfModal: boolean;
     showListView: boolean;
@@ -38,6 +38,7 @@ interface IState {
     toReadBooks: Book[];
     readingBooks: Book[];
     searchVal: string;
+    genre: string;
 }
 
 
@@ -47,6 +48,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
         this.state = {
             showShelfModal: false,
             showListView: false,
+            genre: "",
             bookList: [],
             readBooks: [],
             didNotFinishBooks: [],
@@ -62,6 +64,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
         this.toReadBooks = this.toReadBooks.bind(this);
         this.readingBooks = this.readingBooks.bind(this);
         this.getReadBooks = this.getReadBooks.bind(this);
+        this.handleGenreChange = this.handleGenreChange.bind(this);
     }
 
     componentDidMount(): void {
@@ -71,7 +74,11 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
         this.toReadBooks();
         this.readingBooks();
         this.trackCurrentDeviceSize();
+        this.setState({genre:""});
     }
+    genresList:JSX.Element[] = Object.keys(Genres).map((value,index) => {
+ return <option key={index} value={Genres[value as keyof typeof Genres]}>{Genres[value as keyof typeof Genres]}</option> 
+});
 
     getReadBooks(): void {
         HttpClient.get(Endpoints.read).then((readBooks: Book[]) => {
@@ -153,10 +160,31 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
             showListView: !this.state.showListView
         });
     }
-
+    handleGenreChange(event: React.ChangeEvent<{ name?: string; value: unknown }>): void {
+        
+        this.setState({genre:event.target.value as string});
+        console.log(this.state.genre);
+        
+  }
     render(): ReactElement {
         return (
             <Layout title="My books" btn={<div className="my-book-top-buttons">
+                  <FormControl variant="filled" className="">
+        <InputLabel htmlFor="filled-native-simple">Genre</InputLabel>
+        <Select
+          native
+          value={this.state.genre}
+          onChange={this.handleGenreChange}
+          inputProps={{
+            name: 'genre',
+            id: 'filled-native-simple',
+          }}
+        >
+          <option aria-label="None" value="" />
+          {this.genresList}
+        </Select>
+      </FormControl>
+
                 <Button
                     variant="contained"
                     className="tempButton"
@@ -189,12 +217,14 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                                     ...this.state.readingBooks,
                                     ...this.state.toReadBooks,
                                     ...this.state.didNotFinishBooks
-                                ].length + this.state.searchVal}
+                                ].length + this.state.searchVal + this.state.genre}
                                 readBooks={this.state.readBooks} 
                                 toReadBooks={this.state.toReadBooks}
                                 didNotFinishBooks={this.state.didNotFinishBooks}
                                 readingBooks={this.state.readingBooks} 
-                                searchText={this.state.searchVal} />
+                                searchText={this.state.searchVal}
+                                genre={this.state.genre} />
+
                     }
                 </div>
                 <ShelfModal
