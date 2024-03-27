@@ -83,7 +83,8 @@ public class PredefinedShelfService {
     return predefinedShelfRepository.findById(id);
   }
 
-  // TODO: make private. We should create predefined shelves when a user registers and then not
+  // TODO: make private. We should create predefined shelves when a user registers
+  // and then not
   // allow further predefined shelves to be created
   public void save(@NonNull PredefinedShelf shelf) {
     predefinedShelfRepository.save(shelf);
@@ -122,9 +123,7 @@ public class PredefinedShelfService {
   @PostConstruct
   @ExcludeFromJacocoGeneratedReport
   public void populateTestData() {
-    if (authorRepository.count() == 0) {
-      populateAuthorRepository();
-    }
+    populateAuthorRepository();
 
     if (tagRepository.count() == 0) {
       populateTagRepository();
@@ -182,14 +181,12 @@ public class PredefinedShelfService {
   }
 
   public Optional<PredefinedShelf> getPredefinedShelfByNameAsString(String shelfName) {
-    List<PredefinedShelf> shelfFound =
-        findAllForLoggedInUser().stream()
-            .filter(
-                shelf ->
-                    shelf
-                        .getPredefinedShelfName()
-                        .equals(PredefinedShelf.ShelfName.valueOf(shelfName)))
-            .collect(Collectors.toList());
+    List<PredefinedShelf> shelfFound = findAllForLoggedInUser().stream()
+        .filter(
+            shelf -> shelf
+                .getPredefinedShelfName()
+                .equals(PredefinedShelf.ShelfName.valueOf(shelfName)))
+        .collect(Collectors.toList());
 
     if (shelfFound.isEmpty()) {
       return Optional.empty();
@@ -201,10 +198,9 @@ public class PredefinedShelfService {
 
   public Optional<PredefinedShelf> getPredefinedShelfByPredefinedShelfName(
       PredefinedShelf.ShelfName predefinedShelfName) {
-    List<PredefinedShelf> shelfFound =
-        findAllForLoggedInUser().stream()
-            .filter(shelf -> shelf.getPredefinedShelfName().equals(predefinedShelfName))
-            .collect(Collectors.toList());
+    List<PredefinedShelf> shelfFound = findAllForLoggedInUser().stream()
+        .filter(shelf -> shelf.getPredefinedShelfName().equals(predefinedShelfName))
+        .collect(Collectors.toList());
 
     if (shelfFound.isEmpty()) {
       return Optional.empty();
@@ -213,7 +209,10 @@ public class PredefinedShelfService {
     return Optional.of(shelfFound.get(0)); // there should only be one
   }
 
-  /** Fetches all of the books in the chosen predefined shelf or all of the predefined shelves */
+  /**
+   * Fetches all of the books in the chosen predefined shelf or all of the
+   * predefined shelves
+   */
   public Set<Book> getBooksInChosenPredefinedShelf(String chosenShelf) {
     if (isAllBooksShelf(chosenShelf)) {
       return getBooksInAllPredefinedShelves();
@@ -224,8 +223,7 @@ public class PredefinedShelfService {
       return new HashSet<>();
     }
 
-    Optional<PredefinedShelf> predefinedShelf =
-        findByPredefinedShelfNameAndLoggedInUser(predefinedShelfName.get());
+    Optional<PredefinedShelf> predefinedShelf = findByPredefinedShelfNameAndLoggedInUser(predefinedShelfName.get());
     if (predefinedShelf.isEmpty()) {
       return new HashSet<>();
     }

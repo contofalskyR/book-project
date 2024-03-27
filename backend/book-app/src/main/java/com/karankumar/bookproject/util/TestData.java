@@ -24,6 +24,9 @@ import com.karankumar.bookproject.shelf.model.PredefinedShelf;
 import com.karankumar.bookproject.book.model.Publisher;
 import com.karankumar.bookproject.book.model.RatingScale;
 import com.karankumar.bookproject.book.model.Tag;
+import com.karankumar.bookproject.util.MockData;
+
+import static java.util.stream.Collectors.collectingAndThen;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -32,6 +35,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -49,18 +53,9 @@ public final class TestData {
   }
 
   public static List<Author> generateAuthors() {
-    return Stream.of(
-        "J.K. Rowling",
-        "Neil Gaiman",
-        "J.R.R Tolkien",
-        "Roald Dahl",
-        "Robert Galbraith",
-        "Dan Brown")
-        .map(
-            name -> {
-              return new Author(name);
-            })
-        .collect(Collectors.toList());
+    return MockData.AUTHORS.stream().map(name -> {
+      return new Author(name);
+    }).collect(Collectors.toList());
   }
 
   public static List<Book> generateBooks(
