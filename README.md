@@ -9,7 +9,7 @@
 	
   <a href="https://sonarcloud.io/dashboard?id=Project-Books_book-project">
     <img src="https://sonarcloud.io/api/project_badges/measure?project=Project-Books_book-project&metric=coverage" alt="Code coverage" />
-  </a>	
+  </a>
 
   <a href="hhttps://opencollective.com/book-project">
     <img src="https://img.shields.io/badge/open%20collective-donate-2ecc71" alt="Slack" />
@@ -20,18 +20,19 @@ Book tracker web app made with Spring Boot and React (Typescript).
 
 ![image](https://user-images.githubusercontent.com/11173328/112493885-739b0d80-8d7a-11eb-85a1-b4c500dc61ab.png)
 
-*The image above is from our mockup designs, so this may look slightly different to the app. If major changes are made, we will upload a new image.*
+_The image above is from our mockup designs, so this may look slightly different to the app. If major changes are made, we will upload a new image._
 
 # Getting started locally
 
 Prerequisites:
-- Docker with [Buildkit enabled](https://docs.docker.com/develop/develop-images/build_enhancements/#to-enable-buildkit-builds)
-  - Windows or macOS: install [Docker Desktop](https://www.docker.com/products/docker-desktop)
-  - Linux: install [Docker Engine](https://docs.docker.com/engine/) and [Docker Compose](https://docs.docker.com/compose/). Follow the [post installation guide](https://docs.docker.com/engine/install/linux-postinstall/) to add your user to the `docker` group
+
+-   Docker with [Buildkit enabled](https://docs.docker.com/develop/develop-images/build_enhancements/#to-enable-buildkit-builds)
+    -   Windows or macOS: install [Docker Desktop](https://www.docker.com/products/docker-desktop)
+    -   Linux: install [Docker Engine](https://docs.docker.com/engine/) and [Docker Compose](https://docs.docker.com/compose/). Follow the [post installation guide](https://docs.docker.com/engine/install/linux-postinstall/) to add your user to the `docker` group
 
 1. Clone the repository (if you're contributing, you'll need to first fork the repository and then clone your fork)
-1. Start Docker engine (Linux) or Docker desktop (macOS or Windows). 
-   - If you're using an Apple silicon chip (e.g. M1), you'll need to uncomment [this line](https://github.com/Project-Books/book-project/blob/0.2.0/backend/docker-compose.yml#L6). 
+1. Start Docker engine (Linux) or Docker desktop (macOS or Windows).
+    - If you're using an Apple silicon chip (e.g. M1), you'll need to uncomment [this line](https://github.com/Project-Books/book-project/blob/0.2.0/backend/docker-compose.yml#L6).
 1. In the root of the project, run `docker-compose build` to build the database, backend and frontend services
 1. Run `docker-compose --env-file .env up` to start the containers
 1. Once the development server has started (you'll get notified in the output of `docker-compose up`), go to `localhost:3000` in your web browser to access the frontend
@@ -44,19 +45,23 @@ You may want to also want to run our [Books API](https://github.com/Project-Book
 ## Log in with our test user
 
 When running the frontend and backend, or only the backend, you can use the following test user:
-- Email address: `user@user.user`
-- Password: `password`
+
+-   Email address: `user@user.user`
+-   Password: `password`
 
 Note: If you're running the backend, you will need a JWT token for subsequent requests after logging in or creating an account; see our [connecting to the backend](https://project-books.github.io/development/how-to/backend-postman/) wiki page.
- 
+
 ## Access database (optional)
 
 Using your favourite SQL client, use the following settings:
-- Host: `localhost`
-- Port: `5433`
-- User: `dbuser`
-- Password: `dbpassword`
-- Database name: `book_project_db`
+
+-   Host: `localhost`
+-   Port: `5433`
+-   User: `dbuser`
+-   Password: `dbpassword`
+-   Database name: `book_project_db`
+
+db connection cmd: `psql -U dbuser -d book_project_db`
 
 For example, in DataGrip or IntelliJ Ultimate:
 
@@ -64,14 +69,14 @@ For example, in DataGrip or IntelliJ Ultimate:
 
 # Contributing
 
-If you wish to contribute (thanks!), please first see the [contributing document](https://github.com/knjk04/book-project/blob/master/CONTRIBUTING.md). 
+If you wish to contribute (thanks!), please first see the [contributing document](https://github.com/knjk04/book-project/blob/master/CONTRIBUTING.md).
 
 We work hard to make our project approachable to everyone -- from those new to open-source looking to make their first contribution to seasoned developers.
 
 ## Backend: fixing Lombok errors
 
-You may find lots of errors for things like the log statements, or the entities not having constructors. 
-You can find instructions on fixing this for IntelliJ and Eclipse in our [troubleshooting page](https://project-books.github.io/development/how-to/troubleshoot/). 
+You may find lots of errors for things like the log statements, or the entities not having constructors.
+You can find instructions on fixing this for IntelliJ and Eclipse in our [troubleshooting page](https://project-books.github.io/development/how-to/troubleshoot/).
 Other common errors and solutions are also on the troubleshooting page.
 
 ## Docker running slowly: Windows users
@@ -103,7 +108,8 @@ For more information, such as a roadmap and the project's underlying principles,
 To see a list of the open-source software we use, refer to our [Acknowledgements file](https://github.com/Project-Books/book-project/blob/master/ACKNOWLEDGEMENTS.md)
 
 # Donations
-<p align="center">	
+
+<p align="center">
 
   <a href="hhttps://opencollective.com/book-project">
     <img src="https://img.shields.io/badge/open%20collective-donate-2ecc71" alt="Slack" />

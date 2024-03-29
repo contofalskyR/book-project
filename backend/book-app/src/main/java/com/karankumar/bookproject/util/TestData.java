@@ -35,7 +35,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -63,33 +62,12 @@ public final class TestData {
       List<Tag> tags,
       List<PredefinedShelf> predefinedShelves,
       List<Publisher> publishers) {
-    return Stream.of(
-        "Harry Potter and the Philosopher's stone",
-        "Stardust",
-        "Harry Potter and the Chamber of Secrets",
-        "Harry Potter and the Prisoner of Azkaban",
-        "Origin",
-        "Harry Potter and the Goblet of Fire",
-        "Harry Potter and the Order of Phoenix",
-        "Matilda",
-        "Sun",
-        "Planet",
-        "Earth",
-        "Mars",
-        "Venus",
-        "Satrun",
-        "Juptier",
-        "Neptune",
-        "Harry Potter and the Half-Blood Prince",
-        "The Hobbit",
-        "Harry Potter and the Deathly Hallows")
-        .map(title -> createBook(authors, title, tags, predefinedShelves, publishers))
+    return MockData.BOOK_TITLES.stream().map(title -> createBook(authors, title, tags, predefinedShelves, publishers))
         .collect(Collectors.toList());
   }
 
   public static List<Publisher> generatePublishers() {
-    return Stream.of("Bloomsbury Publishing", "Scholastic Corporation")
-        .map(Publisher::new)
+    return MockData.PUBLISHERS.stream().map(Publisher::new)
         .collect(Collectors.toList());
   }
 
