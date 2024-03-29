@@ -123,7 +123,9 @@ public class PredefinedShelfService {
   @PostConstruct
   @ExcludeFromJacocoGeneratedReport
   public void populateTestData() {
-    populateAuthorRepository();
+    if (authorRepository.count() == 0) {
+      populateAuthorRepository();
+    }
 
     if (tagRepository.count() == 0) {
       populateTagRepository();
