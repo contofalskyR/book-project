@@ -45,7 +45,7 @@ interface IShelfCarouselState {
     genre: string;
 }
 
-type ShelfCarouselProps = {
+export type ShelfCarouselProps = {
     title: string;
     books: Book[];
     searchText: string;
