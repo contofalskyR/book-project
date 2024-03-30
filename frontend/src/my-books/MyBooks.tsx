@@ -172,7 +172,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
         return (
             <Layout title="My books" btn={<div className="my-book-top-buttons">
                   <FormControl variant="filled" className="genre">
-        <InputLabel htmlFor="filled-native-simple">Genre</InputLabel>
+        <InputLabel htmlFor="filled-native-simple" className="input-label">Sort by genre</InputLabel>
         <Select
           native
           value={this.state.genre}
@@ -181,6 +181,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
             name: 'genre',
             id: 'filled-native-simple',
           }}
+          disableUnderline
         >
           <option aria-label="None" value="" />
           {this.genresList}
