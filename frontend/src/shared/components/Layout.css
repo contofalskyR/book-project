@@ -59,7 +59,10 @@ If not, see <https://www.gnu.org/licenses/>.
 }
 
 .pageTitle {
-    font-size: 32px;
+    font-size: 42px;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
     color: black;
 }
 

@@ -15,10 +15,26 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
+
 .my-book-top-buttons {
-  width: 200px;
+  width: 400px;
   display: flex;
   justify-content: space-between;
+  gap: 10px;
+}
+
+
+.top-button {
+  height: 39px;
+  width: 97px;
+  background-color: #1C4A45 ;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .my-book-switch-container {
@@ -36,4 +52,8 @@ If not, see <https://www.gnu.org/licenses/>.
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.genre {
+  
 }

@@ -19,6 +19,7 @@ import React from 'react'
 import './NavBar.css'
 import {
     ExitToApp,
+    Favorite,
     MenuBook,
     Settings,
     TrackChanges,
@@ -36,6 +37,11 @@ import Button from "@material-ui/core/Button";
   const useStyles = makeStyles({
     button: {
       textTransform: "none",
+      fontSize: "12px",
+      marginLeft: "-12px",
+      marginRight:"0px",
+      color: "white",
+      padding: "8px 0px 8px 0px",
     },
   });
 
@@ -45,7 +51,9 @@ function NavItem(props: NavItemProps) {
           <Link
             to={props.goTo} style={{ textDecoration: 'none' }}>
             <div className="nav-item">
-                <Button className={classes.button} startIcon={props.icon}>
+                <Button 
+                className={classes.button} 
+                startIcon={props.icon}>
                       {props.itemText}
                 </Button>
             </div>
@@ -68,15 +76,24 @@ export function NavBar(): JSX.Element {
         <div className={navClass}>
             <div className="nav-top">
               <Link to={HOME}>
-                  <img src={theme.palette.type === 'dark' ? logo 
-                  : darkLogo} alt="Logo" id="nav-bar-logo" /> 
+                  <h1 className="sidebar">MY BOOKS</h1>
               </Link>
+              <hr />
             </div>
             <div className="nav-links" id="nav-links-top">
-              <NavItem icon={<MenuBook />} itemText={"My Books"} goTo={MY_BOOKS} />
-              <NavItem icon={<TrackChanges />} itemText={"Goals"} goTo={GOAL} />
-              <NavItem icon={<TrendingUp />} itemText={"Statistics"} goTo={STATS} />
+              <NavItem icon={<MenuBook />} itemText={"Reading Now"} goTo="#" />
+              <NavItem icon={<MenuBook />} itemText={"To Read"} goTo="#" />
+              <NavItem icon={<MenuBook />} itemText={"Read"} goTo="#" />
               <NavItem icon={<SearchIcon />} itemText={"Search"} goTo={SEARCH} />
+              
+              <br />
+              
+              <NavItem icon={<MenuBook />} itemText={"My Books"} goTo={MY_BOOKS} />
+              <NavItem icon={<MenuBook />} itemText={"Recommended"} goTo="#" />
+              <NavItem icon={<Favorite />} itemText={"Favorites"} goTo="#" />
+              {/* <NavItem icon={<TrackChanges />} itemText={"Goals"} goTo={GOAL} />
+              <NavItem icon={<TrendingUp />} itemText={"Statistics"} goTo={STATS} /> */}
+             
             </div>
             <div className="nav-links">
               <NavItem icon={<Settings />} itemText={"Settings"} goTo={SETTINGS} />
