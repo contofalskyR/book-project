@@ -18,10 +18,14 @@ If not, see <https://www.gnu.org/licenses/>.
 import React from 'react'
 import './NavBar.css'
 import {
+  Book,
+    Bookmarks,
+    CollectionsBookmark,
     ExitToApp,
     Favorite,
     MenuBook,
     Settings,
+    ThumbUp,
     TrackChanges,
     TrendingUp,
   } from '@material-ui/icons'
@@ -82,14 +86,14 @@ export function NavBar(): JSX.Element {
             </div>
             <div className="nav-links" id="nav-links-top">
               <NavItem icon={<MenuBook />} itemText={"Reading Now"} goTo="#" />
-              <NavItem icon={<MenuBook />} itemText={"To Read"} goTo="#" />
-              <NavItem icon={<MenuBook />} itemText={"Read"} goTo="#" />
+              <NavItem icon={<Bookmarks />} itemText={"To Read"} goTo="#" />
+              <NavItem icon={<Book />} itemText={"Read"} goTo="#" />
               <NavItem icon={<SearchIcon />} itemText={"Search"} goTo={SEARCH} />
               
               <br />
               
-              <NavItem icon={<MenuBook />} itemText={"My Books"} goTo={MY_BOOKS} />
-              <NavItem icon={<MenuBook />} itemText={"Recommended"} goTo="#" />
+              <NavItem icon={<CollectionsBookmark />} itemText={"My Books"} goTo={MY_BOOKS} />
+              <NavItem icon={<ThumbUp />} itemText={"Recommended"} goTo="#" />
               <NavItem icon={<Favorite />} itemText={"Favorites"} goTo="#" />
               {/* <NavItem icon={<TrackChanges />} itemText={"Goals"} goTo={GOAL} />
               <NavItem icon={<TrendingUp />} itemText={"Statistics"} goTo={STATS} /> */}

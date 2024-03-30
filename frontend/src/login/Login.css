@@ -25,6 +25,7 @@ If not, see <https://www.gnu.org/licenses/>.
   text-align: center;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: white;
+  text-decoration: none;
 }
 
 .center-table {
@@ -58,6 +59,26 @@ If not, see <https://www.gnu.org/licenses/>.
   width: 500px;
  
 }
+.MuiInputBase-root {
+  border-radius: 100px;
+}
+.PrivateNotchedOutline-root-1.MuiOutlinedInput-notchedOutline {
+  border-radius: 100px;
+}
+fieldset.PrivateNotchedOutline-root-1.MuiOutlinedInput-notchedOutline {
+  border-radius: 100px;
+}
+.PrivateNotchedOutline-root-1 {
+  border-radius: 100px;
+}
+.PrivateNotchedOutline-legendLabelled-3.PrivateNotchedOutline-legendNotched-4 {
+  border-radius: 100px;
+}
+
+#outlined-adornment-password {
+  border-radius: 100px !important;
+}
+
 
 #standard-basic {
   width: 500px !important;

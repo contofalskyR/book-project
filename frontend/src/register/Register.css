@@ -15,6 +15,18 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 */
 
+.logo {
+
+  font-family: 'League Spartan', sans-serif;
+  font-size: 75px;
+  font-weight: 800;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: white;
+  text-decoration: none;
+}
+
+
 .center-table {
   display: table;
   position: absolute;
@@ -22,6 +34,11 @@ If not, see <https://www.gnu.org/licenses/>.
   left: 0;
   height: 100%;
   width: 100%;
+}
+
+.create.account.button {
+  width: 500px;
+  background-color: #1C4A45
 }
 
 .center-table-cell {
@@ -35,6 +52,21 @@ If not, see <https://www.gnu.org/licenses/>.
   width: 500px;
 }
 
+.center.login.field {
+  background-color: white;
+}
+
+
+.PrivateNotchedOutline-root-1.MuiOutlinedInput-notchedOutline {
+  border-radius: 100px;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-formControl{
+  background-color: white;
+  box-sizing: border-box;
+  border-radius: 100px;
+}
+
 .center.login {
   width: 500px;
 }
@@ -43,6 +75,7 @@ If not, see <https://www.gnu.org/licenses/>.
   text-align: center;
   margin: auto;
   font-size: medium;
+
 }
 
 #standard-basic {

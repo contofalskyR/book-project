@@ -180,7 +180,7 @@ class Register extends Component<Record<string, unknown>, IState> {
         return (
             <div className="center-table">
                 <div className="center-table-cell">
-                    <img src={logo} alt="Logo" className="center" id="app-logo" />
+                <h1 className="logo">MY BOOKS</h1>
 
                     <br />
                     <br />                
@@ -188,7 +188,7 @@ class Register extends Component<Record<string, unknown>, IState> {
 
                     <div className="center">
                         <EmailAddress
-                            class="center login"
+                            class="center login field"
                             classHelper="center helper"
                             isInvalid={this.isEmailInvalid()}
                             onChange={this.onEmailChanged}
@@ -199,7 +199,7 @@ class Register extends Component<Record<string, unknown>, IState> {
 
                         <Password
                             placeholderText={'Password'}
-                            class={'center login'}
+                            class={'center login field'}
                             classHelper={'center helper'}
                             onPasswordChanged={this.handlePasswordChanged}
                             isInvalid={this.isPasswordInvalid()}
@@ -214,7 +214,7 @@ class Register extends Component<Record<string, unknown>, IState> {
 
                         <Password
                             placeholderText={'Confirm password'}
-                            class={'center login'}
+                            class={'center login field'}
                             classHelper={'center helper'}
                             onPasswordChanged={this.handleConfirmPasswordChanged}
                             isInvalid={!this.checkPasswordsMatch() || this.state.isPasswordInvalid}
@@ -225,7 +225,7 @@ class Register extends Component<Record<string, unknown>, IState> {
                         <br />
 
                         <Button
-                            className="center login"
+                            className="create account button"
                             variant="contained"
                             color="primary"
                             onClick={this.onCreateAccountClicked}
