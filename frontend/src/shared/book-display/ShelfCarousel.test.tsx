@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import React from 'react';
 import { shallow, ShallowWrapper,configure } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
@@ -9,9 +11,9 @@ describe('ShelfCarousel component', () => {
   const props: ShelfCarouselProps = {
     title: 'Test Shelf',
     books: [
-      { title: 'Book 1', img: 'book1.jpg', bookGenre: 'Fiction',id:1, author: {fullName:'author'}, predefinedShelf: "read",numberOfPages:12,rating:5},
-      { title: 'Book 1', img: 'book1.jpg', bookGenre: 'Fiction',id:1, author: {fullName:'author'}, predefinedShelf: "read",numberOfPages:12,rating:5},
-      { title: 'Book 2', img: 'book1.jpg', bookGenre: 'Non-fiction',id:1, author: {fullName:'author'}, predefinedShelf: "read",numberOfPages:12,rating:5},
+      { title: 'Book 1', img: 'book1.jpg', bookGenre: 'Fiction',id:1, author: {fullName:'author'}, predefinedShelf: {shelfName:"read"},numberOfPages:12,rating:5},
+      { title: 'Book 1', img: 'book1.jpg', bookGenre: 'Fiction',id:1, author: {fullName:'author'}, predefinedShelf: {shelfName:"read"},numberOfPages:12,rating:5},
+      { title: 'Book 2', img: 'book1.jpg', bookGenre: 'Non-fiction',id:1, author: {fullName:'author'}, predefinedShelf:{shelfName: "read"},numberOfPages:12,rating:5},
     ],
     genre: '',
     searchText: ''

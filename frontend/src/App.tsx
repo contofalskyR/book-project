@@ -16,7 +16,7 @@ If not, see <https://www.gnu.org/licenses/>.
 */
 
 import Login from "./login/Login";
-import {useState} from 'react';
+import {ReactElement, useState} from 'react';
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import {
@@ -50,7 +50,7 @@ import {
 } from "@apollo/client";
 import { apolloClient } from './shared/http/HttpClient';
 
-function App(): JSX.Element {
+function App(): ReactElement | JSX.Element  {
     const [theme, setTheme] = useState(lightTheme);
 
     function toggleTheme(): void {

@@ -52,7 +52,7 @@ class BookOverview extends Component<Props, IState> {
         author: {
           fullName: "",
         },
-        bookGenre: [],
+        bookGenre: "",
         numberOfPages: 0,
         rating: 0,
       },
