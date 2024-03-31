@@ -80,21 +80,21 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
                 genre: this.props.genre
             })
         }
-        console.log("from the shelf carousl:" + this.state.genre);
+        // console.log("from the shelf carousl:" + this.state.genre);
 
     }
     searchText = '';
 
     filterBooks(): Book[] {
         if (this.state.genre !== '') {
-            console.log("rerendering by genre!");
+            // console.log("rerendering by genre!");
             return this.state.books.filter(book => {
-                return book.bookGenre[0].toLowerCase() === this.state.genre.toLowerCase();
+                return book.bookGenre.toLowerCase() === this.state.genre.toLowerCase();
             });
         }
         return this.state.books.filter(book => {
-            console.log("rerendering by all books!");
-            console.log(book.bookGenre[0]);
+            // console.log("rerendering by all books!");
+            // console.log(book.bookGenre[0]);
             return book.title.toLowerCase().includes(this.searchText.toLowerCase());
         });
 
@@ -102,7 +102,7 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
     render(): JSX.Element {
         const books: any = [];
         this.renderShelfBookByGenre(this.state.books).forEach((value, key) => {
-            books.push(<div>
+            books.push(<div key={key}>
                 {key}
                 {value}
             </div>

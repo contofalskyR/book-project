@@ -1,9 +1,10 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import React, { ReactElement } from 'react';
 import App from './App';
+import { ShallowWrapper, shallow } from 'enzyme';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('My Books frontend', () => {
+  it('renders frontend without crashing', () => {
+    const wrapper= shallow<ReactElement>(<App />);
+    expect(wrapper.exists()).toBe(true);
+  });
 });
