@@ -87,9 +87,9 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
 
     filterBooks(): Book[] {
         if (this.state.genre !== '') {
-            // console.log("rerendering by genre!");
             return this.state.books.filter(book => {
-                return book.bookGenre.toLowerCase() === this.state.genre.toLowerCase();
+            // console.log("rerendering by genre!:" + typeof book.bookGenre);
+                return book.bookGenre.toString().toLowerCase() === this.state.genre.toLowerCase();
             });
         }
         return this.state.books.filter(book => {
@@ -100,14 +100,14 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
 
     }
     render(): JSX.Element {
-        const books: any = [];
-        this.renderShelfBookByGenre(this.state.books).forEach((value, key) => {
-            books.push(<div key={key}>
-                {key}
-                {value}
-            </div>
-            )
-        })
+        const books: any = this.renderShelfBook(this.state.books);
+        // this.renderShelfBookByGenre(this.state.books).forEach((value, key) => {
+        //     books.push(<div key={key}>
+        //         {key}
+        //         {value}
+        //     </div>
+        //     )
+        // })
         return (
             <div className="shelf-container">
                 <span className="shelf-title">{this.state.title}</span>

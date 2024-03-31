@@ -41,8 +41,7 @@ export default class ShelfView extends Component<IShelfState, IShelfState> {
         };
     }
     componentDidMount(): void {
-        console.log("from shelf view porsp:" + this.state.genre);
-        
+        // console.log("from shelf view porsp:" + this.state.genre);
     }
 
     render(): ReactElement {
