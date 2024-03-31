@@ -131,7 +131,7 @@ public final class TestData {
 
   public static PredefinedShelf generateRandomPredefinedShelf(
       List<PredefinedShelf> predefinedShelves) {
-    return predefinedShelves.get(0);
+      return predefinedShelves.get(threadLocalRandom.nextInt(predefinedShelves.size()));
   }
 
   public static int generateRandomPublicationYear() {
