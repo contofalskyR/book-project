@@ -15,29 +15,31 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 */
 
-import React, { ReactElement } from 'react'
-import './ShelfCarousel.css'
+import React, { ReactElement } from 'react';
+import './ShelfCarousel.css';
 import { Icon, Paper } from '@material-ui/core';
 import { Book } from '../types/Book';
 import { Component } from 'react';
 
 function ShelfBook(props: BookProps): JSX.Element {
-    const bookClass = 'book' + (props.img === "" ? '' : ' image');
-    const displayTitle = props.title.length > 12 ?
-        (props.title.substring(0, 12) + "...") : props.title;
+    const bookClass = 'book' + (props.img === '' ? '' : ' image');
+    const displayTitle =
+        props.title.length > 12
+            ? props.title.substring(0, 12) + '...'
+            : props.title;
 
     return (
         <Paper className={bookClass} variant="elevation" square={false}>
-            {(bookClass !== "book") && <div className="book-spine"></div>}
+            {bookClass !== 'book' && <div className="book-spine"></div>}
             {displayTitle}
         </Paper>
-    )
+    );
 }
 
 type BookProps = {
     title: string;
     img: string;
-}
+};
 
 interface IShelfCarouselState {
     title: string;
@@ -50,7 +52,7 @@ export type ShelfCarouselProps = {
     books: Book[];
     searchText: string;
     genre: string;
-}
+};
 
 function AddBook() {
     return (
@@ -58,19 +60,21 @@ function AddBook() {
             <Icon className="icon">add</Icon>
             <p className="book-title add-new">Add book</p>
         </div>
-    )
+    );
 }
 
-export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfCarouselState> {
-
+export default class ShelfCarousel extends Component<
+    ShelfCarouselProps,
+    IShelfCarouselState
+> {
     constructor(props: ShelfCarouselProps) {
         super(props);
         this.state = {
             title: props.title,
             books: props.books,
             genre: props.genre
-        }
-        this.searchText = props.searchText
+        };
+        this.searchText = props.searchText;
     }
 
     componentDidMount(): void {
@@ -78,26 +82,29 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
             this.setState({
                 books: this.filterBooks(),
                 genre: this.props.genre
-            })
+            });
         }
         // console.log("from the shelf carousl:" + this.state.genre);
-
     }
     searchText = '';
 
     filterBooks(): Book[] {
         if (this.state.genre !== '') {
-            return this.state.books.filter(book => {
-            // console.log("rerendering by genre!:" + typeof book.bookGenre);
-                return book.bookGenre.toString().toLowerCase() === this.state.genre.toLowerCase();
+            return this.state.books.filter((book) => {
+                // console.log("rerendering by genre!:" + typeof book.bookGenre);
+                return (
+                    book.bookGenre.toString().toLowerCase() ===
+                    this.state.genre.toLowerCase()
+                );
             });
         }
-        return this.state.books.filter(book => {
+        return this.state.books.filter((book) => {
             // console.log("rerendering by all books!");
             // console.log(book.bookGenre[0]);
-            return book.title.toLowerCase().includes(this.searchText.toLowerCase());
+            return book.title
+                .toLowerCase()
+                .includes(this.searchText.toLowerCase());
         });
-
     }
     render(): JSX.Element {
         const books: any = this.renderShelfBook(this.state.books);
@@ -115,9 +122,7 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
                 <div className="clear" />
                 <div className="books-and-shelf">
                     <div className="book-wrap">
-                        {
-                            books
-                        }
+                        {books}
                         {/* <ShelfBook key="test" title="test" img='test' /> */}
                         <AddBook />
                         <div className="clear" />
@@ -130,23 +135,27 @@ export default class ShelfCarousel extends Component<ShelfCarouselProps, IShelfC
 
     renderShelfBook(books: Book[]): ReactElement<Book>[] {
         const elements = Array<ReactElement>();
-        const maxBooksToDisplay = Math.min(books.length, 6)
+        const maxBooksToDisplay = Math.min(books.length, 6);
         for (let i = 0; i < maxBooksToDisplay; i++) {
-            elements.push(<ShelfBook key={i} title={books[i].title} img={books[i].img} />)
+            elements.push(
+                <ShelfBook key={i} title={books[i].title} img={books[i].img} />
+            );
         }
         return elements;
     }
     renderShelfBookByGenre(books: Book[]): Map<string, Array<ReactElement>> {
         const elements = Array<ReactElement>();
         // TODO: make it scrollable and contain more boosk
-        const maxBooksToDisplay = Math.min(books.length, 6)
+        const maxBooksToDisplay = Math.min(books.length, 6);
         const map = new Map(); // book genres to list of shelfbooks
         for (let i = 0; i < maxBooksToDisplay; i++) {
             if (map.get(books[i].bookGenre) == undefined) {
                 map.set(books[i].bookGenre, Array<ReactElement>());
             }
             // eslint-disable-next-line max-len
-            map.get(books[i].bookGenre).push(<ShelfBook key={i} title={books[i].title} img={books[i].img} />)
+            map.get(books[i].bookGenre).push(
+                <ShelfBook key={i} title={books[i].title} img={books[i].img} />
+            );
         }
         return map;
     }

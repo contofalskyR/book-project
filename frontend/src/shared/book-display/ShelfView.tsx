@@ -15,9 +15,9 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 */
 
-import React, { Component, ReactElement } from "react";
-import { Book } from "../types/Book";
-import ShelfCarousel from "./ShelfCarousel";
+import React, { Component, ReactElement } from 'react';
+import { Book } from '../types/Book';
+import ShelfCarousel from './ShelfCarousel';
 
 interface IShelfState {
     readingBooks: Book[];
@@ -47,31 +47,34 @@ export default class ShelfView extends Component<IShelfState, IShelfState> {
     render(): ReactElement {
         return (
             <div>
-                <ShelfCarousel 
+                <ShelfCarousel
                     title="Reading"
                     books={this.state.readingBooks}
                     genre={this.state.genre}
-                    searchText={this.state.searchText} />
+                    searchText={this.state.searchText}
+                />
 
-                <ShelfCarousel 
-                    title="To Read" 
+                <ShelfCarousel
+                    title="To Read"
                     books={this.state.toReadBooks}
                     genre={this.state.genre}
-                    searchText={this.state.searchText} />
+                    searchText={this.state.searchText}
+                />
 
-                <ShelfCarousel 
+                <ShelfCarousel
                     title="Read"
                     books={this.state.readBooks}
                     genre={this.state.genre}
-                    searchText={this.state.searchText} />
+                    searchText={this.state.searchText}
+                />
 
-                <ShelfCarousel 
+                <ShelfCarousel
                     title="Did not finish"
                     books={this.state.didNotFinishBooks}
                     genre={this.state.genre}
-                    searchText={this.state.searchText} />
-
+                    searchText={this.state.searchText}
+                />
             </div>
-        )
+        );
     }
 }
