@@ -14,6 +14,7 @@ PURPOSE.  See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program.
 If not, see <https://www.gnu.org/licenses/>.
 */
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
 
 .shelf-modal-container {
     display: flex;
@@ -27,10 +28,16 @@ If not, see <https://www.gnu.org/licenses/>.
 }
 
 .modal-title {
+    font-family: 'League Spartan', sans-serif ;
     color: black;
     font-size: 22pt;
     letter-spacing: -0.5px;
     font-weight: bold;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-contained.shelf-modal-button.MuiButton-disableElevation {
+    background-color: #1C4A45;
+    color: white;
 }
 
 .shelf-modal-desc-container {
