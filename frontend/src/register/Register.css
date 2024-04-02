@@ -56,6 +56,13 @@ If not, see <https://www.gnu.org/licenses/>.
   background-color: white;
 }
 
+.MuiFormControl-root.MuiTextField-root.center.login.field {
+  border-radius: 100px;
+}
+
+.MuiFormControl-root {
+  border-radius: 100px;
+}
 
 .PrivateNotchedOutline-root-1.MuiOutlinedInput-notchedOutline {
   border-radius: 100px;
@@ -67,9 +74,14 @@ If not, see <https://www.gnu.org/licenses/>.
   border-radius: 100px;
 }
 
+.MuiInputBase-root.MuiOutlinedInput-root.center.login.field.rounded.MuiInputBase-formControl.MuiInputBase-adornedEnd.MuiOutlinedInput-adornedEnd {
+  border-radius: 100px !important;
+}
+
 .center.login {
   width: 500px;
 }
+
 
 .center.helper {
   text-align: center;
