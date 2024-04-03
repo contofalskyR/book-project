@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -169,4 +170,16 @@ public class BookController {
     bookService.delete(bookToDeleteOp.get());
     return ResponseEntity.status(HttpStatus.OK).body("Deleted");
   }
+
+  @PostMapping("/search")
+  public List<Book> searchBooksByTitle(@RequestParam("term") String term) {
+    if (term == null || term.isEmpty()) {
+      // Handle the case where the term is empty, null, or whitespace
+      // For example, you could return all books if no search term is provided
+      List<Book> empty = Collections.emptyList();
+      return empty;
+    }
+    return bookService.findAll(term);
+  }
+
 }

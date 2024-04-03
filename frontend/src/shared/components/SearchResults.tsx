@@ -15,38 +15,36 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 */
 
-import React from "react";
-import { useQuery, gql } from "@apollo/client";
+import React, { useState } from 'react';
+import Endpoints from '../api/endpoints';
+import HttpClient from '../http/HttpClient';
+import { Book } from '../types/Book';
 
 interface ISearchResultProps {
-  query: string;
+    query: string;
 }
 
-const FIND_BY_TITLE = gql`
-  query getByTitleCase($title: String!) {
-    findByTitleIgnoreCase(title: $title) {
-      id
-      title
-      authors {
-        fullName
-      }
-    }
-  }
-`;
-
 export default function SearchResults(props: ISearchResultProps): JSX.Element {
-  const { data, loading, error } = useQuery(FIND_BY_TITLE, {
-    variables: { title: props.query },
-  });
+    const [results, setResults] = useState<Book[]>([]);
+    let hasError = false;
 
-  if (loading) {
-    return <p>Loading</p>;
-  }
-  if (error) {
-    return <p>error{error.message}</p>;
-  }
-  if (data) {
-    console.log(data);
-  }
-  return <div className="query-results-container"></div>;
+    HttpClient.post(Endpoints.books, `search?term=${props.query}`)
+        .then(async (response) => {
+            setResults(response as unknown as Book[]);
+        })
+        .catch((error: Record<string, string>) => {
+            console.error('error: ', error);
+            hasError = true;
+        });
+
+    // if (loading) {
+    //     return <p>Loading</p>;
+    // }
+    if (hasError) {
+        return <p>error! please try again!</p>;
+    }
+    // if (results) {
+    //     console.log(results);
+    // }
+    return <div className="query-results-container">{results}</div>;
 }

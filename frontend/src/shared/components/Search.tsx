@@ -15,47 +15,48 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 */
 
-import React, { useState } from "react";
-import SearchIcon from "@material-ui/icons/Search";
-import SearchResults from "../components/SearchResults";
-import { Layout } from "../components/Layout";
-import "./Search.css";
+import React, { useState } from 'react';
+import SearchIcon from '@material-ui/icons/Search';
+import SearchResults from '../components/SearchResults';
+import { Layout } from '../components/Layout';
+import './Search.css';
 
 export default function Search(): JSX.Element {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    e.preventDefault();
-    setSearchTerm(e.target.value);
-  }
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        e.preventDefault();
+        setSearchTerm(e.target.value);
+    }
 
-  function onSearchBooks(e: React.SyntheticEvent) {
-    e.preventDefault();
-    setSearchQuery(searchTerm);
-  }
+    function onSearchBooks(e: React.SyntheticEvent) {
+        e.preventDefault();
+        setSearchQuery(searchTerm);
+    }
+    //to fix: it keeps calling the api none stop
 
-  return (
-    <Layout title="Search">
-      <form className="search-container">
-        <label htmlFor="book-search" className="visually-hidden">
-          Search for a book title, author or ISBN #
-        </label>
-        <input
-          type="search"
-          className="search-input"
-          id="search"
-          placeholder="Search for book title, author or ISBN 13"
-          value={searchTerm}
-          onChange={handleChange}
-        />
-        <button className="search-button" onClick={onSearchBooks}>
-          <SearchIcon className="search-icon" />
-        </button>
-      </form>
-      <div>
-        <SearchResults query={searchQuery} />
-      </div>
-    </Layout>
-  );
+    return (
+        <Layout title="Search">
+            <form className="search-container">
+                <label htmlFor="book-search" className="visually-hidden">
+                    Search for a book title, author or ISBN #
+                </label>
+                <input
+                    type="search"
+                    className="search-input"
+                    id="search"
+                    placeholder="Search for book title, author or ISBN 13"
+                    value={searchTerm}
+                    onChange={handleChange}
+                />
+                <button className="search-button big" onClick={onSearchBooks}>
+                    <SearchIcon className="search-icon" />
+                </button>
+            </form>
+            <div>
+                <SearchResults query={searchQuery} />
+            </div>
+        </Layout>
+    );
 }

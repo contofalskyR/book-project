@@ -16,13 +16,12 @@ If not, see <https://www.gnu.org/licenses/>.
 */
 
 export default class Endpoints {
-  static readonly login: string = "login";
-  static readonly user: string = "api/user";
-  static readonly books: string = "api/books";
-  static readonly shelf: string = "/api/shelf";
-  static readonly didNotFinish: string = "/api/shelf/books/did-not-finish";
-  static readonly read: string = "/api/shelf/books/read";
-  static readonly reading: string = "/api/shelf/books/reading";
-  static readonly toRead: string = "/api/shelf/books/to-read";
+    static readonly login: string = 'login';
+    static readonly user: string = 'api/user';
+    static readonly books: string = 'api/books';
+    static readonly shelf: string = '/api/shelf';
+    static readonly didNotFinish: string = '/api/shelf/books/did-not-finish';
+    static readonly read: string = '/api/shelf/books/read';
+    static readonly reading: string = '/api/shelf/books/reading';
+    static readonly toRead: string = '/api/shelf/books/to-read';
 }
-
