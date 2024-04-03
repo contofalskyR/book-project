@@ -57,16 +57,14 @@ import java.util.Set;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(Mappings.USER)
 public class UserController {
-  public static final String INCORRECT_PASSWORD_ERROR_MESSAGE =
-      "The current password entered is incorrect";
+  public static final String INCORRECT_PASSWORD_ERROR_MESSAGE = "The current password entered is incorrect";
 
   private final UserService userService;
   private final PasswordEncoder passwordEncoder;
   private final EmailService emailService;
 
   private static final String USER_NOT_FOUND_ERROR_MESSAGE = "Could not find the user with ID %d";
-  public static final String CURRENT_USER_NOT_FOUND_ERROR_MESSAGE =
-      "Could not determine the current user";
+  public static final String CURRENT_USER_NOT_FOUND_ERROR_MESSAGE = "Could not determine the current user";
   private static final String PASSWORD_WEAK_ERROR_MESSAGE = "Password is too weak";
   private static final String EMAIL_NOT_FOUND = "Email is not registered with us";
 
@@ -83,9 +81,8 @@ public class UserController {
     return userService
         .findUserById(id)
         .orElseThrow(
-            () ->
-                new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, String.format(USER_NOT_FOUND_ERROR_MESSAGE, id)));
+            () -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND, String.format(USER_NOT_FOUND_ERROR_MESSAGE, id)));
   }
 
   @GetMapping("/email/{email}")
