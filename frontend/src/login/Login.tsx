@@ -162,10 +162,10 @@ class Login extends Component<LoginProps, IState> {
 
     render(): ReactElement {
         return (
+            <div className="background">
             <div className="center-table">
                 <div className="center-table-cell">
-                    <img src={logo} alt="Logo" className="center" />
-
+                    <h1 className="logo">MY BOOKS</h1>
                     <br />
                     <br />
                     <br />
@@ -194,7 +194,7 @@ class Login extends Component<LoginProps, IState> {
                         <br />
 
                         <Button
-                            className="center login"
+                            className="login button"
                             variant="contained"
                             color="primary"
                             onClick={this.onClickLogin}
@@ -230,6 +230,7 @@ class Login extends Component<LoginProps, IState> {
                     open={this.state.showPasswordResetModal} 
                     onClose={this.onPasswordResetModalClose}
                 />
+            </div>
             </div>
         )
     }

@@ -42,6 +42,8 @@ interface IState {
 }
 
 
+
+
 class MyBooks extends Component<Record<string, unknown>, IState> {
     constructor(props: Record<string, unknown>) {
         super(props);
@@ -169,8 +171,8 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
     render(): ReactElement {
         return (
             <Layout title="My books" btn={<div className="my-book-top-buttons">
-                  <FormControl variant="filled" className="">
-        <InputLabel htmlFor="filled-native-simple">Genre</InputLabel>
+                  <FormControl variant="filled" className="genre">
+        <InputLabel htmlFor="filled-native-simple" className="input-label">Sort by genre</InputLabel>
         <Select
           native
           value={this.state.genre}
@@ -179,28 +181,24 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
             name: 'genre',
             id: 'filled-native-simple',
           }}
+          disableUnderline
         >
           <option aria-label="None" value="" />
           {this.genresList}
         </Select>
       </FormControl>
 
-                <Button
-                    variant="contained"
-                    className="tempButton"
-                    color="primary"
-                    disableElevation
+                <button
+                    className="top-button"
                 >
                     Add Book
-            </Button>
-                <Button
+            </button>
+                <button
                     onClick={this.onAddShelf}
-                    variant="contained"
-                    color="primary"
-                    disableElevation
+                    className="top-button"
                 >
                     Add Shelf
-            </Button>
+            </button>
             </div>}>
                 <NavBar />
                 <div>

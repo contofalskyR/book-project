@@ -15,10 +15,73 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
+
+.pageHeader {
+  height: 50px;
+}
+
+
 .my-book-top-buttons {
-  width: 200px;
+  height: 50px;
+  width: 400px;
   display: flex;
   justify-content: space-between;
+  gap: 10px;
+}
+
+.MuiFormControl-root.genre {
+  height: 50px;
+  display: flex;
+}
+
+.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated.MuiInputLabel-filled
+{
+  height: 50px;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-weight: 600;
+  color: #1C4A45;
+}
+
+.MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-formControl{
+  height: 50px;
+  border-radius: 0px;
+  background-color: white;
+  text-align: center;
+}
+
+
+.MuiSelect-root.MuiSelect-select.MuiSelect-filled.MuiInputBase-input.MuiFilledInput-input {
+  height: 50px;
+  border: none;
+  background-color: white;
+  border-radius: 0px;
+}
+select.MuiSelect-root.MuiSelect-select.MuiSelect-filled.MuiInputBase-input.MuiFilledInput-input {
+  height: 50px;
+  margin: 0%;
+  padding-top: 0%;
+  padding-bottom: 0%;
+}
+
+.MuiInputBase-root.MuiFilledInput-root.MuiInputBase-formControl {
+  height: 50px;
+}
+
+.MuiSvgIcon-root.MuiSelect-icon.MuiSelect-iconFilled {
+  color: #1C4A45;
+}
+
+.top-button {
+  height: 50px;
+  width: 97px;
+  background-color: #1C4A45 ;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .my-book-switch-container {
