@@ -44,7 +44,8 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
-  @Mock private BookRepository bookRepository;
+  @Mock
+  private BookRepository bookRepository;
   private BookService bookService;
 
   @BeforeEach
@@ -52,8 +53,7 @@ class BookServiceTest {
     AuthorService authorService = mock(AuthorService.class);
     PublisherService publisherService = mock(PublisherService.class);
     PredefinedShelfService predefinedShelfService = mock(PredefinedShelfService.class);
-    bookService =
-        new BookService(bookRepository, authorService, publisherService, predefinedShelfService);
+    bookService = new BookService(bookRepository, authorService, publisherService, predefinedShelfService);
   }
 
   @Test
@@ -126,13 +126,13 @@ class BookServiceTest {
 
   @Test
   void findAll_searchesWithoutFilter_ifFilterIsNull() {
-    bookService.findAll((String) null);
+    bookService.findByTitleOrAuthor((String) null);
     verify(bookRepository).findAllBooks(any(Pageable.class));
   }
 
   @Test
   void findAll_searchesWithoutFilter_ifFilterIsEmpty() {
-    bookService.findAll("");
+    bookService.findByTitleOrAuthor("");
     verify(bookRepository).findAllBooks(any(Pageable.class));
   }
 
@@ -142,7 +142,7 @@ class BookServiceTest {
     String filter = "test";
 
     // when
-    bookService.findAll(filter);
+    bookService.findByTitleOrAuthor(filter);
 
     // then
     verify(bookRepository).findByTitleContainingIgnoreCase(filter);
@@ -160,9 +160,9 @@ class BookServiceTest {
     verify(bookRepository).deleteAll();
   }
 
-  //    @Test
-  //    void canFindByTitleOrAuthor() {
-  //        bookService.findByTitleOrAuthor("test", "author");
-  //        verify(bookRepository).findByTitleOrAuthor(anyString(), anyString());
-  //    }
+  // @Test
+  // void canFindByTitleOrAuthor() {
+  // bookService.findByTitleOrAuthor("test", "author");
+  // verify(bookRepository).findByTitleOrAuthor(anyString(), anyString());
+  // }
 }

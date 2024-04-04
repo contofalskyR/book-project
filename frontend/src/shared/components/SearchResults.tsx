@@ -15,10 +15,11 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Endpoints from '../api/endpoints';
 import HttpClient from '../http/HttpClient';
 import { Book } from '../types/Book';
+import BookList from '../book-display/BookList';
 
 interface ISearchResultProps {
     query: string;
@@ -26,25 +27,33 @@ interface ISearchResultProps {
 
 export default function SearchResults(props: ISearchResultProps): JSX.Element {
     const [results, setResults] = useState<Book[]>([]);
-    let hasError = false;
+    const [hasError, setHasError] = useState<boolean>(false);
 
-    HttpClient.post(Endpoints.books, `search?term=${props.query}`)
-        .then(async (response) => {
-            setResults(response as unknown as Book[]);
-        })
-        .catch((error: Record<string, string>) => {
-            console.error('error: ', error);
-            hasError = true;
-        });
+    useEffect(() => {
+        HttpClient.post(Endpoints.books, `search?term=${props.query}`)
+            .then((response) => {
+                console.log('I am hitting endpoint');
 
-    // if (loading) {
-    //     return <p>Loading</p>;
-    // }
+                setResults(response as unknown as Book[]);
+                setHasError(false);
+            })
+            .catch((error: Record<string, string>) => {
+                console.error('error: ', error);
+                setHasError(true);
+            });
+    }, [props.query]); // Only run effect if props.query changes
+
     if (hasError) {
         return <p>error! please try again!</p>;
     }
-    // if (results) {
-    //     console.log(results);
-    // }
-    return <div className="query-results-container">{results}</div>;
+
+    return (
+        <div className="query-results-container">
+            {results.length > 0 ? (
+                <BookList bookListData={results} searchText=""></BookList>
+            ) : (
+                <p>No books found</p>
+            )}
+        </div>
+    );
 }

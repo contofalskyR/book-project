@@ -179,7 +179,7 @@ public class BookController {
       List<Book> empty = Collections.emptyList();
       return empty;
     }
-    return bookService.findAll(term);
+    return bookService.findByTitleOrAuthor(term);
   }
 
 }

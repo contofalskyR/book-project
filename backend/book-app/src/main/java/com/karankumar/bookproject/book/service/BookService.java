@@ -69,7 +69,7 @@ public class BookService {
 
   public Optional<Book> findById(@NonNull Long id) {
     return bookRepository.findBookById(id);
-    //        return bookRepository.findById(id);
+    // return bookRepository.findById(id);
   }
 
   public Optional<Book> save(@NonNull Book book) {
@@ -113,11 +113,11 @@ public class BookService {
     return bookRepository.findAllBooks(pageable);
   }
 
-  public List<Book> findAll(String filterText) {
+  public List<Book> findByTitleOrAuthor(String filterText) {
     if (filterText == null || filterText.isEmpty()) {
       return findAll(0);
     }
-    return bookRepository.findByTitleContainingIgnoreCase(filterText);
+    return bookRepository.findByTitleOrAuthor(filterText);
   }
 
   public void delete(@NonNull Book book) {
@@ -159,15 +159,16 @@ public class BookService {
     return jsonWriter.writeValueAsString(books);
   }
 
-  // TODO: split into findByShelfAndTitle and findShelfAndAuthor queries, and then merge result sets
+  // TODO: split into findByShelfAndTitle and findShelfAndAuthor queries, and then
+  // merge result sets
   public List<Book> findByShelfAndTitleOrAuthor(Shelf shelf, String title, String authorsName) {
     throw new NotImplementedException();
-    //        return bookRepository.findByShelfAndTitleOrAuthor(shelf, title, authorsName);
+    // return bookRepository.findByShelfAndTitleOrAuthor(shelf, title, authorsName);
   }
 
   public List<Book> findByTitleOrAuthor(String title, String authorsName) {
     throw new NotImplementedException();
-    //        return bookRepository.findByTitleOrAuthor(title, authorsName);
+    // return bookRepository.findByTitleOrAuthor(title, authorsName);
   }
 
   public List<Book> findAllBooksByPredefinedShelfName(ShelfName predefinedShelfName) {
