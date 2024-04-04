@@ -33,8 +33,9 @@ export default function SearchResults(props: ISearchResultProps): JSX.Element {
         HttpClient.post(Endpoints.books, `search?term=${props.query}`)
             .then((response) => {
                 console.log('I am hitting endpoint');
-
-                setResults(response as unknown as Book[]);
+                const books = response as unknown as Book[];
+                // console.log(books);
+                setResults([...books]);
                 setHasError(false);
             })
             .catch((error: Record<string, string>) => {
