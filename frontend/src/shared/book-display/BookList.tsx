@@ -156,7 +156,7 @@ export default class BookList extends Component<BookListProps, BookListProps> {
                                     : book.title}
                             </div>
                             <div className="booklist-book-title">
-                                {book.title + ' ' + book.id}
+                                {book.title}
                             </div>
                             <div className="booklist-book-author">
                                 {book.author.fullName}

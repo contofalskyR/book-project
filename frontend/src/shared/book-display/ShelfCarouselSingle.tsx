@@ -75,7 +75,7 @@ export default class ShelfCarouselSingle extends Component<ShelfCarouselSinglePr
     }
     render(): JSX.Element {
         const books: any = this.renderShelfBook(this.filterBooks());
-        console.log(this.props.books);
+        // console.log(this.props.books);
 
         return (
             <div className="shelf-container">
