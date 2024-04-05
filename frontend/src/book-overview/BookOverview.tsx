@@ -93,7 +93,7 @@ class BookOverview extends Component<Props, IState> {
                 });
         }
     }
-
+    //TODO: can add snackbar when favourite/like/dislike is done
     render(): JSX.Element {
         return (
             <div className="layoutContainer">
