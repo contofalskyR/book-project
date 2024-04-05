@@ -16,13 +16,14 @@ If not, see <https://www.gnu.org/licenses/>.
 */
 
 import React, { ReactElement } from 'react';
-import './ShelfCarousel.css';
+import './ShelfCarouselSingle.css';
 import { Icon, Paper } from '@material-ui/core';
 import { Book } from '../types/Book';
 import { Component } from 'react';
 
 function ShelfBook(props: BookProps): JSX.Element {
-    const bookClass = 'book' + (props.img === '' ? '' : ' image');
+    const bookClass =
+        'book-single-carousel' + (props.img === '' ? '' : ' image');
     const displayTitle =
         props.title.length > 12
             ? props.title.substring(0, 12) + '...'
@@ -79,7 +80,7 @@ export default class ShelfCarouselSingle extends Component<ShelfCarouselSinglePr
             <div className="shelf-container">
                 <div className="clear" />
                 <div className="books-and-shelf">
-                    <div className="book-wrap">
+                    <div className="book-wrap-single">
                         {books}
                         <AddBook />
                         <div className="clear" />
@@ -93,8 +94,7 @@ export default class ShelfCarouselSingle extends Component<ShelfCarouselSinglePr
     renderShelfBook(books: Book[]): ReactElement<Book>[] {
         // console.log('size:' + books.length);
         const elements = Array<ReactElement>();
-        const maxBooksToDisplay = Math.min(books.length, 6);
-        for (let i = 0; i < maxBooksToDisplay; i++) {
+        for (let i = 0; i < books.length; i++) {
             elements.push(
                 <ShelfBook key={i} title={books[i].title} img={books[i].img} />
             );
