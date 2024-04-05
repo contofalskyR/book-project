@@ -15,10 +15,10 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see <https://www.gnu.org/licenses/>.
 */
 
-import React from 'react'
-import './NavBar.css'
+import React from 'react';
+import './NavBar.css';
 import {
-  Book,
+    Book,
     Bookmarks,
     CollectionsBookmark,
     ExitToApp,
@@ -27,83 +27,126 @@ import {
     Settings,
     ThumbUp,
     TrackChanges,
-    TrendingUp,
-  } from '@material-ui/icons'
-import SearchIcon from "@material-ui/icons/Search";
-import logo from '../media/logo/logo-two-lines-white@1x.png'
+    TrendingUp
+} from '@material-ui/icons';
+import SearchIcon from '@material-ui/icons/Search';
+import logo from '../media/logo/logo-two-lines-white@1x.png';
 import darkLogo from '../media/logo/dark-logo.png';
-import { HOME, MY_BOOKS, GOAL, STATS, SETTINGS, SIGN_IN, SEARCH} from '../routes'
+import {
+    HOME,
+    MY_BOOKS,
+    GOAL,
+    STATS,
+    SETTINGS,
+    SIGN_IN,
+    SEARCH
+} from '../routes';
 import { useTheme } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom'
-import { makeStyles, MuiThemeProvider } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-  
-  const useStyles = makeStyles({
+import { Link } from 'react-router-dom';
+import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles({
     button: {
-      textTransform: "none",
-      fontSize: "12px",
-      marginLeft: "-12px",
-      marginRight:"0px",
-      color: "white",
-      padding: "8px 0px 8px 0px",
-    },
-  });
+        textTransform: 'none',
+        fontSize: '12px',
+        marginLeft: '-12px',
+        marginRight: '0px',
+        color: 'white',
+        padding: '8px 0px 8px 0px'
+    }
+});
 
 function NavItem(props: NavItemProps) {
     const classes = useStyles();
     return (
-          <Link
-            to={props.goTo} style={{ textDecoration: 'none' }}>
+        <Link to={props.goTo} style={{ textDecoration: 'none' }}>
             <div className="nav-item">
-                <Button 
-                className={classes.button} 
-                startIcon={props.icon}>
-                      {props.itemText}
+                <Button className={classes.button} startIcon={props.icon}>
+                    {props.itemText}
                 </Button>
             </div>
-         </Link>
-    )
+        </Link>
+    );
 }
 
 type NavItemProps = {
     icon: JSX.Element;
     itemText: string;
     goTo: string;
-}
+};
 
 export function NavBar(): JSX.Element {
     const theme = useTheme();
-    const navClass = 'nav-bar ' + (theme.palette.type === 'dark' ? 'nav-bar-dark' : 'nav-bar-light')
+    const navClass =
+        'nav-bar ' +
+        (theme.palette.type === 'dark' ? 'nav-bar-dark' : 'nav-bar-light');
 
     return (
         <MuiThemeProvider theme={theme}>
-        <div className={navClass}>
-            <div className="nav-top">
-              <Link to={HOME}>
-                  <h1 className="sidebar">MY BOOKS</h1>
-              </Link>
-              <hr />
-            </div>
-            <div className="nav-links" id="nav-links-top">
-              <NavItem icon={<MenuBook />} itemText={"Reading Now"} goTo="#" />
-              <NavItem icon={<Bookmarks />} itemText={"To Read"} goTo="#" />
-              <NavItem icon={<Book />} itemText={"Read"} goTo="#" />
-              <NavItem icon={<SearchIcon />} itemText={"Search"} goTo={SEARCH} />
-              
-              <br />
-              
-              <NavItem icon={<CollectionsBookmark />} itemText={"My Books"} goTo={MY_BOOKS} />
-              <NavItem icon={<ThumbUp />} itemText={"Recommended"} goTo="#" />
-              <NavItem icon={<Favorite />} itemText={"Favorites"} goTo="#" />
-              {/* <NavItem icon={<TrackChanges />} itemText={"Goals"} goTo={GOAL} />
+            <div className={navClass}>
+                <div className="nav-top">
+                    <Link to={HOME}>
+                        <h1 className="sidebar">MY BOOKS</h1>
+                    </Link>
+                    <hr />
+                </div>
+                <div className="nav-links" id="nav-links-top">
+                    <NavItem
+                        icon={<CollectionsBookmark />}
+                        itemText={'My Books'}
+                        goTo={MY_BOOKS}
+                    />
+                    <NavItem
+                        icon={<MenuBook />}
+                        itemText={'Reading Now'}
+                        goTo="#"
+                    />
+                    <NavItem
+                        icon={<Bookmarks />}
+                        itemText={'To Read'}
+                        goTo="#"
+                    />
+                    <NavItem icon={<Book />} itemText={'Read'} goTo="#" />
+                    <NavItem
+                        icon={<Book />}
+                        itemText={'Did Not Finish'}
+                        goTo="#"
+                    />
+
+                    <br />
+
+                    <NavItem
+                        icon={<SearchIcon />}
+                        itemText={'Search'}
+                        goTo={SEARCH}
+                    />
+                    <NavItem
+                        icon={<ThumbUp />}
+                        itemText={'Recommended'}
+                        goTo="#"
+                    />
+                    <NavItem
+                        icon={<Favorite />}
+                        itemText={'Favorites'}
+                        goTo="#"
+                    />
+                    {/* <NavItem icon={<TrackChanges />} itemText={"Goals"} goTo={GOAL} />
               <NavItem icon={<TrendingUp />} itemText={"Statistics"} goTo={STATS} /> */}
-             
+                </div>
+                <div className="nav-links">
+                    <NavItem
+                        icon={<Settings />}
+                        itemText={'Settings'}
+                        goTo={SETTINGS}
+                    />
+                    <NavItem
+                        icon={<ExitToApp />}
+                        itemText={'Log out'}
+                        goTo={SIGN_IN}
+                    />
+                </div>
             </div>
-            <div className="nav-links">
-              <NavItem icon={<Settings />} itemText={"Settings"} goTo={SETTINGS} />
-              <NavItem icon={<ExitToApp />} itemText={"Log out"} goTo={SIGN_IN} />
-            </div>
-        </div>
-      </MuiThemeProvider>
-    )
+        </MuiThemeProvider>
+    );
 }
