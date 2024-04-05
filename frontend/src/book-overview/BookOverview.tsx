@@ -24,6 +24,7 @@ import './BookOverview.css';
 import '../shared/components/Layout.css';
 import { Create } from '@material-ui/icons';
 import { History } from 'history';
+import BookCover from '../shared/book-display/BookCover';
 
 interface Props {
     history: History;
@@ -107,12 +108,7 @@ class BookOverview extends Component<Props, IState> {
                     </div>
                     <div className="row justify-content-center mt-4">
                         <div className="col-8">
-                            <img
-                                className="book-image"
-                                // eslint-disable-next-line max-len
-                                src="https://inliterature.net/wp-content/uploads/2014/04/harry-potter-1-709x1024.jpg"
-                                alt="book image"
-                            />
+                            <BookCover />
                             <h1 className="pageTitle bold">
                                 {this.state.book.title}
                             </h1>
