@@ -129,7 +129,7 @@ export function NavBar(): JSX.Element {
                     />
                     <NavItem
                         icon={<ThumbUp />}
-                        itemText={'Recommended'}
+                        itemText={'Recommendations'}
                         goTo={RECOMMENDATIONS}
                     />
                     <NavItem

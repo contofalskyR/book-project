@@ -44,7 +44,9 @@ import {
     READING,
     TO_READ,
     DID_NOT_FINISH,
-    READ
+    READ,
+    RECOMMENDATIONS,
+    FAVOURITES
 } from './shared/routes';
 import { ApolloProvider } from '@apollo/client';
 import { apolloClient } from './shared/http/HttpClient';
@@ -52,6 +54,8 @@ import Reading from './reading/Reading';
 import ToRead from './to-read/ToRead';
 import Read from './read/Read';
 import DidNotFinish from './did-not-finish/DidNotFinish';
+import Recommendations from './recommendations/Recommendations';
+import Favourites from './favourites/Favourites';
 
 function App(): ReactElement | JSX.Element {
     const [theme, setTheme] = useState(lightTheme);
@@ -77,6 +81,8 @@ function App(): ReactElement | JSX.Element {
                     <Route path={TO_READ} component={ToRead} />
                     <Route path={READ} component={Read} />
                     <Route path={DID_NOT_FINISH} component={DidNotFinish} />
+                    <Route path={RECOMMENDATIONS} component={Recommendations} />
+                    <Route path={FAVOURITES} component={Favourites} />
                     <Route
                         path={SETTINGS}
                         render={() => (
