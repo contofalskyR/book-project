@@ -32,7 +32,6 @@ import ShelfCarouselSingle from '../shared/book-display/ShelfCarouselSingle';
 interface IState {
     showShelfModal: boolean;
     showListView: boolean;
-    bookList: Book[];
     favouriteBooks: Book[];
     searchVal: string;
     genre: string;
@@ -45,19 +44,16 @@ class Favourites extends Component<Record<string, unknown>, IState> {
             showShelfModal: false,
             showListView: false,
             genre: '',
-            bookList: [],
             favouriteBooks: [],
             searchVal: ''
         };
         this.onAddShelf = this.onAddShelf.bind(this);
         this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
         this.onToggleListView = this.onToggleListView.bind(this);
-        this.getBooks = this.getBooks.bind(this);
         this.favouriteBooks = this.favouriteBooks.bind(this);
         this.handleGenreChange = this.handleGenreChange.bind(this);
     }
     componentDidMount(): void {
-        this.getBooks();
         this.favouriteBooks();
         this.trackCurrentDeviceSize();
         this.setState({ genre: '' });
@@ -79,18 +75,6 @@ class Favourites extends Component<Record<string, unknown>, IState> {
                         ? favouriteBooks
                         : state.favouriteBooks
                 }));
-            })
-            .catch((error: Record<string, string>) => {
-                console.error('error: ', error);
-            });
-    }
-    // TODO: update books list so that its the same list as the shelf
-    getBooks(): void {
-        HttpClient.get(Endpoints.books)
-            .then((response: Book[]) => {
-                this.setState({
-                    bookList: response
-                });
             })
             .catch((error: Record<string, string>) => {
                 console.error('error: ', error);
@@ -170,7 +154,7 @@ class Favourites extends Component<Record<string, unknown>, IState> {
                     {this.state.showListView ? (
                         <BookList
                             key={
-                                this.state.bookList.length +
+                                this.state.favouriteBooks.length +
                                 this.state.searchVal
                             }
                             bookListData={this.state.favouriteBooks}

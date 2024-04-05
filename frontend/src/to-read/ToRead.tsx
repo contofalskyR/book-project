@@ -32,7 +32,6 @@ import ShelfCarouselSingle from '../shared/book-display/ShelfCarouselSingle';
 interface IState {
     showShelfModal: boolean;
     showListView: boolean;
-    bookList: Book[];
     toReadBooks: Book[];
     searchVal: string;
     genre: string;
@@ -45,19 +44,16 @@ class ToRead extends Component<Record<string, unknown>, IState> {
             showShelfModal: false,
             showListView: false,
             genre: '',
-            bookList: [],
             toReadBooks: [],
             searchVal: ''
         };
         this.onAddShelf = this.onAddShelf.bind(this);
         this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
         this.onToggleListView = this.onToggleListView.bind(this);
-        this.getBooks = this.getBooks.bind(this);
         this.toReadBooks = this.toReadBooks.bind(this);
         this.handleGenreChange = this.handleGenreChange.bind(this);
     }
     componentDidMount(): void {
-        this.getBooks();
         this.toReadBooks();
         this.trackCurrentDeviceSize();
         this.setState({ genre: '' });
@@ -78,18 +74,6 @@ class ToRead extends Component<Record<string, unknown>, IState> {
                         ? toReadBooks
                         : state.toReadBooks
                 }));
-            })
-            .catch((error: Record<string, string>) => {
-                console.error('error: ', error);
-            });
-    }
-
-    getBooks(): void {
-        HttpClient.get(Endpoints.books)
-            .then((response: Book[]) => {
-                this.setState({
-                    bookList: response
-                });
             })
             .catch((error: Record<string, string>) => {
                 console.error('error: ', error);
@@ -169,7 +153,7 @@ class ToRead extends Component<Record<string, unknown>, IState> {
                     {this.state.showListView ? (
                         <BookList
                             key={
-                                this.state.bookList.length +
+                                this.state.toReadBooks.length +
                                 this.state.searchVal
                             }
                             bookListData={this.state.toReadBooks}

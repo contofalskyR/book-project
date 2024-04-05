@@ -28,13 +28,10 @@ import HttpClient from '../shared/http/HttpClient';
 import Endpoints from '../shared/api/endpoints';
 import './Reading.css';
 import { FormControl, InputLabel, Select } from '@material-ui/core';
-import ShelfCarousel from '../shared/book-display/ShelfCarousel';
-import ShelfView from '../shared/book-display/ShelfView';
 import ShelfCarouselSingle from '../shared/book-display/ShelfCarouselSingle';
 interface IState {
     showShelfModal: boolean;
     showListView: boolean;
-    bookList: Book[];
     readingBooks: Book[];
     searchVal: string;
     genre: string;
@@ -47,19 +44,16 @@ class Reading extends Component<Record<string, unknown>, IState> {
             showShelfModal: false,
             showListView: false,
             genre: '',
-            bookList: [],
             readingBooks: [],
             searchVal: ''
         };
         this.onAddShelf = this.onAddShelf.bind(this);
         this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
         this.onToggleListView = this.onToggleListView.bind(this);
-        this.getBooks = this.getBooks.bind(this);
         this.readingBooks = this.readingBooks.bind(this);
         this.handleGenreChange = this.handleGenreChange.bind(this);
     }
     componentDidMount(): void {
-        this.getBooks();
         this.readingBooks();
         this.trackCurrentDeviceSize();
         this.setState({ genre: '' });
@@ -80,18 +74,6 @@ class Reading extends Component<Record<string, unknown>, IState> {
                         ? readingBooks
                         : state.readingBooks
                 }));
-            })
-            .catch((error: Record<string, string>) => {
-                console.error('error: ', error);
-            });
-    }
-
-    getBooks(): void {
-        HttpClient.get(Endpoints.books)
-            .then((response: Book[]) => {
-                this.setState({
-                    bookList: response
-                });
             })
             .catch((error: Record<string, string>) => {
                 console.error('error: ', error);
@@ -171,7 +153,7 @@ class Reading extends Component<Record<string, unknown>, IState> {
                     {this.state.showListView ? (
                         <BookList
                             key={
-                                this.state.bookList.length +
+                                this.state.readingBooks.length +
                                 this.state.searchVal
                             }
                             bookListData={this.state.readingBooks}
