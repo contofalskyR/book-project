@@ -17,40 +17,10 @@ If not, see <https://www.gnu.org/licenses/>.
 
 import React, { ReactElement } from 'react';
 import './ShelfCarouselSingle.css';
-import { Icon, Paper } from '@material-ui/core';
+import { Icon } from '@material-ui/core';
 import { Book } from '../types/Book';
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { BOOK_OVERVIEW } from '../routes';
-
-function ShelfBook(props: BookProps): JSX.Element {
-    const bookClass =
-        'book-single-carousel' + (props.img === '' ? '' : ' image');
-    const displayTitle =
-        props.title.length > 12
-            ? props.title.substring(0, 12) + '...'
-            : props.title;
-    // add link to book page
-    return (
-        <Link
-            to={BOOK_OVERVIEW + '/' + props.id}
-            style={{ textDecoration: 'none', color: 'black' }}
-            // key={props.title + props.author}
-        >
-            <Paper className={bookClass} variant="elevation" square={false}>
-                {bookClass !== 'book' && <div className="book-spine"></div>}
-                {displayTitle}
-            </Paper>
-        </Link>
-    );
-}
-
-type BookProps = {
-    id: string | number;
-    title: string;
-    author: string;
-    img: string;
-};
+import ShelfBook from './ShelfBook';
 
 export type ShelfCarouselSingleProps = {
     books: Book[];
