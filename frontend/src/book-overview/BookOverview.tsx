@@ -25,7 +25,11 @@ import '../shared/components/Layout.css';
 import { Create } from '@material-ui/icons';
 import { History } from 'history';
 import BookCover from '../shared/book-display/BookCover';
-
+import { Button, ButtonGroup } from '@material-ui/core';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import StarIcon from '@material-ui/icons/Star';
+import StarOutlineIcon from '@material-ui/icons/StarOutline';
 interface Props {
     history: History;
     match: {
@@ -121,6 +125,28 @@ class BookOverview extends Component<Props, IState> {
                                 {this.state.book.predefinedShelf.shelfName}{' '}
                                 <Create className="pencil-icon" />
                             </p>
+                            <div>
+                                <Button
+                                    variant="outlined"
+                                    color="primary"
+                                    startIcon={<StarIcon />}
+                                >
+                                    Favourite
+                                </Button>
+                            </div>
+                            <div>
+                                <ButtonGroup
+                                    color="primary"
+                                    aria-label="outlined primary button group"
+                                >
+                                    <Button startIcon={<ThumbUpIcon />}>
+                                        Like
+                                    </Button>
+                                    <Button startIcon={<ThumbDownIcon />}>
+                                        Dislike
+                                    </Button>
+                                </ButtonGroup>
+                            </div>
                         </div>
                     </div>
                     <div className="row book-details justify-content-center">
