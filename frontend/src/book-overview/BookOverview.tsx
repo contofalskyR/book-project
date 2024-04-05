@@ -25,7 +25,8 @@ import '../shared/components/Layout.css';
 import { Create } from '@material-ui/icons';
 import { History } from 'history';
 import BookCover from '../shared/book-display/BookCover';
-import { Button, ButtonGroup } from '@material-ui/core';
+import { Button, ButtonGroup, Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import StarIcon from '@material-ui/icons/Star';
@@ -41,6 +42,8 @@ interface Props {
 
 interface IState {
     book: Book;
+    snackbarOpen: boolean;
+    snackbarMessage: string;
 }
 
 class BookOverview extends Component<Props, IState> {
@@ -60,7 +63,9 @@ class BookOverview extends Component<Props, IState> {
                 bookGenre: '',
                 numberOfPages: 0,
                 rating: 0
-            }
+            },
+            snackbarOpen: false,
+            snackbarMessage: ''
         };
         this.handleClickToGoBack = this.handleClickToGoBack.bind(this);
     }
@@ -72,6 +77,30 @@ class BookOverview extends Component<Props, IState> {
     handleClickToGoBack(): void {
         this.props.history.goBack();
     }
+    handleSnackbarClose = () => {
+        this.setState({ snackbarOpen: false });
+    };
+
+    handleLikeButtonClick = () => {
+        // Handle like button click logic here
+        // For demonstration, we'll just display a Snackbar message
+        this.setState({ snackbarOpen: true, snackbarMessage: 'Liked!' });
+    };
+
+    handleDislikeButtonClick = () => {
+        // Handle dislike button click logic here
+        // For demonstration, we'll just display a Snackbar message
+        this.setState({ snackbarOpen: true, snackbarMessage: 'Disliked!' });
+    };
+
+    handleFavoriteButtonClick = () => {
+        // Handle favorite button click logic here
+        // For demonstration, we'll just display a Snackbar message
+        this.setState({
+            snackbarOpen: true,
+            snackbarMessage: 'Added to favorites!'
+        });
+    };
 
     async getBook(): Promise<void> {
         if (this.props.match) {
@@ -130,6 +159,7 @@ class BookOverview extends Component<Props, IState> {
                                     variant="outlined"
                                     color="primary"
                                     startIcon={<StarIcon />}
+                                    onClick={this.handleFavoriteButtonClick}
                                 >
                                     Favourite
                                 </Button>
@@ -139,10 +169,16 @@ class BookOverview extends Component<Props, IState> {
                                     color="primary"
                                     aria-label="outlined primary button group"
                                 >
-                                    <Button startIcon={<ThumbUpIcon />}>
+                                    <Button
+                                        startIcon={<ThumbUpIcon />}
+                                        onClick={this.handleLikeButtonClick}
+                                    >
                                         Like
                                     </Button>
-                                    <Button startIcon={<ThumbDownIcon />}>
+                                    <Button
+                                        startIcon={<ThumbDownIcon />}
+                                        onClick={this.handleDislikeButtonClick}
+                                    >
                                         Dislike
                                     </Button>
                                 </ButtonGroup>
@@ -194,6 +230,20 @@ class BookOverview extends Component<Props, IState> {
                         </div>
                     </div>
                 </div>
+                <Snackbar
+                    open={this.state.snackbarOpen}
+                    autoHideDuration={3000} // Adjust as needed
+                    onClose={this.handleSnackbarClose}
+                >
+                    <MuiAlert
+                        elevation={6}
+                        variant="filled"
+                        onClose={this.handleSnackbarClose}
+                        severity="success" // Change severity as needed
+                    >
+                        {this.state.snackbarMessage}
+                    </MuiAlert>
+                </Snackbar>
             </div>
         );
     }
