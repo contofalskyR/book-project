@@ -41,11 +41,6 @@ type BookProps = {
     img: string;
 };
 
-interface IShelfCarouselSingleState {
-    books: Book[];
-    genre: string;
-}
-
 export type ShelfCarouselSingleProps = {
     books: Book[];
     genre: string;
@@ -60,19 +55,9 @@ function AddBook() {
     );
 }
 
-export default class ShelfCarouselSingle extends Component<
-    ShelfCarouselSingleProps,
-    IShelfCarouselSingleState
-> {
+export default class ShelfCarouselSingle extends Component<ShelfCarouselSingleProps> {
     constructor(props: ShelfCarouselSingleProps) {
         super(props);
-    }
-
-    componentDidUpdate(prevProps: ShelfCarouselSingleProps): void {
-        if (prevProps.genre !== this.props.genre) {
-            // Prop has changed, do something
-            console.log('Prop has changed');
-        }
     }
 
     filterBooks(): Book[] {
@@ -89,7 +74,6 @@ export default class ShelfCarouselSingle extends Component<
     }
     render(): JSX.Element {
         const books: any = this.renderShelfBook(this.filterBooks());
-        console.log('I am being rerender');
 
         return (
             <div className="shelf-container">
@@ -116,22 +100,5 @@ export default class ShelfCarouselSingle extends Component<
             );
         }
         return elements;
-    }
-
-    renderShelfBookByGenre(books: Book[]): Map<string, Array<ReactElement>> {
-        const elements = Array<ReactElement>();
-        // TODO: make it scrollable and contain more boosk
-        const maxBooksToDisplay = Math.min(books.length, 6);
-        const map = new Map(); // book genres to list of shelfbooks
-        for (let i = 0; i < maxBooksToDisplay; i++) {
-            if (map.get(books[i].bookGenre) == undefined) {
-                map.set(books[i].bookGenre, Array<ReactElement>());
-            }
-            // eslint-disable-next-line max-len
-            map.get(books[i].bookGenre).push(
-                <ShelfBook key={i} title={books[i].title} img={books[i].img} />
-            );
-        }
-        return map;
     }
 }
