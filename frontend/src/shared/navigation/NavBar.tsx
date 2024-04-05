@@ -35,11 +35,17 @@ import darkLogo from '../media/logo/dark-logo.png';
 import {
     HOME,
     MY_BOOKS,
+    READING,
+    READ,
+    TO_READ,
+    DID_NOT_FINISH,
     GOAL,
     STATS,
     SETTINGS,
     SIGN_IN,
-    SEARCH
+    SEARCH,
+    RECOMMENDATIONS,
+    FAVOURITES
 } from '../routes';
 import { useTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -100,18 +106,18 @@ export function NavBar(): JSX.Element {
                     <NavItem
                         icon={<MenuBook />}
                         itemText={'Reading Now'}
-                        goTo="#"
+                        goTo={READING}
                     />
                     <NavItem
                         icon={<Bookmarks />}
                         itemText={'To Read'}
-                        goTo="#"
+                        goTo={TO_READ}
                     />
-                    <NavItem icon={<Book />} itemText={'Read'} goTo="#" />
+                    <NavItem icon={<Book />} itemText={'Read'} goTo={READ} />
                     <NavItem
                         icon={<Book />}
                         itemText={'Did Not Finish'}
-                        goTo="#"
+                        goTo={DID_NOT_FINISH}
                     />
 
                     <br />
@@ -124,12 +130,12 @@ export function NavBar(): JSX.Element {
                     <NavItem
                         icon={<ThumbUp />}
                         itemText={'Recommended'}
-                        goTo="#"
+                        goTo={RECOMMENDATIONS}
                     />
                     <NavItem
                         icon={<Favorite />}
                         itemText={'Favorites'}
-                        goTo="#"
+                        goTo={FAVOURITES}
                     />
                     {/* <NavItem icon={<TrackChanges />} itemText={"Goals"} goTo={GOAL} />
               <NavItem icon={<TrendingUp />} itemText={"Statistics"} goTo={STATS} /> */}
