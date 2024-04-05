@@ -105,8 +105,7 @@ export default class BookList extends Component<BookListProps, BookListProps> {
     };
 
     render(): JSX.Element {
-        console.log('rerender books list');
-        console.log(this.state.bookListData);
+        // console.log(this.state.bookListData);
 
         return (
             <div className="booklist-container">
@@ -157,7 +156,7 @@ export default class BookList extends Component<BookListProps, BookListProps> {
                                     : book.title}
                             </div>
                             <div className="booklist-book-title">
-                                {book.title}
+                                {book.title + ' ' + book.id}
                             </div>
                             <div className="booklist-book-author">
                                 {book.author.fullName}

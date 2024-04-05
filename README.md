@@ -61,7 +61,20 @@ Using your favourite SQL client, use the following settings:
 -   Password: `dbpassword`
 -   Database name: `book_project_db`
 
-db connection cmd: `psql -U dbuser -d book_project_db`
+db connection cmd: `psql -h localhost -U dbuser -d book_project_db`
+
+queries:
+
+```
+SELECT
+    b.title AS book_title,
+    b.id AS book_id,
+    bg.genre AS genre_id
+FROM
+    book b
+JOIN
+    book_genre bg ON b.id = bg.book_id;
+```
 
 For example, in DataGrip or IntelliJ Ultimate:
 

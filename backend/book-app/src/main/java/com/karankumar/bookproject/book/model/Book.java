@@ -63,12 +63,10 @@ import org.hibernate.validator.constraints.ISBN;
 @Getter
 @Setter
 @ToString(onlyExplicitlyIncluded = true)
-@JsonIgnoreProperties(value = {"id"})
+// @JsonIgnoreProperties(value = {"id"})
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
-@NamedEntityGraph(
-    name = "Book.author",
-    attributeNodes = {@NamedAttributeNode("author")})
+@NamedEntityGraph(name = "Book.author", attributeNodes = { @NamedAttributeNode("author") })
 @ExcludeFromJacocoGeneratedReport
 public class Book {
   public static final int MAX_PAGES = 23_000;
@@ -78,7 +76,9 @@ public class Book {
   @Setter(AccessLevel.NONE)
   private Long id;
 
-  @NotNull @NotBlank private String title;
+  @NotNull
+  @NotBlank
+  private String title;
 
   @Max(value = MAX_PAGES)
   private Integer numberOfPages;
@@ -99,65 +99,38 @@ public class Book {
 
   private String bookRecommendedBy;
 
-  @ISBN private String isbn;
+  @ISBN
+  private String isbn;
 
   private Integer yearOfPublication;
 
-  @ManyToOne(
-      fetch = FetchType.LAZY,
-      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-  @JoinColumn(
-      name = "author_id",
-      nullable = false,
-      referencedColumnName = "id",
-      foreignKey = @ForeignKey(name = "book_author_id_fk"))
-  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+  @JoinColumn(name = "author_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "book_author_id_fk"))
+  @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
   @ToString.Exclude
   private Author author;
 
-  @ManyToOne(
-      fetch = FetchType.LAZY,
-      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+  @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
   @JoinColumn(name = "predefined_shelf_id", referencedColumnName = "id")
-  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
   @ToString.Exclude
   private PredefinedShelf predefinedShelf;
 
-  @ManyToOne(
-      fetch = FetchType.LAZY,
-      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+  @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
   @JoinColumn(name = "user_created_shelf_id", referencedColumnName = "id")
   @ToString.Exclude
   private UserCreatedShelf userCreatedShelf;
 
-  @ManyToMany(
-      fetch = FetchType.LAZY,
-      cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-  @JoinTable(
-      name = "book_tag",
-      joinColumns =
-          @JoinColumn(
-              name = "book_id",
-              referencedColumnName = "id",
-              foreignKey = @ForeignKey(name = "book_tag_book_id_fk")),
-      inverseJoinColumns =
-          @JoinColumn(
-              name = "tag_id",
-              referencedColumnName = "id",
-              foreignKey = @ForeignKey(name = "book_tag_tag_id_fk")))
+  @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REFRESH })
+  @JoinTable(name = "book_tag", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "book_tag_book_id_fk")), inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "book_tag_tag_id_fk")))
   @Setter(AccessLevel.NONE)
-  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
   @ToString.Exclude
   private Set<Tag> tags = new HashSet<>();
 
-  @ManyToMany(
-      fetch = FetchType.LAZY,
-      cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-  @JoinTable(
-      name = "book_publisher",
-      joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-      inverseJoinColumns = @JoinColumn(name = "publisher_id", referencedColumnName = "id"))
-  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REFRESH })
+  @JoinTable(name = "book_publisher", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "publisher_id", referencedColumnName = "id"))
+  @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
   @ToString.Exclude
   private Set<Publisher> publishers = new HashSet<>();
 
@@ -263,8 +236,10 @@ public class Book {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+    if (this == o)
+      return true;
+    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+      return false;
     Book book = (Book) o;
     return id != null && Objects.equals(id, book.id);
   }

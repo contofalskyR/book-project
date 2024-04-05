@@ -110,7 +110,11 @@ public class BookService {
   public List<Book> findAll(Integer pageNumber) {
     int page = pageNumber == null ? 0 : pageNumber;
     Pageable pageable = PageRequest.of(page, 50);
-    return bookRepository.findAllBooks(pageable);
+    List<Book> books = bookRepository.findAllBooks(pageable);
+    LOGGER.log(
+        Level.INFO,
+        "HERE WE ARE!" + books.get(32).getId().toString() + books.get(32).getTitle());
+    return books;
   }
 
   public List<Book> findByTitleOrAuthor(String filterText) {
