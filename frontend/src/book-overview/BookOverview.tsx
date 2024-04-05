@@ -77,27 +77,28 @@ class BookOverview extends Component<Props, IState> {
     handleClickToGoBack(): void {
         this.props.history.goBack();
     }
-    handleSnackbarClose(): void {
-        this.setState({ snackbarOpen: false });
-    }
 
-    handleLikeButtonClick(): void {
+    handleSnackbarClose = () => {
+        this.setState({ snackbarOpen: false });
+    };
+
+    handleLikeButtonClick = () => {
         //TODO: call backend api
         this.setState({ snackbarOpen: true, snackbarMessage: 'Liked!' });
-    }
+    };
 
-    handleDislikeButtonClick(): void {
+    handleDislikeButtonClick = () => {
         //TODO: call backend api
         this.setState({ snackbarOpen: true, snackbarMessage: 'Disliked!' });
-    }
+    };
 
-    handleFavoriteButtonClick(): void {
+    handleFavoriteButtonClick = () => {
         //TODO: call backend api
         this.setState({
             snackbarOpen: true,
             snackbarMessage: 'Added to favorites!'
         });
-    }
+    };
 
     async getBook(): Promise<void> {
         if (this.props.match) {
