@@ -19,29 +19,28 @@ import React, { Component, ReactElement } from 'react';
 import { NavBar } from '../shared/navigation/NavBar';
 import Switch from '../settings/Switch';
 import Button from '@material-ui/core/Button';
-import ShelfModal from './ShelfModal';
+import ShelfModal from '../my-books/ShelfModal';
 import { Layout } from '../shared/components/Layout';
 import BookList from '../shared/book-display/BookList';
 import { Genres } from '../shared/types/Genres';
 import { Book } from '../shared/types/Book';
 import HttpClient from '../shared/http/HttpClient';
 import Endpoints from '../shared/api/endpoints';
-import './MyBooks.css';
-import ShelfView from '../shared/book-display/ShelfView';
+import './Reading.css';
 import { FormControl, InputLabel, Select } from '@material-ui/core';
+import ShelfCarousel from '../shared/book-display/ShelfCarousel';
+import ShelfView from '../shared/book-display/ShelfView';
+import ShelfCarouselSingle from '../shared/book-display/ShelfCarouselSingle';
 interface IState {
     showShelfModal: boolean;
     showListView: boolean;
     bookList: Book[];
-    readBooks: Book[];
-    didNotFinishBooks: Book[];
-    toReadBooks: Book[];
     readingBooks: Book[];
     searchVal: string;
     genre: string;
 }
 
-class MyBooks extends Component<Record<string, unknown>, IState> {
+class Reading extends Component<Record<string, unknown>, IState> {
     constructor(props: Record<string, unknown>) {
         super(props);
         this.state = {
@@ -49,9 +48,6 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
             showListView: false,
             genre: '',
             bookList: [],
-            readBooks: [],
-            didNotFinishBooks: [],
-            toReadBooks: [],
             readingBooks: [],
             searchVal: ''
         };
@@ -59,17 +55,11 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
         this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
         this.onToggleListView = this.onToggleListView.bind(this);
         this.getBooks = this.getBooks.bind(this);
-        this.getDidNotFinishBooks = this.getDidNotFinishBooks.bind(this);
-        this.toReadBooks = this.toReadBooks.bind(this);
         this.readingBooks = this.readingBooks.bind(this);
-        this.getReadBooks = this.getReadBooks.bind(this);
         this.handleGenreChange = this.handleGenreChange.bind(this);
     }
     componentDidMount(): void {
         this.getBooks();
-        this.getReadBooks();
-        this.getDidNotFinishBooks();
-        this.toReadBooks();
         this.readingBooks();
         this.trackCurrentDeviceSize();
         this.setState({ genre: '' });
@@ -81,48 +71,6 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
             </option>
         );
     });
-
-    getReadBooks(): void {
-        HttpClient.get(Endpoints.read)
-            .then((readBooks: Book[]) => {
-                this.setState((state) => ({
-                    readBooks: Array.isArray(readBooks)
-                        ? readBooks
-                        : state.readBooks
-                }));
-            })
-            .catch((error: Record<string, string>) => {
-                console.error('error: ', error);
-            });
-    }
-
-    getDidNotFinishBooks(): void {
-        HttpClient.get(Endpoints.didNotFinish)
-            .then((didNotFinishBooks: Book[]) => {
-                this.setState((state) => ({
-                    didNotFinishBooks: Array.isArray(didNotFinishBooks)
-                        ? didNotFinishBooks
-                        : state.didNotFinishBooks
-                }));
-            })
-            .catch((error: Record<string, string>) => {
-                console.error('error: ', error);
-            });
-    }
-
-    toReadBooks(): void {
-        HttpClient.get(Endpoints.toRead)
-            .then((toReadBooks: Book[]) => {
-                this.setState((state) => ({
-                    toReadBooks: Array.isArray(toReadBooks)
-                        ? toReadBooks
-                        : state.toReadBooks
-                }));
-            })
-            .catch((error: Record<string, string>) => {
-                console.error('error: ', error);
-            });
-    }
 
     readingBooks(): void {
         HttpClient.get(Endpoints.reading)
@@ -187,7 +135,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
     render(): ReactElement {
         return (
             <Layout
-                title="My books"
+                title="Reading"
                 btn={
                     <div className="my-book-top-buttons">
                         <FormControl variant="filled" className="">
@@ -207,7 +155,6 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                                 {this.genresList}
                             </Select>
                         </FormControl>
-
                         <Button
                             variant="contained"
                             className="tempButton"
@@ -215,14 +162,6 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                             disableElevation
                         >
                             Add Book
-                        </Button>
-                        <Button
-                            onClick={this.onAddShelf}
-                            variant="contained"
-                            color="primary"
-                            disableElevation
-                        >
-                            Add Shelf
                         </Button>
                     </div>
                 }
@@ -235,26 +174,12 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                                 this.state.bookList.length +
                                 this.state.searchVal
                             }
-                            bookListData={this.state.bookList}
+                            bookListData={this.state.readingBooks}
                             searchText={this.state.searchVal}
                         />
                     ) : (
-                        <ShelfView
-                            key={
-                                [
-                                    ...this.state.readBooks,
-                                    ...this.state.readingBooks,
-                                    ...this.state.toReadBooks,
-                                    ...this.state.didNotFinishBooks
-                                ].length +
-                                this.state.searchVal +
-                                this.state.genre
-                            }
-                            readBooks={this.state.readBooks}
-                            toReadBooks={this.state.toReadBooks}
-                            didNotFinishBooks={this.state.didNotFinishBooks}
-                            readingBooks={this.state.readingBooks}
-                            searchText={this.state.searchVal}
+                        <ShelfCarouselSingle
+                            books={this.state.readingBooks}
                             genre={this.state.genre}
                         />
                     )}
@@ -263,13 +188,13 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                     open={this.state.showShelfModal}
                     onClose={this.onAddShelfModalClose}
                 />
-                {/* <div className="my-book-switch-container">
+                <div className="my-book-switch-container">
                     <div className="toggle-text">Shelf View</div>
                     <Switch onClick={this.onToggleListView} />
                     <div className="toggle-text">List View</div>
-                </div> */}
+                </div>
             </Layout>
         );
     }
 }
-export default MyBooks;
+export default Reading;
