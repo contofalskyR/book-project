@@ -207,15 +207,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                                 {this.genresList}
                             </Select>
                         </FormControl>
-
-                        <Button
-                            variant="contained"
-                            className="tempButton"
-                            color="primary"
-                            disableElevation
-                        >
-                            Add Book
-                        </Button>
+                        {/* might remove below button */}
                         <Button
                             onClick={this.onAddShelf}
                             variant="contained"

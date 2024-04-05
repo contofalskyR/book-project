@@ -63,7 +63,6 @@ export default class ShelfCarouselSingle extends Component<ShelfCarouselSinglePr
                 <div className="books-and-shelf">
                     <div className="book-wrap-single">
                         {books}
-                        <AddBook />
                         <div className="clear" />
                     </div>
                     <div className="shelf"></div>

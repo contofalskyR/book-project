@@ -15,7 +15,6 @@ export default function ShelfBook(props: BookProps): JSX.Element {
         props.title.length > 12
             ? props.title.substring(0, 12) + '...'
             : props.title;
-    // add link to book page
     return (
         <Link
             to={BOOK_OVERVIEW + '/' + props.id}
