@@ -77,30 +77,27 @@ class BookOverview extends Component<Props, IState> {
     handleClickToGoBack(): void {
         this.props.history.goBack();
     }
-    handleSnackbarClose = () => {
+    handleSnackbarClose(): void {
         this.setState({ snackbarOpen: false });
-    };
+    }
 
-    handleLikeButtonClick = () => {
-        // Handle like button click logic here
-        // For demonstration, we'll just display a Snackbar message
+    handleLikeButtonClick(): void {
+        //TODO: call backend api
         this.setState({ snackbarOpen: true, snackbarMessage: 'Liked!' });
-    };
+    }
 
-    handleDislikeButtonClick = () => {
-        // Handle dislike button click logic here
-        // For demonstration, we'll just display a Snackbar message
+    handleDislikeButtonClick(): void {
+        //TODO: call backend api
         this.setState({ snackbarOpen: true, snackbarMessage: 'Disliked!' });
-    };
+    }
 
-    handleFavoriteButtonClick = () => {
-        // Handle favorite button click logic here
-        // For demonstration, we'll just display a Snackbar message
+    handleFavoriteButtonClick(): void {
+        //TODO: call backend api
         this.setState({
             snackbarOpen: true,
             snackbarMessage: 'Added to favorites!'
         });
-    };
+    }
 
     async getBook(): Promise<void> {
         if (this.props.match) {
@@ -122,7 +119,6 @@ class BookOverview extends Component<Props, IState> {
                 });
         }
     }
-    //TODO: can add snackbar when favourite/like/dislike is done
     render(): JSX.Element {
         return (
             <div className="layoutContainer">
@@ -232,14 +228,14 @@ class BookOverview extends Component<Props, IState> {
                 </div>
                 <Snackbar
                     open={this.state.snackbarOpen}
-                    autoHideDuration={3000} // Adjust as needed
+                    autoHideDuration={3000}
                     onClose={this.handleSnackbarClose}
                 >
                     <MuiAlert
                         elevation={6}
                         variant="filled"
                         onClose={this.handleSnackbarClose}
-                        severity="success" // Change severity as needed
+                        severity="success"
                     >
                         {this.state.snackbarMessage}
                     </MuiAlert>
