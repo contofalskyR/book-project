@@ -152,33 +152,37 @@ class BookOverview extends Component<Props, IState> {
                                 <Create className="pencil-icon" />
                             </p>
                             <div>
-                                <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    startIcon={<StarIcon />}
-                                    onClick={this.handleFavoriteButtonClick}
-                                >
-                                    Favourite
-                                </Button>
-                            </div>
-                            <div>
-                                <ButtonGroup
-                                    color="primary"
-                                    aria-label="outlined primary button group"
-                                >
+                                <div>
                                     <Button
-                                        startIcon={<ThumbUpIcon />}
-                                        onClick={this.handleLikeButtonClick}
+                                        variant="outlined"
+                                        color="primary"
+                                        startIcon={<StarIcon />}
+                                        onClick={this.handleFavoriteButtonClick}
                                     >
-                                        Like
+                                        Favourite
                                     </Button>
-                                    <Button
-                                        startIcon={<ThumbDownIcon />}
-                                        onClick={this.handleDislikeButtonClick}
+                                </div>
+                                <div>
+                                    <ButtonGroup
+                                        color="primary"
+                                        aria-label="outlined primary button group"
                                     >
-                                        Dislike
-                                    </Button>
-                                </ButtonGroup>
+                                        <Button
+                                            startIcon={<ThumbUpIcon />}
+                                            onClick={this.handleLikeButtonClick}
+                                        >
+                                            Like
+                                        </Button>
+                                        <Button
+                                            startIcon={<ThumbDownIcon />}
+                                            onClick={
+                                                this.handleDislikeButtonClick
+                                            }
+                                        >
+                                            Dislike
+                                        </Button>
+                                    </ButtonGroup>
+                                </div>
                             </div>
                         </div>
                     </div>
