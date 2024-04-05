@@ -17,32 +17,13 @@ If not, see <https://www.gnu.org/licenses/>.
 
 import React, { ReactElement } from 'react';
 import './ShelfCarousel.css';
-import { Button, Icon, Paper } from '@material-ui/core';
+import { Icon } from '@material-ui/core';
 import { Book } from '../types/Book';
 import { Component } from 'react';
 import { DID_NOT_FINISH, READ, READING, TO_READ } from '../routes';
 import { Link } from 'react-router-dom';
-import { LocationDescriptor, Location } from 'history';
-
-function ShelfBook(props: BookProps): JSX.Element {
-    const bookClass = 'book' + (props.img === '' ? '' : ' image');
-    const displayTitle =
-        props.title.length > 12
-            ? props.title.substring(0, 12) + '...'
-            : props.title;
-
-    return (
-        <Paper className={bookClass} variant="elevation" square={false}>
-            {bookClass !== 'book' && <div className="book-spine"></div>}
-            {displayTitle}
-        </Paper>
-    );
-}
-
-type BookProps = {
-    title: string;
-    img: string;
-};
+import { LocationDescriptor } from 'history';
+import ShelfBook from './ShelfBook';
 
 interface IShelfCarouselState {
     title: string;
@@ -153,7 +134,13 @@ export default class ShelfCarousel extends Component<
         const maxBooksToDisplay = Math.min(books.length, 6);
         for (let i = 0; i < maxBooksToDisplay; i++) {
             elements.push(
-                <ShelfBook key={i} title={books[i].title} img={books[i].img} />
+                <ShelfBook
+                    key={i}
+                    title={books[i].title}
+                    author={books[i].author.fullName}
+                    id={books[i].id}
+                    big={true}
+                />
             );
         }
         return elements;
@@ -169,7 +156,13 @@ export default class ShelfCarousel extends Component<
             }
             // eslint-disable-next-line max-len
             map.get(books[i].bookGenre).push(
-                <ShelfBook key={i} title={books[i].title} img={books[i].img} />
+                <ShelfBook
+                    key={i}
+                    title={books[i].title}
+                    author={books[i].author.fullName}
+                    id={books[i].id}
+                    big={true}
+                />
             );
         }
         return map;

@@ -80,9 +80,9 @@ export default class ShelfCarouselSingle extends Component<ShelfCarouselSinglePr
                 <ShelfBook
                     key={i}
                     title={books[i].title}
-                    img={books[i].img}
                     author={books[i].author.fullName}
                     id={books[i].id}
+                    big={false}
                 />
             );
         }

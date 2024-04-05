@@ -7,11 +7,10 @@ type BookProps = {
     id: string | number;
     title: string;
     author: string;
-    img: string;
+    big: boolean;
 };
 export default function ShelfBook(props: BookProps): JSX.Element {
-    const bookClass =
-        'book-single-carousel' + (props.img === '' ? '' : ' image');
+    const bookClass = props.big ? 'book' : 'book-single-carousel';
     const displayTitle =
         props.title.length > 12
             ? props.title.substring(0, 12) + '...'
@@ -21,10 +20,9 @@ export default function ShelfBook(props: BookProps): JSX.Element {
         <Link
             to={BOOK_OVERVIEW + '/' + props.id}
             style={{ textDecoration: 'none', color: 'black' }}
-            // key={props.title + props.author}
         >
             <Paper className={bookClass} variant="elevation" square={false}>
-                {bookClass !== 'book' && <div className="book-spine"></div>}
+                {<div className="book-spine"></div>}
                 {displayTitle}
             </Paper>
         </Link>
