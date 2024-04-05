@@ -26,19 +26,19 @@ import { Genres } from '../shared/types/Genres';
 import { Book } from '../shared/types/Book';
 import HttpClient from '../shared/http/HttpClient';
 import Endpoints from '../shared/api/endpoints';
-import './Read.css';
+import './DidNotFinish.css';
 import { FormControl, InputLabel, Select } from '@material-ui/core';
 import ShelfCarouselSingle from '../shared/book-display/ShelfCarouselSingle';
 interface IState {
     showShelfModal: boolean;
     showListView: boolean;
     bookList: Book[];
-    readBooks: Book[];
+    didNotFinishBooks: Book[];
     searchVal: string;
     genre: string;
 }
 
-class Read extends Component<Record<string, unknown>, IState> {
+class DidNotFinish extends Component<Record<string, unknown>, IState> {
     constructor(props: Record<string, unknown>) {
         super(props);
         this.state = {
@@ -46,19 +46,19 @@ class Read extends Component<Record<string, unknown>, IState> {
             showListView: false,
             genre: '',
             bookList: [],
-            readBooks: [],
+            didNotFinishBooks: [],
             searchVal: ''
         };
         this.onAddShelf = this.onAddShelf.bind(this);
         this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
         this.onToggleListView = this.onToggleListView.bind(this);
         this.getBooks = this.getBooks.bind(this);
-        this.readBooks = this.readBooks.bind(this);
+        this.didNotFinishBooks = this.didNotFinishBooks.bind(this);
         this.handleGenreChange = this.handleGenreChange.bind(this);
     }
     componentDidMount(): void {
         this.getBooks();
-        this.readBooks();
+        this.didNotFinishBooks();
         this.trackCurrentDeviceSize();
         this.setState({ genre: '' });
     }
@@ -70,13 +70,13 @@ class Read extends Component<Record<string, unknown>, IState> {
         );
     });
 
-    readBooks(): void {
-        HttpClient.get(Endpoints.read)
-            .then((readBooks: Book[]) => {
+    didNotFinishBooks(): void {
+        HttpClient.get(Endpoints.didNotFinish)
+            .then((didNotFinishBooks: Book[]) => {
                 this.setState((state) => ({
-                    readBooks: Array.isArray(readBooks)
-                        ? readBooks
-                        : state.readBooks
+                    didNotFinishBooks: Array.isArray(didNotFinishBooks)
+                        ? didNotFinishBooks
+                        : state.didNotFinishBooks
                 }));
             })
             .catch((error: Record<string, string>) => {
@@ -133,7 +133,7 @@ class Read extends Component<Record<string, unknown>, IState> {
     render(): ReactElement {
         return (
             <Layout
-                title="Read"
+                title="Did Not Finish"
                 btn={
                     <div className="my-book-top-buttons">
                         <FormControl variant="filled" className="">
@@ -172,12 +172,12 @@ class Read extends Component<Record<string, unknown>, IState> {
                                 this.state.bookList.length +
                                 this.state.searchVal
                             }
-                            bookListData={this.state.readBooks}
+                            bookListData={this.state.didNotFinishBooks}
                             searchText={this.state.searchVal}
                         />
                     ) : (
                         <ShelfCarouselSingle
-                            books={this.state.readBooks}
+                            books={this.state.didNotFinishBooks}
                             genre={this.state.genre}
                         />
                     )}
@@ -195,4 +195,4 @@ class Read extends Component<Record<string, unknown>, IState> {
         );
     }
 }
-export default Read;
+export default DidNotFinish;
