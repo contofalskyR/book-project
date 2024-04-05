@@ -17,9 +17,12 @@ If not, see <https://www.gnu.org/licenses/>.
 
 import React, { ReactElement } from 'react';
 import './ShelfCarousel.css';
-import { Icon, Paper } from '@material-ui/core';
+import { Button, Icon, Paper } from '@material-ui/core';
 import { Book } from '../types/Book';
 import { Component } from 'react';
+import { DID_NOT_FINISH, READ, READING, TO_READ } from '../routes';
+import { Link } from 'react-router-dom';
+import { LocationDescriptor, Location } from 'history';
 
 function ShelfBook(props: BookProps): JSX.Element {
     const bookClass = 'book' + (props.img === '' ? '' : ' image');
@@ -115,10 +118,22 @@ export default class ShelfCarousel extends Component<
         //     </div>
         //     )
         // })
+        let link: LocationDescriptor<unknown> = {};
+        if (this.state.title == 'Reading') {
+            link = READING;
+        } else if (this.state.title == 'To Read') {
+            link = TO_READ;
+        } else if (this.state.title == 'Read') {
+            link = READ;
+        } else if (this.state.title == 'Did not finish') {
+            link = DID_NOT_FINISH;
+        }
         return (
             <div className="shelf-container">
                 <span className="shelf-title">{this.state.title}</span>
-                <span className="view-all">View All</span>
+                <Link to={link} style={{ textDecoration: 'none' }}>
+                    <span className="view-all">View All</span>
+                </Link>
                 <div className="clear" />
                 <div className="books-and-shelf">
                     <div className="book-wrap">
