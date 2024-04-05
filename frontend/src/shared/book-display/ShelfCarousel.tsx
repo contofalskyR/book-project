@@ -147,7 +147,6 @@ export default class ShelfCarousel extends Component<
     }
     renderShelfBookByGenre(books: Book[]): Map<string, Array<ReactElement>> {
         const elements = Array<ReactElement>();
-        // TODO: make it scrollable and contain more boosk
         const maxBooksToDisplay = Math.min(books.length, 6);
         const map = new Map(); // book genres to list of shelfbooks
         for (let i = 0; i < maxBooksToDisplay; i++) {
