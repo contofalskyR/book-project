@@ -50,6 +50,7 @@ import { ApolloProvider } from '@apollo/client';
 import { apolloClient } from './shared/http/HttpClient';
 import Reading from './reading/Reading';
 import ToRead from './to-read/ToRead';
+import Read from './read/Read';
 
 function App(): ReactElement | JSX.Element {
     const [theme, setTheme] = useState(lightTheme);
@@ -73,7 +74,7 @@ function App(): ReactElement | JSX.Element {
                     <Route path={SEARCH} component={Search} />
                     <Route path={READING} component={Reading} />
                     <Route path={TO_READ} component={ToRead} />
-                    <Route path={READ} component={Reading} />
+                    <Route path={READ} component={Read} />
                     <Route path={DID_NOT_FINISH} component={Reading} />
                     <Route
                         path={SETTINGS}
