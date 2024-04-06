@@ -255,11 +255,6 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                     open={this.state.showShelfModal}
                     onClose={this.onAddShelfModalClose}
                 />
-                {/* <div className="my-book-switch-container">
-                    <div className="toggle-text">Shelf View</div>
-                    <Switch onClick={this.onToggleListView} />
-                    <div className="toggle-text">List View</div>
-                </div> */}
             </Layout>
         );
     }
