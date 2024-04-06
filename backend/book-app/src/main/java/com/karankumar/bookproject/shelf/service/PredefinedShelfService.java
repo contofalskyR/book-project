@@ -33,6 +33,7 @@ import static com.karankumar.bookproject.util.TestData.generateBooks;
 import static com.karankumar.bookproject.util.TestData.generateListOfTags;
 import static com.karankumar.bookproject.util.TestData.generatePublishers;
 import static com.karankumar.bookproject.util.TestData.setPredefinedShelfForBooks;
+import java.util.logging.Level;
 
 @Service
 @Log
@@ -263,5 +264,15 @@ public class PredefinedShelfService {
       default:
         return Optional.empty();
     }
+  }
+
+  public void addBookToPredefinedShelfByNameAsString(PredefinedShelf.ShelfName shelfName, Long book_id) {
+    Optional<Book> book = bookRepository.findBookById(book_id);
+    Optional<PredefinedShelf> shelf = predefinedShelfRepository.findByPredefinedShelfNameAndUser(
+        shelfName, userService.getCurrentUser());
+    LOGGER.log(
+        Level.INFO,
+        "ADDING" + book.get().getTitle() + " TO " + shelf.get().getPredefinedShelfName());
+    book.get().addPredefinedShelf(shelf.get());
   }
 }
