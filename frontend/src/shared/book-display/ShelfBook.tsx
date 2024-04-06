@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BOOK_OVERVIEW } from '../routes';
-import { Paper } from '@material-ui/core';
+import { Paper, Tooltip } from '@material-ui/core';
 
 type BookProps = {
     id: string | number;
@@ -15,15 +15,19 @@ export default function ShelfBook(props: BookProps): JSX.Element {
         props.title.length > 12
             ? props.title.substring(0, 12) + '...'
             : props.title;
+    console.log('Holy buckets!');
+
     return (
         <Link
             to={BOOK_OVERVIEW + '/' + props.id}
             style={{ textDecoration: 'none', color: 'black' }}
         >
-            <Paper className={bookClass} variant="elevation" square={false}>
-                {<div className="book-spine"></div>}
-                {displayTitle}
-            </Paper>
+            <Tooltip title={props.title} arrow>
+                <Paper className={bookClass} variant="elevation" square={false}>
+                    {<div className="book-spine"></div>}
+                    {displayTitle}
+                </Paper>
+            </Tooltip>
         </Link>
     );
 }
