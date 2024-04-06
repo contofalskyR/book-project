@@ -24,6 +24,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import static com.karankumar.bookproject.shelf.model.PredefinedShelf.ShelfName.DID_NOT_FINISH;
 import static com.karankumar.bookproject.shelf.model.PredefinedShelf.ShelfName.READ;
 import static com.karankumar.bookproject.shelf.model.PredefinedShelf.ShelfName.READING;
@@ -165,7 +167,8 @@ public class PredefinedShelfService {
 
   private void setShelfForEveryBookInBookRepository() {
     List<PredefinedShelf> shelves = predefinedShelfRepository.findAll();
-    List<Book> books = setPredefinedShelfForBooks(bookRepository.findAll(), shelves);
+    Pageable pageable = PageRequest.of(0, 20);
+    List<Book> books = setPredefinedShelfForBooks(bookRepository.findAllBooks(pageable), shelves);
     bookRepository.saveAll(books);
   }
 
@@ -272,7 +275,7 @@ public class PredefinedShelfService {
         shelfName, userService.getCurrentUser());
     LOGGER.log(
         Level.INFO,
-        "ADDING" + book.get().getTitle() + " TO " + shelf.get().getPredefinedShelfName());
+        "ADDING" + book.get().getTitle() + " TO " + shelf.get().getPredefinedShelfName() + "STEPPA PIG");
     book.get().addPredefinedShelf(shelf.get());
   }
 }
