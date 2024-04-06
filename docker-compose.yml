@@ -47,4 +47,3 @@ services:
       - POSTGRES_PORT=5433
     depends_on:
       - db
-
