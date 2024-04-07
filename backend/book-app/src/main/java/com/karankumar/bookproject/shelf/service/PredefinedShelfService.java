@@ -156,6 +156,7 @@ public class PredefinedShelfService {
     return predefinedShelfRepository.saveAll(createPredefinedShelves(user));
   }
 
+  // this function is called first
   private void populateBookRepository(List<PredefinedShelf> predefinedShelves) {
     bookRepository.saveAll(
         generateBooks(
@@ -165,6 +166,7 @@ public class PredefinedShelfService {
             publisherRepository.findAll()));
   }
 
+  // this function is called second
   private void setShelfForEveryBookInBookRepository() {
     List<PredefinedShelf> shelves = predefinedShelfRepository.findAll();
     Pageable pageable = PageRequest.of(0, 20);

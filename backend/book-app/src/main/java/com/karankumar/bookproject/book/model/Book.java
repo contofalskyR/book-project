@@ -152,6 +152,13 @@ public class Book {
   }
 
   public Book(
+      String title, Author author, Set<Publisher> publishers) {
+    this.title = title;
+    this.author = author;
+    this.publishers = publishers;
+  }
+
+  public Book(
       String title, Author author, PredefinedShelf predefinedShelf, Set<Publisher> publishers) {
     this.title = title;
     this.author = author;
