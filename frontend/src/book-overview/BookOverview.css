@@ -14,6 +14,7 @@ PURPOSE.  See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program.
 If not, see <https://www.gnu.org/licenses/>.
 */
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
 
 .book-image {
   width: var(--book-overview-width) !important;
@@ -23,7 +24,12 @@ If not, see <https://www.gnu.org/licenses/>.
   margin-right: 30px;
 }
 
+.pageContent {
+  font-family: 'Kumbh Sans', sans-serif;
+}
+
 .pageHeader {
+
   margin-top: 20px;
   align-items: unset;
 }
@@ -53,7 +59,7 @@ If not, see <https://www.gnu.org/licenses/>.
 }
 
 .submit-review {
-  font-size: 12px;
+  font-size: 14px;
   text-decoration: none;
   cursor: pointer;
 }
@@ -68,4 +74,8 @@ If not, see <https://www.gnu.org/licenses/>.
   color: white;
   background-color:  #1C4A45;
 
+}
+
+.row.book-details.justify-content-center {
+  font-family: 'Kumbh Sans', sans-serif;
 }
