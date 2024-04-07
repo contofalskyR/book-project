@@ -77,8 +77,7 @@ public class ShelfController {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, NULL_OR_EMPTY_SHELF_NAME);
     }
 
-    Optional<UserCreatedShelf> shelfOptional =
-        userCreatedShelfService.findByShelfNameAndLoggedInUser(shelfName);
+    Optional<UserCreatedShelf> shelfOptional = userCreatedShelfService.findByShelfNameAndLoggedInUser(shelfName);
 
     if (shelfOptional.isEmpty()) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, SHELF_NOT_FOUND_MESSAGE);
@@ -95,8 +94,7 @@ public class ShelfController {
       return ResponseEntity.badRequest().body(NULL_OR_EMPTY_SHELF_NAME);
     }
 
-    Optional<UserCreatedShelf> shelfOptional =
-        userCreatedShelfService.findByShelfNameAndLoggedInUser(shelfName);
+    Optional<UserCreatedShelf> shelfOptional = userCreatedShelfService.findByShelfNameAndLoggedInUser(shelfName);
     if (shelfOptional.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(SHELF_NOT_FOUND_MESSAGE);
     }
