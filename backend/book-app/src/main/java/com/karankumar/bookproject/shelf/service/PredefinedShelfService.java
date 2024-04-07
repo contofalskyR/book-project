@@ -173,6 +173,9 @@ public class PredefinedShelfService {
   private void setShelfBooks(int numberOfBooks, List<PredefinedShelf> shelves) {
     Pageable pageable = PageRequest.of(0, numberOfBooks);
     List<Book> books = setPredefinedShelfForBooks(bookRepository.findAllBooks(pageable), shelves);
+    LOGGER.log(
+        Level.INFO,
+        "ADDING books to predfeined shelves!!" + "WORK");
     bookRepository.saveAll(books);
   }
 
