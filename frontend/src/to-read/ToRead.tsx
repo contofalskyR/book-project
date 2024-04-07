@@ -47,8 +47,8 @@ class ToRead extends Component<Record<string, unknown>, IState> {
             toReadBooks: [],
             searchVal: ''
         };
-        this.onAddShelf = this.onAddShelf.bind(this);
-        this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
+        this.onAddBook = this.onAddBook.bind(this);
+        this.onAddBookModalClose = this.onAddBookModalClose.bind(this);
         this.onToggleListView = this.onToggleListView.bind(this);
         this.toReadBooks = this.toReadBooks.bind(this);
         this.handleGenreChange = this.handleGenreChange.bind(this);
@@ -80,7 +80,7 @@ class ToRead extends Component<Record<string, unknown>, IState> {
             });
     }
 
-    onAddShelf(): void {
+    onAddBook(): void {
         this.setState({
             showShelfModal: true
         });
@@ -97,7 +97,7 @@ class ToRead extends Component<Record<string, unknown>, IState> {
         return;
     }
 
-    onAddShelfModalClose(): void {
+    onAddBookModalClose(): void {
         this.setState({
             showShelfModal: false
         });
@@ -142,6 +142,7 @@ class ToRead extends Component<Record<string, unknown>, IState> {
                             className="tempButton"
                             color="primary"
                             disableElevation
+                            onClick={this.onAddBook}
                         >
                             Add Book
                         </Button>
@@ -168,7 +169,7 @@ class ToRead extends Component<Record<string, unknown>, IState> {
                 </div>
                 <AddBookModal
                     open={this.state.showShelfModal}
-                    onClose={this.onAddShelfModalClose}
+                    onClose={this.onAddBookModalClose}
                 />
                 <div className="my-book-switch-container">
                     <div className="toggle-text">Shelf View</div>

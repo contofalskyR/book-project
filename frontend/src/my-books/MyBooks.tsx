@@ -52,7 +52,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
             searchVal: ''
         };
         this.onAddBook = this.onAddBook.bind(this);
-        this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
+        this.onAddBookModalClose = this.onAddBookModalClose.bind(this);
         this.onToggleListView = this.onToggleListView.bind(this);
         this.getDidNotFinishBooks = this.getDidNotFinishBooks.bind(this);
         this.toReadBooks = this.toReadBooks.bind(this);
@@ -149,7 +149,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
         return;
     }
 
-    onAddShelfModalClose(): void {
+    onAddBookModalClose(): void {
         this.setState({
             showShelfModal: false
         });
@@ -225,7 +225,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                 </div>
                 <AddBookModal
                     open={this.state.showShelfModal}
-                    onClose={this.onAddShelfModalClose}
+                    onClose={this.onAddBookModalClose}
                 />
             </Layout>
         );
