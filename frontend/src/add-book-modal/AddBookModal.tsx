@@ -74,6 +74,11 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
             });
     };
 
+    handleBookSelection = (bookId: number | string) => {
+        // Handle the selected book title in the parent component
+        console.log('Selected book title in AddBookModal:', bookId);
+    };
+
     render(): JSX.Element {
         return (
             <div>
@@ -81,35 +86,9 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
                     <div className="shelf-modal-container">
                         <div className="modal-content">
                             <div className="modal-title">Add Book</div>
-                            {/* <div className="shelf-modal-desc-container">
-                                <Hidden smDown implementation="css">
-                                    <div className="shelf-modal-desc-items">
-                                        <p>Book name</p>
-                                        <TextField
-                                            className="shelfInput"
-                                            size="small"
-                                            id="outlined-basic"
-                                            variant="outlined"
-                                            value={this.state.name}
-                                            onChange={this.handleChange}
-                                        />
-                                    </div>
-                                </Hidden>
-                                <Hidden mdUp implementation="css">
-                                    <div className="shelf-modal-desc-items">
-                                        <TextField
-                                            className="shelfInput"
-                                            size="small"
-                                            id="name"
-                                            variant="outlined"
-                                            label="shelf name"
-                                            value={this.state.name}
-                                            onChange={this.handleChange}
-                                        />
-                                    </div>
-                                </Hidden>
-                            </div> */}
-                            <AddBookSearch />
+                            <AddBookSearch
+                                handleBookSelection={this.handleBookSelection}
+                            />
                         </div>
                         <div className="modal-form-spacer" />
 

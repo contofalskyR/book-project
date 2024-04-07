@@ -19,8 +19,10 @@ import React, { useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import AddBookSearchResults from './AddBookSearchResults';
 import './AddBookSearch.css';
-
-export default function AddBookSearch(): JSX.Element {
+interface AddBookSearchProps {
+    handleBookSelection: (bookId: number | string) => void;
+}
+export default function AddBookSearch(props: AddBookSearchProps): JSX.Element {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -32,6 +34,11 @@ export default function AddBookSearch(): JSX.Element {
     function onSearchBooks(e: React.SyntheticEvent) {
         e.preventDefault();
         setSearchQuery(searchTerm);
+    }
+    function handleBookSelection(bookId: number | string) {
+        // Handle the selected book title in the parent component
+        console.log('Selected book title in AddBookSearch:', bookId);
+        props.handleBookSelection(bookId);
     }
 
     return (
@@ -53,7 +60,10 @@ export default function AddBookSearch(): JSX.Element {
                 </button>
             </form>
             <div>
-                <AddBookSearchResults query={searchQuery} />
+                <AddBookSearchResults
+                    query={searchQuery}
+                    handleBookSelection={handleBookSelection}
+                />
             </div>
         </div>
     );

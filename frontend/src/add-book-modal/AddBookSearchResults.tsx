@@ -23,6 +23,7 @@ import AddBookList from './AddBookList';
 
 interface ISearchResultProps {
     query: string;
+    handleBookSelection: (bookId: number | string) => void;
 }
 
 export default function AddBookSearchResults(
@@ -50,10 +51,19 @@ export default function AddBookSearchResults(
         return <p>error! please try again!</p>;
     }
 
+    const handleBookSelection = (bookId: number | string) => {
+        // Handle the selected book title in the parent component
+        console.log('Selected book title in addbooksearchResults:', bookId);
+        props.handleBookSelection(bookId);
+    };
     return (
         <div className="query-results-container">
             {results.length > 0 ? (
-                <AddBookList bookListData={results} searchText=""></AddBookList>
+                <AddBookList
+                    bookListData={results}
+                    searchText=""
+                    handleBookSelection={handleBookSelection}
+                ></AddBookList>
             ) : (
                 <p>No books found</p>
             )}

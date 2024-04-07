@@ -29,6 +29,7 @@ const CHAR_LIMIT = 40;
 interface BookListProps {
     bookListData: Book[];
     searchText: string;
+    handleBookSelection: (bookId: number | string) => void;
 }
 interface BookListState {
     bookListData: Book[];
@@ -115,9 +116,10 @@ export default class AddBookList extends Component<
         this.setState(this.state);
     };
 
-    handleBookSelection = (bookTitle: number | string) => {
+    handleBookSelection = (bookId: number | string) => {
         // Handle the selected book title in the parent component
-        console.log('Selected book title:', bookTitle);
+        console.log('Selected book title in addbooklist:', bookId);
+        this.props.handleBookSelection(bookId);
     };
 
     render(): JSX.Element {
