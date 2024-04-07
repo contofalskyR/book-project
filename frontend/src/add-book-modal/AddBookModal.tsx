@@ -24,6 +24,7 @@ import './AddBookModal.css';
 import Hidden from '@material-ui/core/Hidden';
 import HttpClient from '../shared/http/HttpClient';
 import Endpoints from '../shared/api/endpoints';
+import AddBookSearch from './AddBookSearch';
 
 type MyState = {
     name: string;
@@ -108,6 +109,7 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
                                     </div>
                                 </Hidden>
                             </div>
+                            <AddBookSearch />
                         </div>
                         <div className="modal-form-spacer" />
 
