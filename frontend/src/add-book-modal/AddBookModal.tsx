@@ -53,15 +53,16 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
 
     submitBook = (event: React.MouseEvent<HTMLButtonElement>): void => {
         event.preventDefault();
-        const shelfName = this.state.name;
+        const bookId = this.state.bookId;
+        const body = { predefinedShelf: 'test' };
         console.log('BOOK ID: ' + this.state.bookId);
 
-        HttpClient.post(Endpoints.shelf, shelfName)
+        HttpClient.patch(Endpoints.books, bookId as string, body)
             .then(() => {
                 this.setState({
                     showError: false,
                     showInfo: true,
-                    msg: 'Shelf saved successfully'
+                    msg: 'Book saved successfully'
                 });
             })
             .catch((error: Record<string, string>) => {

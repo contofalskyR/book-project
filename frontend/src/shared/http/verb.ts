@@ -16,10 +16,11 @@ If not, see <https://www.gnu.org/licenses/>.
 */
 
 enum Verb {
-    GET = "GET",
-    POST = "POST",
-    PUT = "PUT",
-    DELETE = "DELETE"
+    GET = 'GET',
+    POST = 'POST',
+    PUT = 'PUT',
+    DELETE = 'DELETE',
+    PATCH = 'PATCH'
 }
 
-export default Verb
+export default Verb;
