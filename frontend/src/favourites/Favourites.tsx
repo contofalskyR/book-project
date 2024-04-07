@@ -170,6 +170,7 @@ class Favourites extends Component<Record<string, unknown>, IState> {
                 <AddBookModal
                     open={this.state.showShelfModal}
                     onClose={this.onAddShelfModalClose}
+                    shelfname="FAVOURITES"
                 />
                 <div className="my-book-switch-container">
                     <div className="toggle-text">Shelf View</div>

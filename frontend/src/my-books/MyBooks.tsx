@@ -189,14 +189,14 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                                 {this.genresList}
                             </Select>
                         </FormControl>
-                        <Button
+                        {/* <Button
                             onClick={this.onAddBook}
                             variant="contained"
                             color="primary"
                             disableElevation
                         >
                             Add Book
-                        </Button>
+                        </Button> */}
                     </div>
                 }
             >
@@ -223,10 +223,10 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                         />
                     }
                 </div>
-                <AddBookModal
+                {/* <AddBookModal
                     open={this.state.showShelfModal}
                     onClose={this.onAddBookModalClose}
-                />
+                /> */}
             </Layout>
         );
     }

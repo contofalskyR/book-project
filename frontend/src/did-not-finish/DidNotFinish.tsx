@@ -170,6 +170,7 @@ class DidNotFinish extends Component<Record<string, unknown>, IState> {
                 <AddBookModal
                     open={this.state.showShelfModal}
                     onClose={this.onAddBookModalClose}
+                    shelfname="DID_NOT_FINISH"
                 />
                 <div className="my-book-switch-container">
                     <div className="toggle-text">Shelf View</div>

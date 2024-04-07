@@ -33,7 +33,10 @@ type MyState = {
     msg: string;
     bookId: string | number;
 };
-export default class AddBookModal extends Component<IModalProps, MyState> {
+export default class AddBookModal extends Component<
+    IModalProps & { shelfname: string },
+    MyState
+> {
     constructor(props: never) {
         super(props);
         this.state = {
@@ -54,7 +57,7 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
     submitBook = (event: React.MouseEvent<HTMLButtonElement>): void => {
         event.preventDefault();
         const bookId = this.state.bookId;
-        const body = { predefinedShelf: 'test' };
+        const body = { predefinedShelf: this.props.shelfname };
         console.log('BOOK ID: ' + this.state.bookId);
 
         HttpClient.patch(Endpoints.books, bookId as string, body)

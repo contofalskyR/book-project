@@ -25,8 +25,8 @@ function getModalStyle() {
     return {
         top: `${top}%`,
         left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-    }
+        transform: `translate(-${top}%, -${left}%)`
+    };
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -38,16 +38,16 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.paper,
             boxShadow: theme.shadows[5],
             borderRadius: 40,
-            padding: theme.spacing(2, 6, 3),
-        },
-    }),
+            padding: theme.spacing(2, 6, 3)
+        }
+    })
 );
 
 export interface IModalProps {
-    open: boolean,
-    onClose?: () => void,
-    onPasswordResetClicked?: () => void,
-    children?: JSX.Element,
+    open: boolean;
+    onClose?: () => void;
+    onPasswordResetClicked?: () => void;
+    children?: JSX.Element;
 }
 
 export default function Modal(props: IModalProps): JSX.Element {
@@ -67,4 +67,3 @@ export default function Modal(props: IModalProps): JSX.Element {
         </MaterialModal>
     );
 }
-

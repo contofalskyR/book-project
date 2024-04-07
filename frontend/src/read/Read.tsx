@@ -170,6 +170,7 @@ class Read extends Component<Record<string, unknown>, IState> {
                 <AddBookModal
                     open={this.state.showShelfModal}
                     onClose={this.onAddBookModalClose}
+                    shelfname="READ"
                 />
                 <div className="my-book-switch-container">
                     <div className="toggle-text">Shelf View</div>
