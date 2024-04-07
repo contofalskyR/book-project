@@ -31,6 +31,7 @@ type MyState = {
     showError: boolean;
     showInfo: boolean;
     msg: string;
+    bookId: string | number;
 };
 export default class AddBookModal extends Component<IModalProps, MyState> {
     constructor(props: never) {
@@ -39,9 +40,10 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
             name: '',
             showError: false,
             showInfo: false,
-            msg: ''
+            msg: '',
+            bookId: 0
         };
-        this.submitShelf = this.submitShelf.bind(this);
+        this.submitBook = this.submitBook.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -49,13 +51,11 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
         this.setState({ name: event.target.value });
     };
 
-    submitShelf = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    submitBook = (event: React.MouseEvent<HTMLButtonElement>): void => {
         event.preventDefault();
         const shelfName = this.state.name;
-        if (shelfName.length > 0 && shelfName.toString().length > 20) {
-            this.setState({ showError: true, msg: 'Shelf name is too long' });
-            return;
-        }
+        console.log('BOOK ID: ' + this.state.bookId);
+
         HttpClient.post(Endpoints.shelf, shelfName)
             .then(() => {
                 this.setState({
@@ -77,7 +77,13 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
     handleBookSelection = (bookId: number | string) => {
         // Handle the selected book title in the parent component
         console.log('Selected book title in AddBookModal:', bookId);
+        this.setState({ bookId });
     };
+
+    // Only re render if the value from the child has changed
+    // shouldComponentUpdate(nextProps: IModalProps, nextState: MyState) {
+    //     return nextState.bookId !== this.state.bookId;
+    // }
 
     render(): JSX.Element {
         return (
@@ -104,7 +110,7 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
                             <Button
                                 className="shelf-modal-button"
                                 variant="contained"
-                                onClick={this.submitShelf}
+                                onClick={this.submitBook}
                                 color="primary"
                                 disableElevation
                             >
