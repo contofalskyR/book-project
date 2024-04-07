@@ -20,6 +20,10 @@ import './NavBar.css';
 import {
     Book,
     Bookmarks,
+    CheckBox,
+    CheckBoxOutlineBlank,
+    CheckBoxOutlineBlankRounded,
+    CheckBoxOutlined,
     CollectionsBookmark,
     ExitToApp,
     Favorite,
@@ -51,6 +55,7 @@ import { useTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { Checkbox } from '@material-ui/core';
 
 const useStyles = makeStyles({
     button: {
@@ -113,7 +118,11 @@ export function NavBar(): JSX.Element {
                         itemText={'To Read'}
                         goTo={TO_READ}
                     />
-                    <NavItem icon={<Book />} itemText={'Read'} goTo={READ} />
+                      <NavItem
+                        icon={<CheckBoxOutlined />}
+                        itemText={'Read'}
+                        goTo={DID_NOT_FINISH}
+                    />
                     <NavItem
                         icon={<Book />}
                         itemText={'Did Not Finish'}

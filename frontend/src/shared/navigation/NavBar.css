@@ -76,7 +76,7 @@ hr {
 .nav-item {
     background-color: #235C56;
     border-radius: 4px;
-    padding-left: 32px;
+    padding-left: 25px;
     margin-right: 15px;
     margin-left: 15px;
     margin-bottom: 15px;
@@ -91,4 +91,3 @@ hr {
     position: relative;
     top: -4px;
 }
-
