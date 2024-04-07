@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS book (
     date_started_reading  DATE,
     edition               VARCHAR(255),
     book_genre            INTEGER,
+    summary               TEXT,
     number_of_pages       INTEGER,
     pages_read            INTEGER,
     predefined_shelf_id   BIGINT,

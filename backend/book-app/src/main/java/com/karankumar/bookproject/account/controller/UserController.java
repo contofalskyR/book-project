@@ -48,7 +48,9 @@ import javax.mail.MessagingException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -98,21 +100,21 @@ public class UserController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<Object> register(@RequestBody UserToRegisterDto user) {
+    Map<String, String> responseBody = new HashMap<>();
     try {
       userService.register(user);
 
-      emailService.sendMessageUsingThymeleafTemplate(
-          user.getUsername(),
-          EmailConstant.ACCOUNT_CREATED_SUBJECT,
-          EmailTemplate.getAccountCreatedEmailTemplate(
-              emailService.getUsernameFromEmail(user.getUsername())));
-
-      return ResponseEntity.status(HttpStatus.OK).body("User created");
+      // emailService.sendMessageUsingThymeleafTemplate(
+      // user.getUsername(),
+      // EmailConstant.ACCOUNT_CREATED_SUBJECT,
+      // EmailTemplate.getAccountCreatedEmailTemplate(
+      // emailService.getUsernameFromEmail(user.getUsername())));
+      responseBody.put("data", "User created");
+      return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     } catch (UserAlreadyRegisteredException e) {
+      responseBody.put("error", "That email address is taken. If you already have an account, you can try logging in.");
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(
-              "That email address is taken. If you already have an account, "
-                  + "you can try logging in.");
+          .body(responseBody);
     } catch (ConstraintViolationException ex) {
       Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();
       List<String> errors = new ArrayList<>();
@@ -120,9 +122,6 @@ public class UserController {
         errors.add(v.getMessage());
       }
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-    } catch (MessagingException e) {
-      LOGGER.error(e.getMessage());
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
   }
 

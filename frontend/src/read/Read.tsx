@@ -19,7 +19,7 @@ import React, { Component, ReactElement } from 'react';
 import { NavBar } from '../shared/navigation/NavBar';
 import Switch from '../settings/Switch';
 import Button from '@material-ui/core/Button';
-import ShelfModal from '../my-books/ShelfModal';
+import AddBookModal from '../my-books/AddBookModal';
 import { Layout } from '../shared/components/Layout';
 import BookList from '../shared/book-display/BookList';
 import { Genres } from '../shared/types/Genres';
@@ -47,8 +47,8 @@ class Read extends Component<Record<string, unknown>, IState> {
             readBooks: [],
             searchVal: ''
         };
-        this.onAddShelf = this.onAddShelf.bind(this);
-        this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
+        this.onAddBook = this.onAddBook.bind(this);
+        this.onAddBookModalClose = this.onAddBookModalClose.bind(this);
         this.onToggleListView = this.onToggleListView.bind(this);
         this.readBooks = this.readBooks.bind(this);
         this.handleGenreChange = this.handleGenreChange.bind(this);
@@ -80,7 +80,7 @@ class Read extends Component<Record<string, unknown>, IState> {
             });
     }
 
-    onAddShelf(): void {
+    onAddBook(): void {
         this.setState({
             showShelfModal: true
         });
@@ -97,7 +97,7 @@ class Read extends Component<Record<string, unknown>, IState> {
         return;
     }
 
-    onAddShelfModalClose(): void {
+    onAddBookModalClose(): void {
         this.setState({
             showShelfModal: false
         });
@@ -142,6 +142,7 @@ class Read extends Component<Record<string, unknown>, IState> {
                             className="tempButton"
                             color="primary"
                             disableElevation
+                            onClick={this.onAddBook}
                         >
                             Add Book
                         </Button>
@@ -166,9 +167,9 @@ class Read extends Component<Record<string, unknown>, IState> {
                         />
                     )}
                 </div>
-                <ShelfModal
+                <AddBookModal
                     open={this.state.showShelfModal}
-                    onClose={this.onAddShelfModalClose}
+                    onClose={this.onAddBookModalClose}
                 />
                 <div className="my-book-switch-container">
                     <div className="toggle-text">Shelf View</div>

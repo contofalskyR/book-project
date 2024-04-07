@@ -10,6 +10,7 @@ export type Book = {
         shelfName: string;
     };
     bookGenre: string;
+    summary: string;
     numberOfPages: number;
     rating: number;
 };

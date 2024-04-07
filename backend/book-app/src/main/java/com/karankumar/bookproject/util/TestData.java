@@ -60,9 +60,8 @@ public final class TestData {
   public static List<Book> generateBooks(
       List<Author> authors,
       List<Tag> tags,
-      List<PredefinedShelf> predefinedShelves,
       List<Publisher> publishers) {
-    return MockData.BOOK_TITLES.stream().map(title -> createBook(authors, title, tags, predefinedShelves, publishers))
+    return MockData.BOOK_TITLES.stream().map(title -> createBook(authors, title, tags, publishers))
         .collect(Collectors.toList());
   }
 
@@ -81,13 +80,12 @@ public final class TestData {
       List<Author> authors,
       String title,
       List<Tag> tags,
-      List<PredefinedShelf> predefinedShelves,
       List<Publisher> publishers) {
     Book book = new Book(
         title,
         generateRandomAuthor(authors),
-        generateRandomPredefinedShelf(predefinedShelves),
-        generateRandomPublishers(publishers));
+        generateRandomPublishers(publishers),
+        getRandomBookSummary());
 
     book.setBookGenre(generateRandomGenre());
     book.setBookRecommendedBy(generateRandomRecommender());
@@ -100,6 +98,10 @@ public final class TestData {
     book.setPublishers(generateRandomPublishers(publishers));
 
     return book;
+  }
+
+  private static String getRandomBookSummary() {
+    return MockData.SUMMARIES.get(threadLocalRandom.nextInt(MockData.SUMMARIES.size()));
   }
 
   private static Author generateRandomAuthor(List<Author> authors) {
@@ -131,7 +133,7 @@ public final class TestData {
 
   public static PredefinedShelf generateRandomPredefinedShelf(
       List<PredefinedShelf> predefinedShelves) {
-      return predefinedShelves.get(threadLocalRandom.nextInt(predefinedShelves.size()));
+    return predefinedShelves.get(threadLocalRandom.nextInt(predefinedShelves.size()));
   }
 
   public static int generateRandomPublicationYear() {
@@ -157,6 +159,7 @@ public final class TestData {
           book.setRating(RatingScale.NO_RATING);
           break;
         case READ:
+        case FAVOURITES:
           book.setRating(
               RatingScale.values()[threadLocalRandom.nextInt(RatingScale.values().length)]);
           book.setDateStartedReading(LocalDate.now().minusDays(2));

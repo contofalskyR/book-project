@@ -39,13 +39,13 @@ export default function Search(): JSX.Element {
         <Layout title="Search">
             <form className="search-container">
                 <label htmlFor="book-search" className="visually-hidden">
-                    Search for a book title, author or ISBN #
+                    Search for a book title or author
                 </label>
                 <input
                     type="search"
                     className="search-input"
                     id="search"
-                    placeholder="Search for book title, author or ISBN 13"
+                    placeholder="Search for book title, author"
                     value={searchTerm}
                     onChange={handleChange}
                 />

@@ -104,10 +104,18 @@ export function NavBar(): JSX.Element {
                 </div>
                 <div className="nav-links" id="nav-links-top">
                     <NavItem
+                        icon={<SearchIcon />}
+                        itemText={'Search'}
+                        goTo={SEARCH}
+                    />
+                    <NavItem
                         icon={<CollectionsBookmark />}
                         itemText={'My Books'}
                         goTo={MY_BOOKS}
                     />
+
+                    <br />
+
                     <NavItem
                         icon={<MenuBook />}
                         itemText={'Reading Now'}
@@ -118,10 +126,10 @@ export function NavBar(): JSX.Element {
                         itemText={'To Read'}
                         goTo={TO_READ}
                     />
-                      <NavItem
+                    <NavItem
                         icon={<CheckBoxOutlined />}
                         itemText={'Read'}
-                        goTo={DID_NOT_FINISH}
+                        goTo={READ}
                     />
                     <NavItem
                         icon={<Book />}
@@ -131,11 +139,6 @@ export function NavBar(): JSX.Element {
 
                     <br />
 
-                    <NavItem
-                        icon={<SearchIcon />}
-                        itemText={'Search'}
-                        goTo={SEARCH}
-                    />
                     <NavItem
                         icon={<ThumbUp />}
                         itemText={'Recommendations'}

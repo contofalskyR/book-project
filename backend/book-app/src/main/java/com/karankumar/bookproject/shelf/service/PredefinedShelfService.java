@@ -24,6 +24,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import static com.karankumar.bookproject.shelf.model.PredefinedShelf.ShelfName.DID_NOT_FINISH;
 import static com.karankumar.bookproject.shelf.model.PredefinedShelf.ShelfName.READ;
 import static com.karankumar.bookproject.shelf.model.PredefinedShelf.ShelfName.READING;
@@ -33,6 +35,7 @@ import static com.karankumar.bookproject.util.TestData.generateBooks;
 import static com.karankumar.bookproject.util.TestData.generateListOfTags;
 import static com.karankumar.bookproject.util.TestData.generatePublishers;
 import static com.karankumar.bookproject.util.TestData.setPredefinedShelfForBooks;
+import java.util.logging.Level;
 
 @Service
 @Log
@@ -127,14 +130,18 @@ public class PredefinedShelfService {
       populatePublisherRepository();
     }
 
+    if (bookRepository.count() == 0) {
+      populateBookRepository();
+    }
+    // for each user, put a total of 20 books into their predefined shelves
+    // distributed randomly
     for (User user : userService.findAll()) {
       if (predefinedShelfRepository.countAllByUser(user) == 0) {
         List<PredefinedShelf> predefinedShelves = populateShelfRepository(user);
-        populateBookRepository(predefinedShelves);
+        setShelfBooks(20, predefinedShelves);
       }
     }
 
-    setShelfForEveryBookInBookRepository();
   }
 
   private void populateAuthorRepository() {
@@ -153,18 +160,22 @@ public class PredefinedShelfService {
     return predefinedShelfRepository.saveAll(createPredefinedShelves(user));
   }
 
-  private void populateBookRepository(List<PredefinedShelf> predefinedShelves) {
+  // populate the database with mock books
+  private void populateBookRepository() {
     bookRepository.saveAll(
         generateBooks(
             authorRepository.findAll(),
             tagRepository.findAll(),
-            predefinedShelves,
             publisherRepository.findAll()));
   }
 
-  private void setShelfForEveryBookInBookRepository() {
-    List<PredefinedShelf> shelves = predefinedShelfRepository.findAll();
-    List<Book> books = setPredefinedShelfForBooks(bookRepository.findAll(), shelves);
+  // put books into predefined shelves
+  private void setShelfBooks(int numberOfBooks, List<PredefinedShelf> shelves) {
+    Pageable pageable = PageRequest.of(0, numberOfBooks);
+    List<Book> books = setPredefinedShelfForBooks(bookRepository.findAllBooks(pageable), shelves);
+    LOGGER.log(
+        Level.INFO,
+        "ADDING books to predfeined shelves!!" + "WORK");
     bookRepository.saveAll(books);
   }
 
@@ -263,5 +274,15 @@ public class PredefinedShelfService {
       default:
         return Optional.empty();
     }
+  }
+
+  public void addBookToPredefinedShelfByNameAsString(PredefinedShelf.ShelfName shelfName, Long book_id) {
+    Optional<Book> book = bookRepository.findBookById(book_id);
+    Optional<PredefinedShelf> shelf = predefinedShelfRepository.findByPredefinedShelfNameAndUser(
+        shelfName, userService.getCurrentUser());
+    LOGGER.log(
+        Level.INFO,
+        "ADDING" + book.get().getTitle() + " TO " + shelf.get().getPredefinedShelfName() + "STEPPA PIG");
+    book.get().addPredefinedShelf(shelf.get());
   }
 }

@@ -30,7 +30,6 @@ import MuiAlert from '@material-ui/lab/Alert';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import StarIcon from '@material-ui/icons/Star';
-import StarOutlineIcon from '@material-ui/icons/StarOutline';
 interface Props {
     history: History;
     match: {
@@ -61,6 +60,7 @@ class BookOverview extends Component<Props, IState> {
                     fullName: ''
                 },
                 bookGenre: '',
+                summary: '',
                 numberOfPages: 0,
                 rating: 0
             },
@@ -148,7 +148,9 @@ class BookOverview extends Component<Props, IState> {
                             <p>{this.state.book.rating}</p>
                             <p>
                                 <span className="shelfName">Shelf: </span>
-                                {this.state.book.predefinedShelf.shelfName}{' '}
+                                {
+                                    this.state.book.predefinedShelf?.shelfName
+                                }{' '}
                                 <Create className="pencil-icon" />
                             </p>
                             <div>
@@ -193,7 +195,9 @@ class BookOverview extends Component<Props, IState> {
                                 <div className="col-2">
                                     <span className="bold">Summary:</span>
                                 </div>
-                                <div className="col-10">No summary</div>
+                                <div className="col-10">
+                                    {this.state.book.summary}
+                                </div>
                             </div>
                             <div className="row">
                                 <div className="col-2">

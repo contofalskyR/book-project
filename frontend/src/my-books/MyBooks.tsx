@@ -17,11 +17,9 @@ If not, see <https://www.gnu.org/licenses/>.
 
 import React, { Component, ReactElement } from 'react';
 import { NavBar } from '../shared/navigation/NavBar';
-import Switch from '../settings/Switch';
 import Button from '@material-ui/core/Button';
-import ShelfModal from './ShelfModal';
+import AddBookModal from './AddBookModal';
 import { Layout } from '../shared/components/Layout';
-import BookList from '../shared/book-display/BookList';
 import { Genres } from '../shared/types/Genres';
 import { Book } from '../shared/types/Book';
 import HttpClient from '../shared/http/HttpClient';
@@ -32,7 +30,6 @@ import { FormControl, InputLabel, Select } from '@material-ui/core';
 interface IState {
     showShelfModal: boolean;
     showListView: boolean;
-    bookList: Book[];
     readBooks: Book[];
     didNotFinishBooks: Book[];
     toReadBooks: Book[];
@@ -48,17 +45,15 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
             showShelfModal: false,
             showListView: false,
             genre: '',
-            bookList: [],
             readBooks: [],
             didNotFinishBooks: [],
             toReadBooks: [],
             readingBooks: [],
             searchVal: ''
         };
-        this.onAddShelf = this.onAddShelf.bind(this);
-        this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
+        this.onAddBook = this.onAddBook.bind(this);
+        this.onAddBookModalClose = this.onAddBookModalClose.bind(this);
         this.onToggleListView = this.onToggleListView.bind(this);
-        this.getBooks = this.getBooks.bind(this);
         this.getDidNotFinishBooks = this.getDidNotFinishBooks.bind(this);
         this.toReadBooks = this.toReadBooks.bind(this);
         this.readingBooks = this.readingBooks.bind(this);
@@ -66,7 +61,6 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
         this.handleGenreChange = this.handleGenreChange.bind(this);
     }
     componentDidMount(): void {
-        this.getBooks();
         this.getReadBooks();
         this.getDidNotFinishBooks();
         this.toReadBooks();
@@ -138,19 +132,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
             });
     }
 
-    getBooks(): void {
-        HttpClient.get(Endpoints.books)
-            .then((response: Book[]) => {
-                this.setState({
-                    bookList: response
-                });
-            })
-            .catch((error: Record<string, string>) => {
-                console.error('error: ', error);
-            });
-    }
-
-    onAddShelf(): void {
+    onAddBook(): void {
         this.setState({
             showShelfModal: true
         });
@@ -167,7 +149,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
         return;
     }
 
-    onAddShelfModalClose(): void {
+    onAddBookModalClose(): void {
         this.setState({
             showShelfModal: false
         });
@@ -207,30 +189,20 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                                 {this.genresList}
                             </Select>
                         </FormControl>
-                        {/* might remove below button */}
                         <Button
-                            onClick={this.onAddShelf}
+                            onClick={this.onAddBook}
                             variant="contained"
                             color="primary"
                             disableElevation
                         >
-                            Add Shelf
+                            Add Book
                         </Button>
                     </div>
                 }
             >
                 <NavBar />
                 <div>
-                    {this.state.showListView ? (
-                        <BookList
-                            key={
-                                this.state.bookList.length +
-                                this.state.searchVal
-                            }
-                            bookListData={this.state.bookList}
-                            searchText={this.state.searchVal}
-                        />
-                    ) : (
+                    {
                         <ShelfView
                             key={
                                 [
@@ -249,17 +221,12 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                             searchText={this.state.searchVal}
                             genre={this.state.genre}
                         />
-                    )}
+                    }
                 </div>
-                <ShelfModal
+                <AddBookModal
                     open={this.state.showShelfModal}
-                    onClose={this.onAddShelfModalClose}
+                    onClose={this.onAddBookModalClose}
                 />
-                {/* <div className="my-book-switch-container">
-                    <div className="toggle-text">Shelf View</div>
-                    <Switch onClick={this.onToggleListView} />
-                    <div className="toggle-text">List View</div>
-                </div> */}
             </Layout>
         );
     }
