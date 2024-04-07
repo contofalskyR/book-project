@@ -184,8 +184,13 @@ public class BookService {
     updateAuthor(book, bookPatchDto);
     updateGenres(book, bookPatchDto);
     updatePredefinedShelf(book, bookPatchDto);
+    updateBookFavourite(book, bookPatchDto);
     bookRepository.save(book);
     return book;
+  }
+
+  private void updateBookFavourite(Book book, BookPatchDto bookPatchDto) {
+    Optional.ofNullable(bookPatchDto.getFavourite()).ifPresent(book::setFavourite);
   }
 
   private void updateBookMetadata(Book book, BookPatchDto bookPatchDto) {
