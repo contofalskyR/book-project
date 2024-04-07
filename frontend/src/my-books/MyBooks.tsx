@@ -32,7 +32,6 @@ import { FormControl, InputLabel, Select } from '@material-ui/core';
 interface IState {
     showShelfModal: boolean;
     showListView: boolean;
-    bookList: Book[];
     readBooks: Book[];
     didNotFinishBooks: Book[];
     toReadBooks: Book[];
@@ -48,7 +47,6 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
             showShelfModal: false,
             showListView: false,
             genre: '',
-            bookList: [],
             readBooks: [],
             didNotFinishBooks: [],
             toReadBooks: [],
@@ -58,7 +56,6 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
         this.onAddShelf = this.onAddShelf.bind(this);
         this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
         this.onToggleListView = this.onToggleListView.bind(this);
-        this.getBooks = this.getBooks.bind(this);
         this.getDidNotFinishBooks = this.getDidNotFinishBooks.bind(this);
         this.toReadBooks = this.toReadBooks.bind(this);
         this.readingBooks = this.readingBooks.bind(this);
@@ -66,7 +63,6 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
         this.handleGenreChange = this.handleGenreChange.bind(this);
     }
     componentDidMount(): void {
-        this.getBooks();
         this.getReadBooks();
         this.getDidNotFinishBooks();
         this.toReadBooks();
@@ -132,18 +128,6 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                         ? readingBooks
                         : state.readingBooks
                 }));
-            })
-            .catch((error: Record<string, string>) => {
-                console.error('error: ', error);
-            });
-    }
-
-    getBooks(): void {
-        HttpClient.get(Endpoints.books)
-            .then((response: Book[]) => {
-                this.setState({
-                    bookList: response
-                });
             })
             .catch((error: Record<string, string>) => {
                 console.error('error: ', error);
@@ -221,16 +205,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
             >
                 <NavBar />
                 <div>
-                    {this.state.showListView ? (
-                        <BookList
-                            key={
-                                this.state.bookList.length +
-                                this.state.searchVal
-                            }
-                            bookListData={this.state.bookList}
-                            searchText={this.state.searchVal}
-                        />
-                    ) : (
+                    {
                         <ShelfView
                             key={
                                 [
@@ -249,7 +224,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                             searchText={this.state.searchVal}
                             genre={this.state.genre}
                         />
-                    )}
+                    }
                 </div>
                 <ShelfModal
                     open={this.state.showShelfModal}
