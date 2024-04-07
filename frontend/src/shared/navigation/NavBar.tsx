@@ -126,10 +126,10 @@ export function NavBar(): JSX.Element {
                         itemText={'To Read'}
                         goTo={TO_READ}
                     />
-                      <NavItem
+                    <NavItem
                         icon={<CheckBoxOutlined />}
                         itemText={'Read'}
-                        goTo={DID_NOT_FINISH}
+                        goTo={READ}
                     />
                     <NavItem
                         icon={<Book />}
