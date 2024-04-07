@@ -79,7 +79,7 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
                 <Modal open={this.props.open} onClose={this.props.onClose}>
                     <div className="shelf-modal-container">
                         <div className="modal-content">
-                            <div className="modal-title">Add shelf</div>
+                            <div className="modal-title">Add Book</div>
                             <div className="shelf-modal-desc-container">
                                 <Hidden smDown implementation="css">
                                     <div className="shelf-modal-desc-items">
@@ -127,7 +127,7 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
                                 color="primary"
                                 disableElevation
                             >
-                                Add shelf
+                                Add Book
                             </Button>
                         </div>
                         <div>

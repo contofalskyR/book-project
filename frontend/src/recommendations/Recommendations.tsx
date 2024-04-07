@@ -18,7 +18,6 @@ If not, see <https://www.gnu.org/licenses/>.
 import React, { Component, ReactElement } from 'react';
 import { NavBar } from '../shared/navigation/NavBar';
 import Switch from '../settings/Switch';
-import Button from '@material-ui/core/Button';
 import AddBookModal from '../my-books/AddBookModal';
 import { Layout } from '../shared/components/Layout';
 import BookList from '../shared/book-display/BookList';

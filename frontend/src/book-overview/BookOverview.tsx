@@ -30,7 +30,6 @@ import MuiAlert from '@material-ui/lab/Alert';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import StarIcon from '@material-ui/icons/Star';
-import StarOutlineIcon from '@material-ui/icons/StarOutline';
 interface Props {
     history: History;
     match: {
