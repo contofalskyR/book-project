@@ -58,6 +58,14 @@ class DidNotFinish extends Component<Record<string, unknown>, IState> {
         this.trackCurrentDeviceSize();
         this.setState({ genre: '' });
     }
+    componentDidUpdate(
+        prevProps: Record<string, unknown>,
+        prevState: IState
+    ): void {
+        if (this.state.showShelfModal !== prevState.showShelfModal) {
+            this.didNotFinishBooks();
+        }
+    }
     genresList: JSX.Element[] = Object.keys(Genres).map((value, index) => {
         return (
             <option key={index} value={Genres[value as keyof typeof Genres]}>
