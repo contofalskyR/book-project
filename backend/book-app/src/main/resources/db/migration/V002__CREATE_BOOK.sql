@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS book (
     number_of_pages       INTEGER,
     pages_read            INTEGER,
     predefined_shelf_id   BIGINT,
+    favourite BOOLEAN,
     rating                INTEGER,
     series_position       INTEGER,
     book_review           VARCHAR(1500),
