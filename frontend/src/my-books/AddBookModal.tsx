@@ -83,7 +83,7 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
                             <div className="shelf-modal-desc-container">
                                 <Hidden smDown implementation="css">
                                     <div className="shelf-modal-desc-items">
-                                        <p>Shelf name</p>
+                                        <p>Book name</p>
                                         <TextField
                                             className="shelfInput"
                                             size="small"
