@@ -84,7 +84,8 @@ public final class TestData {
     Book book = new Book(
         title,
         generateRandomAuthor(authors),
-        generateRandomPublishers(publishers));
+        generateRandomPublishers(publishers),
+        getRandomBookSummary());
 
     book.setBookGenre(generateRandomGenre());
     book.setBookRecommendedBy(generateRandomRecommender());
@@ -97,6 +98,10 @@ public final class TestData {
     book.setPublishers(generateRandomPublishers(publishers));
 
     return book;
+  }
+
+  private static String getRandomBookSummary() {
+    return MockData.SUMMARIES.get(threadLocalRandom.nextInt(MockData.SUMMARIES.size()));
   }
 
   private static Author generateRandomAuthor(List<Author> authors) {

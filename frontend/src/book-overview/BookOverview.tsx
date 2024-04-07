@@ -61,6 +61,7 @@ class BookOverview extends Component<Props, IState> {
                     fullName: ''
                 },
                 bookGenre: '',
+                summary: '',
                 numberOfPages: 0,
                 rating: 0
             },
@@ -195,7 +196,9 @@ class BookOverview extends Component<Props, IState> {
                                 <div className="col-2">
                                     <span className="bold">Summary:</span>
                                 </div>
-                                <div className="col-10">No summary</div>
+                                <div className="col-10">
+                                    {this.state.book.summary}
+                                </div>
                             </div>
                             <div className="row">
                                 <div className="col-2">

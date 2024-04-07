@@ -145,6 +145,8 @@ public class Book {
 
   private String bookReview;
 
+  private String summary;
+
   public Book(String title, Author author, PredefinedShelf predefinedShelf) {
     this.title = title;
     this.author = author;
@@ -156,6 +158,14 @@ public class Book {
     this.title = title;
     this.author = author;
     this.publishers = publishers;
+  }
+
+  public Book(
+      String title, Author author, Set<Publisher> publishers, String summary) {
+    this.title = title;
+    this.author = author;
+    this.publishers = publishers;
+    this.summary = summary;
   }
 
   public Book(

@@ -40,14 +40,12 @@ public class BookDto {
   private Integer pagesRead;
 
   @JsonProperty("bookGenre")
-  private String
-      bookGenre; // currently need to use the constant names in request body (use "HORROR" vs
-                 // "Horror")
+  private String bookGenre; // currently need to use the constant names in request body (use "HORROR" vs
+                            // "Horror")
 
   @JsonProperty("bookFormat")
-  private String
-      bookFormat; // currently need to use the constant names in request body (use "EBOOK" vs
-                  // "eBook")
+  private String bookFormat; // currently need to use the constant names in request body (use "EBOOK" vs
+                             // "eBook")
 
   @JsonProperty("seriesPosition")
   private Integer seriesPosition;
@@ -72,4 +70,7 @@ public class BookDto {
 
   @JsonProperty("bookReview")
   private String bookReview;
+
+  @JsonProperty("summary")
+  private String summary;
 }
