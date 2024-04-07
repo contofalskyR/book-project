@@ -159,7 +159,7 @@ public final class TestData {
           book.setRating(RatingScale.NO_RATING);
           break;
         case READ:
-        case FAVOURITES:
+        case FAVOURITE:
           book.setRating(
               RatingScale.values()[threadLocalRandom.nextInt(RatingScale.values().length)]);
           book.setDateStartedReading(LocalDate.now().minusDays(2));

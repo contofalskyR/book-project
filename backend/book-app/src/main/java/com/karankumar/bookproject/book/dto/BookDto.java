@@ -73,4 +73,13 @@ public class BookDto {
 
   @JsonProperty("summary")
   private String summary;
+
+  @JsonProperty("favourite")
+  private boolean favourite;
+
+  @JsonProperty("likes")
+  private Integer likes;
+
+  @JsonProperty("dislikes")
+  private Integer dislikes;
 }

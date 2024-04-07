@@ -188,15 +188,9 @@ public class BookService {
     updateAuthor(book, bookPatchDto);
     updateGenres(book, bookPatchDto);
     updatePredefinedShelf(book, bookPatchDto);
-    updateBookFavourite(book, bookPatchDto);
     bookRepository.save(book);
     return book;
   }
-
-  private void updateBookFavourite(Book book, BookPatchDto bookPatchDto) {
-    book.setFavourite(bookPatchDto.isFavourite());
-  }
-
 
   private void updateBookMetadata(Book book, BookPatchDto bookPatchDto) {
     Optional.ofNullable(bookPatchDto.getTitle()).ifPresent(book::setTitle);
@@ -211,6 +205,30 @@ public class BookService {
     Optional.ofNullable(bookPatchDto.getIsbn()).ifPresent(book::setIsbn);
     Optional.ofNullable(bookPatchDto.getYearOfPublication()).ifPresent(book::setYearOfPublication);
     Optional.ofNullable(bookPatchDto.getBookReview()).ifPresent(book::setBookReview);
+    Optional.ofNullable(bookPatchDto.isFavourite()).ifPresent(book::setFavourite);
+    Optional.ofNullable(bookPatchDto.getLikes())
+        .ifPresent(likesToAdd -> {
+          // Retrieve the current value of the likes column
+          int currentValue = book.getLikes();
+
+          // Increment the value by the specified number
+          int newValue = currentValue + likesToAdd;
+
+          // Set the new value back to the book object
+          book.setLikes(newValue);
+        });
+
+    Optional.ofNullable(bookPatchDto.getDislikes())
+        .ifPresent(dislikesToAdd -> {
+          // Retrieve the current value of the dislikes column
+          int currentValue = book.getDislikes();
+
+          // Increment the value by the specified number
+          int newValue = currentValue + dislikesToAdd;
+
+          // Set the new value back to the book object
+          book.setDislikes(newValue);
+        });
   }
 
   private void updateAuthor(Book book, BookPatchDto bookPatchDto) {

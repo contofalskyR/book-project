@@ -146,7 +146,12 @@ public class Book {
   private String bookReview;
 
   private String summary;
+
   private boolean favourite;
+
+  private Integer likes;
+
+  private Integer dislikes;
 
   public Book(String title, Author author, PredefinedShelf predefinedShelf) {
     this.title = title;
@@ -227,14 +232,6 @@ public class Book {
   public void removeAuthor() {
     author.getBooks().remove(this);
     author = null;
-  }
-
-  public void toggleFavourite() {
-    this.favourite = !this.favourite;
-  }
-
-  public boolean isFavourite() {
-    return favourite;
   }
 
   public void setPublicationYear(Integer yearOfPublication) {
