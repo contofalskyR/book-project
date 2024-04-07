@@ -67,6 +67,9 @@ export default class AddBookModal extends Component<
                     showInfo: true,
                     msg: 'Book saved successfully'
                 });
+                if (this.props.onClose) {
+                    this.props.onClose();
+                }
             })
             .catch((error: Record<string, string>) => {
                 console.error(error);
