@@ -56,16 +56,19 @@ public class BookService {
   private final BookRepository bookRepository;
   private final PublisherService publisherService;
   private final PredefinedShelfService predefinedShelfService;
+  private final RecommendationService recommendationService;
 
   public BookService(
       BookRepository bookRepository,
       AuthorService authorService,
       PublisherService publisherService,
-      PredefinedShelfService predefinedShelfService) {
+      PredefinedShelfService predefinedShelfService,
+      RecommendationService recommendationService) {
     this.bookRepository = bookRepository;
     this.authorService = authorService;
     this.publisherService = publisherService;
     this.predefinedShelfService = predefinedShelfService;
+    this.recommendationService = recommendationService;
   }
 
   public Optional<Book> findById(@NonNull Long id) {
@@ -178,6 +181,13 @@ public class BookService {
 
   public List<Book> findAllBooksByPredefinedShelfName(ShelfName predefinedShelfName) {
     return bookRepository.findAllBooksByPredefinedShelfShelfName(predefinedShelfName);
+  }
+
+  public List<Book> getRecommendations() {
+    // TODO: replace function with favourites function
+    List<Book> favourites = this.bookRepository.findAll();
+
+    return this.recommendationService.getRecommendations(favourites);
   }
 
   public List<Book> findAllFavourite() {
