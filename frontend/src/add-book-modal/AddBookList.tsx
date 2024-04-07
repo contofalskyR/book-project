@@ -21,12 +21,19 @@ import './AddBookList.css';
 import { BOOK_OVERVIEW } from '../shared/routes';
 import { Link } from 'react-router-dom';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
+import { Checkbox } from '@material-ui/core';
+import AddBookListItem from './AddBookListItem';
 
 const CHAR_LIMIT = 40;
 
-export interface BookListProps {
+interface BookListProps {
     bookListData: Book[];
     searchText: string;
+}
+interface BookListState {
+    bookListData: Book[];
+    searchText: string;
+    checked: boolean;
 }
 
 interface SortingConfig {
@@ -36,13 +43,14 @@ interface SortingConfig {
 
 export default class AddBookList extends Component<
     BookListProps,
-    BookListProps
+    BookListState
 > {
     constructor(props: BookListProps) {
         super(props);
         this.state = {
             bookListData: [...props.bookListData],
-            searchText: props.searchText || ''
+            searchText: props.searchText || '',
+            checked: false
         };
     }
 
@@ -107,6 +115,11 @@ export default class AddBookList extends Component<
         this.setState(this.state);
     };
 
+    handleBookSelection = (bookTitle: number | string) => {
+        // Handle the selected book title in the parent component
+        console.log('Selected book title:', bookTitle);
+    };
+
     render(): JSX.Element {
         // console.log(this.state.bookListData);
 
@@ -145,36 +158,12 @@ export default class AddBookList extends Component<
                         Rating{getSortingIcon('rating', this.nameToOrder)}
                     </div>
                 </div>
-                {this.sortBooks(this.state.bookListData).map((book) => (
-                    <Link
-                        to={BOOK_OVERVIEW + '/' + book.id}
-                        style={{ textDecoration: 'none', color: 'black' }}
-                        key={book.title + book.author.fullName}
-                    >
-                        <div className="booklist-book">
-                            <div className="booklist-book-thumbnail">
-                                {book.title.length > CHAR_LIMIT
-                                    ? book.title.substring(0, CHAR_LIMIT) +
-                                      '...'
-                                    : book.title}
-                            </div>
-                            <div className="booklist-book-title">
-                                {book.title}
-                            </div>
-                            <div className="booklist-book-author">
-                                {book.author.fullName}
-                            </div>
-                            <div className="booklist-book-shelf">
-                                {book.predefinedShelf?.shelfName}
-                            </div>
-                            <div className="booklist-book-genre">
-                                {book.bookGenre}
-                            </div>
-                            <div className="booklist-book-rating">
-                                {book.rating}
-                            </div>
-                        </div>
-                    </Link>
+                {this.sortBooks(this.state.bookListData).map((book, index) => (
+                    <AddBookListItem
+                        key={book.title + book.author.fullName + index}
+                        book={book}
+                        onBookSelect={this.handleBookSelection}
+                    />
                 ))}
             </div>
         );
