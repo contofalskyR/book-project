@@ -148,7 +148,9 @@ class BookOverview extends Component<Props, IState> {
                             <p>{this.state.book.rating}</p>
                             <p>
                                 <span className="shelfName">Shelf: </span>
-                                {this.state.book.predefinedShelf.shelfName}{' '}
+                                {
+                                    this.state.book.predefinedShelf?.shelfName
+                                }{' '}
                                 <Create className="pencil-icon" />
                             </p>
                             <div>

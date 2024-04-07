@@ -34,6 +34,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         @Query("SELECT b "
                         + "FROM Book b "
                         + "INNER JOIN FETCH b.author "
+                        + "LEFT JOIN FETCH b.predefinedShelf "
                         + "INNER JOIN FETCH b.tags "
                         + "INNER JOIN FETCH b.publishers")
         List<Book> findAllBooks(Pageable pageable);
@@ -45,7 +46,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         @Query("SELECT b "
                         + "FROM Book b "
                         + "INNER JOIN FETCH b.author "
-                        + "INNER JOIN FETCH b.predefinedShelf "
+                        + "LEFT JOIN FETCH b.predefinedShelf "
                         + "INNER JOIN FETCH b.tags "
                         + "INNER JOIN FETCH b.publishers "
                         + "WHERE b.id = :id")
@@ -58,7 +59,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         @Query("SELECT b "
                         + "FROM Book b "
                         + "INNER JOIN FETCH b.author AS a "
-                        + "INNER JOIN FETCH b.predefinedShelf "
+                        + "LEFT JOIN FETCH b.predefinedShelf "
                         + "INNER JOIN FETCH b.tags "
                         + "INNER JOIN FETCH b.publishers "
                         + "WHERE LOWER(b.title) LIKE LOWER(CONCAT('%', :titleOrAuthor, '%')) OR "

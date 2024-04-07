@@ -162,7 +162,7 @@ export default class BookList extends Component<BookListProps, BookListProps> {
                                 {book.author.fullName}
                             </div>
                             <div className="booklist-book-shelf">
-                                {book.predefinedShelf.shelfName}
+                                {book.predefinedShelf?.shelfName}
                             </div>
                             <div className="booklist-book-genre">
                                 {book.bookGenre}
@@ -194,8 +194,8 @@ function getSortingMechanism(
         case 'shelf':
             return (book1: Book, book2: Book) =>
                 orderIndex *
-                book1.predefinedShelf.shelfName.localeCompare(
-                    book2.predefinedShelf.shelfName
+                book1.predefinedShelf?.shelfName.localeCompare(
+                    book2.predefinedShelf?.shelfName
                 );
         case 'genre':
             return (book1: Book, book2: Book) =>
@@ -224,7 +224,7 @@ function getRating(book: Book): number {
 }
 
 function isRated(book: Book): boolean {
-    return book.rating.toString().includes('/');
+    return book.rating?.toString().includes('/');
 }
 
 function getNameToOrder(configurations: SortingConfig[]): Map<string, boolean> {
