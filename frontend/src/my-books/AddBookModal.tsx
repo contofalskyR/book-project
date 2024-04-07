@@ -20,7 +20,7 @@ import Modal, { IModalProps } from '../shared/components/Modal';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
-import './ShelfModal.css';
+import './AddBookModal.css';
 import Hidden from '@material-ui/core/Hidden';
 import HttpClient from '../shared/http/HttpClient';
 import Endpoints from '../shared/api/endpoints';
@@ -31,7 +31,7 @@ type MyState = {
     showInfo: boolean;
     msg: string;
 };
-export default class ShelfModal extends Component<IModalProps, MyState> {
+export default class AddBookModal extends Component<IModalProps, MyState> {
     constructor(props: never) {
         super(props);
         this.state = {

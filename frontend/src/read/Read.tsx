@@ -19,7 +19,7 @@ import React, { Component, ReactElement } from 'react';
 import { NavBar } from '../shared/navigation/NavBar';
 import Switch from '../settings/Switch';
 import Button from '@material-ui/core/Button';
-import ShelfModal from '../my-books/ShelfModal';
+import AddBookModal from '../my-books/AddBookModal';
 import { Layout } from '../shared/components/Layout';
 import BookList from '../shared/book-display/BookList';
 import { Genres } from '../shared/types/Genres';
@@ -166,7 +166,7 @@ class Read extends Component<Record<string, unknown>, IState> {
                         />
                     )}
                 </div>
-                <ShelfModal
+                <AddBookModal
                     open={this.state.showShelfModal}
                     onClose={this.onAddShelfModalClose}
                 />

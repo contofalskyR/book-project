@@ -17,11 +17,9 @@ If not, see <https://www.gnu.org/licenses/>.
 
 import React, { Component, ReactElement } from 'react';
 import { NavBar } from '../shared/navigation/NavBar';
-import Switch from '../settings/Switch';
 import Button from '@material-ui/core/Button';
-import ShelfModal from './ShelfModal';
+import AddBookModal from './AddBookModal';
 import { Layout } from '../shared/components/Layout';
-import BookList from '../shared/book-display/BookList';
 import { Genres } from '../shared/types/Genres';
 import { Book } from '../shared/types/Book';
 import HttpClient from '../shared/http/HttpClient';
@@ -53,7 +51,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
             readingBooks: [],
             searchVal: ''
         };
-        this.onAddShelf = this.onAddShelf.bind(this);
+        this.onAddBook = this.onAddBook.bind(this);
         this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
         this.onToggleListView = this.onToggleListView.bind(this);
         this.getDidNotFinishBooks = this.getDidNotFinishBooks.bind(this);
@@ -134,7 +132,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
             });
     }
 
-    onAddShelf(): void {
+    onAddBook(): void {
         this.setState({
             showShelfModal: true
         });
@@ -191,14 +189,13 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                                 {this.genresList}
                             </Select>
                         </FormControl>
-                        {/* might remove below button */}
                         <Button
-                            onClick={this.onAddShelf}
+                            onClick={this.onAddBook}
                             variant="contained"
                             color="primary"
                             disableElevation
                         >
-                            Add Shelf
+                            Add Book
                         </Button>
                     </div>
                 }
@@ -226,7 +223,7 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                         />
                     }
                 </div>
-                <ShelfModal
+                <AddBookModal
                     open={this.state.showShelfModal}
                     onClose={this.onAddShelfModalClose}
                 />
