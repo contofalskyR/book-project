@@ -130,14 +130,18 @@ public class PredefinedShelfService {
       populatePublisherRepository();
     }
 
+    if (bookRepository.count() == 0) {
+      populateBookRepository();
+    }
+    // for each user, put a total of 20 books into their predefined shelves
+    // distributed randomly
     for (User user : userService.findAll()) {
       if (predefinedShelfRepository.countAllByUser(user) == 0) {
         List<PredefinedShelf> predefinedShelves = populateShelfRepository(user);
-        populateBookRepository(predefinedShelves);
+        setShelfBooks(20, predefinedShelves);
       }
     }
 
-    setShelfForEveryBookInBookRepository();
   }
 
   private void populateAuthorRepository() {
@@ -156,20 +160,18 @@ public class PredefinedShelfService {
     return predefinedShelfRepository.saveAll(createPredefinedShelves(user));
   }
 
-  // this function is called first
-  private void populateBookRepository(List<PredefinedShelf> predefinedShelves) {
+  // populate the database with mock books
+  private void populateBookRepository() {
     bookRepository.saveAll(
         generateBooks(
             authorRepository.findAll(),
             tagRepository.findAll(),
-            predefinedShelves,
             publisherRepository.findAll()));
   }
 
-  // this function is called second
-  private void setShelfForEveryBookInBookRepository() {
-    List<PredefinedShelf> shelves = predefinedShelfRepository.findAll();
-    Pageable pageable = PageRequest.of(0, 20);
+  // put books into predefined shelves
+  private void setShelfBooks(int numberOfBooks, List<PredefinedShelf> shelves) {
+    Pageable pageable = PageRequest.of(0, numberOfBooks);
     List<Book> books = setPredefinedShelfForBooks(bookRepository.findAllBooks(pageable), shelves);
     bookRepository.saveAll(books);
   }
