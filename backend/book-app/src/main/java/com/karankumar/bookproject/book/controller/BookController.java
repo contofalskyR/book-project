@@ -134,6 +134,11 @@ public class BookController {
                 HttpStatus.NOT_FOUND, String.format(BOOK_NOT_FOUND_ERROR_MESSAGE, id)));
   }
 
+  @GetMapping("/recommendations")
+  public List<Book> getRecommendations() {
+    return bookService.getRecommendations();
+  }
+
   @PostMapping()
   @ResponseStatus(HttpStatus.CREATED)
   public Optional<Book> addBook(@RequestBody BookDto bookDto) {
