@@ -229,8 +229,12 @@ public class Book {
     author = null;
   }
 
-  public void favourite() {
+  public void toggleFavourite() {
     this.favourite = !this.favourite;
+  }
+
+  public boolean isFavourite() {
+    return favourite;
   }
 
   public void setPublicationYear(Integer yearOfPublication) {

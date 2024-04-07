@@ -83,8 +83,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                         + "INNER JOIN FETCH b.author "
                         + "INNER JOIN FETCH b.tags "
                         + "INNER JOIN FETCH b.publishers "
-                        + "WHERE b.favourites = true")
-        List<Book> findAllFavourites();
+                        + "WHERE b.favourite = true")
+        List<Book> findAllFavourite();
 
         @EntityGraph(value = "Book.author", type = EntityGraph.EntityGraphType.LOAD)
         @Query("SELECT b "

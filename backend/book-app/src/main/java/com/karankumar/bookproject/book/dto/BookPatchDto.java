@@ -67,4 +67,8 @@ public class BookPatchDto {
 
   @JsonProperty("favourite")
   private boolean favourite;
+
+  public boolean isFavourite() {
+    return favourite;
+  }
 }
