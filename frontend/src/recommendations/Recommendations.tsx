@@ -138,14 +138,6 @@ class Recommendations extends Component<Record<string, unknown>, IState> {
                                 {this.genresList}
                             </Select>
                         </FormControl>
-                        <Button
-                            variant="contained"
-                            className="tempButton"
-                            color="primary"
-                            disableElevation
-                        >
-                            Add Book
-                        </Button>
                     </div>
                 }
             >
