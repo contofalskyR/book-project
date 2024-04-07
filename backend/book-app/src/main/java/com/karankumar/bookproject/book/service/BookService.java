@@ -179,6 +179,10 @@ public class BookService {
     return bookRepository.findAllBooksByPredefinedShelfShelfName(predefinedShelfName);
   }
 
+  public List<Book> findAllFavourites() {
+    return bookRepository.findAllFavourites();
+  }
+
   public Book updateBook(Book book, BookPatchDto bookPatchDto) {
     updateBookMetadata(book, bookPatchDto);
     updateAuthor(book, bookPatchDto);

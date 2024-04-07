@@ -22,11 +22,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * A predefined shelf is a shelf that is created by the app and will always exist (cannot be deleted
+ * A predefined shelf is a shelf that is created by the app and will always
+ * exist (cannot be deleted
  * or renamed)
  */
 @Entity
-@JsonIgnoreProperties(value = {"id", "books", "predefinedShelfName"})
+@JsonIgnoreProperties(value = { "id", "books", "predefinedShelfName" })
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -42,7 +43,7 @@ public class PredefinedShelf extends Shelf {
   private ShelfName predefinedShelfName;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "predefinedShelf")
-  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
   protected Set<Book> books = new HashSet<>();
 
   public PredefinedShelf(ShelfName predefinedShelfName, User user) {
@@ -55,7 +56,7 @@ public class PredefinedShelf extends Shelf {
     READING("Reading"),
     READ("Read"),
     DID_NOT_FINISH("Did not finish"),
-    FAVOURITES("Favourites");
+    FAVOURITE("Favourite");
 
     private final String name;
 
@@ -76,8 +77,10 @@ public class PredefinedShelf extends Shelf {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
     PredefinedShelf that = (PredefinedShelf) o;
     return predefinedShelfName == that.predefinedShelfName;
   }
