@@ -62,7 +62,10 @@ class BookOverview extends Component<Props, IState> {
                 bookGenre: '',
                 summary: '',
                 numberOfPages: 0,
-                rating: 0
+                rating: 0,
+                dislikes: 0,
+                likes: 0,
+                favourite: false
             },
             snackbarOpen: false,
             snackbarMessage: ''
