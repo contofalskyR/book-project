@@ -34,7 +34,7 @@ public class PredefinedShelfController {
 
   @GetMapping(path = "/favourite")
   public List<Book> getAllFavouriteBooks() {
-    return bookService.findAllFavourites();
+    return bookService.findAllFavourite();
   }
 
   @GetMapping(path = "/read")
