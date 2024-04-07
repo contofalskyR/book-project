@@ -60,23 +60,15 @@ If not, see <https://www.gnu.org/licenses/>.
  
 }
 .MuiInputBase-root {
-  border-radius: 100px;
+  border-radius: 100px !important;
 }
-.PrivateNotchedOutline-root-1.MuiOutlinedInput-notchedOutline {
-  border-radius: 100px;
-}
-fieldset.PrivateNotchedOutline-root-1.MuiOutlinedInput-notchedOutline {
-  border-radius: 100px;
-}
-.PrivateNotchedOutline-root-1 {
-  border-radius: 100px;
-}
-.PrivateNotchedOutline-legendLabelled-3.PrivateNotchedOutline-legendNotched-4 {
-  border-radius: 100px;
+
+.MuiInputBase-root.MuiOutlinedInput-root.center.login.rounded.MuiInputBase-formControl.MuiInputBase-adornedEnd.MuiOutlinedInput-adornedEnd {
+  border-radius: 100px !important;
 }
 
 #outlined-adornment-password {
-  border-radius: 100px !important;
+  border-radius: 100px;
 }
 
 
