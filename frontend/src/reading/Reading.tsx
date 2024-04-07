@@ -19,7 +19,7 @@ import React, { Component, ReactElement } from 'react';
 import { NavBar } from '../shared/navigation/NavBar';
 import Switch from '../settings/Switch';
 import Button from '@material-ui/core/Button';
-import AddBookModal from '../my-books/AddBookModal';
+import AddBookModal from '../add-book-modal/AddBookModal';
 import { Layout } from '../shared/components/Layout';
 import BookList from '../shared/book-display/BookList';
 import { Genres } from '../shared/types/Genres';
@@ -54,9 +54,18 @@ class Reading extends Component<Record<string, unknown>, IState> {
         this.handleGenreChange = this.handleGenreChange.bind(this);
     }
     componentDidMount(): void {
+        console.log('Component did mount');
         this.readingBooks();
         this.trackCurrentDeviceSize();
         this.setState({ genre: '' });
+    }
+    componentDidUpdate(
+        prevProps: Record<string, unknown>,
+        prevState: IState
+    ): void {
+        if (this.state.showShelfModal !== prevState.showShelfModal) {
+            this.readingBooks();
+        }
     }
     genresList: JSX.Element[] = Object.keys(Genres).map((value, index) => {
         return (
@@ -67,8 +76,11 @@ class Reading extends Component<Record<string, unknown>, IState> {
     });
 
     readingBooks(): void {
+        console.log('I am calling reading books endpoint.');
+
         HttpClient.get(Endpoints.reading)
             .then((readingBooks: Book[]) => {
+                console.log('in htpp get');
                 this.setState((state) => ({
                     readingBooks: Array.isArray(readingBooks)
                         ? readingBooks
@@ -115,6 +127,8 @@ class Reading extends Component<Record<string, unknown>, IState> {
         console.log(this.state.genre);
     }
     render(): ReactElement {
+        console.log('please rerender');
+
         return (
             <Layout
                 title="Reading"
@@ -170,6 +184,7 @@ class Reading extends Component<Record<string, unknown>, IState> {
                 <AddBookModal
                     open={this.state.showShelfModal}
                     onClose={this.onAddBookModalClose}
+                    shelfname="READING"
                 />
                 <div className="my-book-switch-container">
                     <div className="toggle-text">Shelf View</div>

@@ -24,23 +24,29 @@ import './AddBookModal.css';
 import Hidden from '@material-ui/core/Hidden';
 import HttpClient from '../shared/http/HttpClient';
 import Endpoints from '../shared/api/endpoints';
+import AddBookSearch from './AddBookSearch';
 
 type MyState = {
     name: string;
     showError: boolean;
     showInfo: boolean;
     msg: string;
+    bookId: string | number;
 };
-export default class AddBookModal extends Component<IModalProps, MyState> {
+export default class AddBookModal extends Component<
+    IModalProps & { shelfname: string },
+    MyState
+> {
     constructor(props: never) {
         super(props);
         this.state = {
             name: '',
             showError: false,
             showInfo: false,
-            msg: ''
+            msg: '',
+            bookId: 0
         };
-        this.submitShelf = this.submitShelf.bind(this);
+        this.submitBook = this.submitBook.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -48,20 +54,22 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
         this.setState({ name: event.target.value });
     };
 
-    submitShelf = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    submitBook = (event: React.MouseEvent<HTMLButtonElement>): void => {
         event.preventDefault();
-        const shelfName = this.state.name;
-        if (shelfName.length > 0 && shelfName.toString().length > 20) {
-            this.setState({ showError: true, msg: 'Shelf name is too long' });
-            return;
-        }
-        HttpClient.post(Endpoints.shelf, shelfName)
+        const bookId = this.state.bookId;
+        const body = { predefinedShelf: this.props.shelfname };
+        console.log('BOOK ID: ' + this.state.bookId);
+
+        HttpClient.patch(Endpoints.books, bookId as string, body)
             .then(() => {
                 this.setState({
                     showError: false,
                     showInfo: true,
-                    msg: 'Shelf saved successfully'
+                    msg: 'Book saved successfully'
                 });
+                if (this.props.onClose) {
+                    this.props.onClose();
+                }
             })
             .catch((error: Record<string, string>) => {
                 console.error(error);
@@ -73,6 +81,17 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
             });
     };
 
+    handleBookSelection = (bookId: number | string) => {
+        // Handle the selected book title in the parent component
+        console.log('Selected book title in AddBookModal:', bookId);
+        this.setState({ bookId });
+    };
+
+    // Only re render if the value from the child has changed
+    // shouldComponentUpdate(nextProps: IModalProps, nextState: MyState) {
+    //     return nextState.bookId !== this.state.bookId;
+    // }
+
     render(): JSX.Element {
         return (
             <div>
@@ -80,34 +99,9 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
                     <div className="shelf-modal-container">
                         <div className="modal-content">
                             <div className="modal-title">Add Book</div>
-                            <div className="shelf-modal-desc-container">
-                                <Hidden smDown implementation="css">
-                                    <div className="shelf-modal-desc-items">
-                                        <p>Book name</p>
-                                        <TextField
-                                            className="shelfInput"
-                                            size="small"
-                                            id="outlined-basic"
-                                            variant="outlined"
-                                            value={this.state.name}
-                                            onChange={this.handleChange}
-                                        />
-                                    </div>
-                                </Hidden>
-                                <Hidden mdUp implementation="css">
-                                    <div className="shelf-modal-desc-items">
-                                        <TextField
-                                            className="shelfInput"
-                                            size="small"
-                                            id="name"
-                                            variant="outlined"
-                                            label="shelf name"
-                                            value={this.state.name}
-                                            onChange={this.handleChange}
-                                        />
-                                    </div>
-                                </Hidden>
-                            </div>
+                            <AddBookSearch
+                                handleBookSelection={this.handleBookSelection}
+                            />
                         </div>
                         <div className="modal-form-spacer" />
 
@@ -123,7 +117,7 @@ export default class AddBookModal extends Component<IModalProps, MyState> {
                             <Button
                                 className="shelf-modal-button"
                                 variant="contained"
-                                onClick={this.submitShelf}
+                                onClick={this.submitBook}
                                 color="primary"
                                 disableElevation
                             >

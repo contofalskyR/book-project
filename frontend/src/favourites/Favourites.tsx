@@ -19,7 +19,7 @@ import React, { Component, ReactElement } from 'react';
 import { NavBar } from '../shared/navigation/NavBar';
 import Switch from '../settings/Switch';
 import Button from '@material-ui/core/Button';
-import AddBookModal from '../my-books/AddBookModal';
+import AddBookModal from '../add-book-modal/AddBookModal';
 import { Layout } from '../shared/components/Layout';
 import BookList from '../shared/book-display/BookList';
 import { Genres } from '../shared/types/Genres';
@@ -48,7 +48,8 @@ class Favourites extends Component<Record<string, unknown>, IState> {
             searchVal: ''
         };
         this.onAddShelf = this.onAddShelf.bind(this);
-        this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
+        this.onAddBookModalClose = this.onAddBookModalClose.bind(this);
+        this.onAddBook = this.onAddBook.bind(this);
         this.onToggleListView = this.onToggleListView.bind(this);
         this.favouriteBooks = this.favouriteBooks.bind(this);
         this.handleGenreChange = this.handleGenreChange.bind(this);
@@ -57,6 +58,14 @@ class Favourites extends Component<Record<string, unknown>, IState> {
         this.favouriteBooks();
         this.trackCurrentDeviceSize();
         this.setState({ genre: '' });
+    }
+    componentDidUpdate(
+        prevProps: Record<string, unknown>,
+        prevState: IState
+    ): void {
+        if (this.state.showShelfModal !== prevState.showShelfModal) {
+            this.favouriteBooks();
+        }
     }
     genresList: JSX.Element[] = Object.keys(Genres).map((value, index) => {
         return (
@@ -98,7 +107,13 @@ class Favourites extends Component<Record<string, unknown>, IState> {
         return;
     }
 
-    onAddShelfModalClose(): void {
+    onAddBook(): void {
+        this.setState({
+            showShelfModal: true
+        });
+    }
+
+    onAddBookModalClose(): void {
         this.setState({
             showShelfModal: false
         });
@@ -143,6 +158,7 @@ class Favourites extends Component<Record<string, unknown>, IState> {
                             className="tempButton"
                             color="primary"
                             disableElevation
+                            onClick={this.onAddBook}
                         >
                             Add Book
                         </Button>
@@ -169,7 +185,8 @@ class Favourites extends Component<Record<string, unknown>, IState> {
                 </div>
                 <AddBookModal
                     open={this.state.showShelfModal}
-                    onClose={this.onAddShelfModalClose}
+                    onClose={this.onAddBookModalClose}
+                    shelfname="FAVOURITES"
                 />
                 <div className="my-book-switch-container">
                     <div className="toggle-text">Shelf View</div>

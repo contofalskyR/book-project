@@ -19,7 +19,7 @@ import React, { Component, ReactElement } from 'react';
 import { NavBar } from '../shared/navigation/NavBar';
 import Switch from '../settings/Switch';
 import Button from '@material-ui/core/Button';
-import AddBookModal from '../my-books/AddBookModal';
+import AddBookModal from '../add-book-modal/AddBookModal';
 import { Layout } from '../shared/components/Layout';
 import BookList from '../shared/book-display/BookList';
 import { Genres } from '../shared/types/Genres';
@@ -57,6 +57,14 @@ class ToRead extends Component<Record<string, unknown>, IState> {
         this.toReadBooks();
         this.trackCurrentDeviceSize();
         this.setState({ genre: '' });
+    }
+    componentDidUpdate(
+        prevProps: Record<string, unknown>,
+        prevState: IState
+    ): void {
+        if (this.state.showShelfModal !== prevState.showShelfModal) {
+            this.toReadBooks();
+        }
     }
     genresList: JSX.Element[] = Object.keys(Genres).map((value, index) => {
         return (
@@ -170,6 +178,7 @@ class ToRead extends Component<Record<string, unknown>, IState> {
                 <AddBookModal
                     open={this.state.showShelfModal}
                     onClose={this.onAddBookModalClose}
+                    shelfname="TO_READ"
                 />
                 <div className="my-book-switch-container">
                     <div className="toggle-text">Shelf View</div>

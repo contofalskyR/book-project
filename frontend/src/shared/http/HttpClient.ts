@@ -68,15 +68,34 @@ class HttpClientBase {
             throw response;
         });
     }
-
-    post(url: string, param: string): Promise<Response> {
+    patch(url: string, param: string, body: any = {}): Promise<Response> {
         if (this.headers['Authorization'] === null) {
             window.location.replace('http://localhost:3000/sign-in');
         }
-        const requestOptions = {
+        const requestOptions: any = {
+            method: Verb.PATCH,
+            headers: this.headers,
+            body: JSON.stringify(body)
+        };
+        return fetch(url + '/' + param, requestOptions).then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw response;
+        });
+    }
+
+    post(url: string, param: string, body: any = {}): Promise<Response> {
+        if (this.headers['Authorization'] === null) {
+            window.location.replace('http://localhost:3000/sign-in');
+        }
+        let requestOptions: any = {
             method: Verb.POST,
             headers: this.headers
         };
+        if (Object.keys(body).length !== 0) {
+            requestOptions = { ...requestOptions, body: body };
+        }
         return fetch(url + '/' + param, requestOptions).then((response) => {
             if (response.ok) {
                 return response.json();
