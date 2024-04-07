@@ -179,8 +179,8 @@ public class BookService {
     return bookRepository.findAllBooksByPredefinedShelfShelfName(predefinedShelfName);
   }
 
-  public List<Book> findAllFavourites() {
-    return bookRepository.findAllFavourites();
+  public List<Book> findAllFavourite() {
+    return bookRepository.findAllFavourite();
   }
 
   public Book updateBook(Book book, BookPatchDto bookPatchDto) {
@@ -194,8 +194,9 @@ public class BookService {
   }
 
   private void updateBookFavourite(Book book, BookPatchDto bookPatchDto) {
-    Optional.ofNullable(bookPatchDto.getFavourite()).ifPresent(book::setFavourite);
+    book.setFavourite(bookPatchDto.isFavourite());
   }
+
 
   private void updateBookMetadata(Book book, BookPatchDto bookPatchDto) {
     Optional.ofNullable(bookPatchDto.getTitle()).ifPresent(book::setTitle);
