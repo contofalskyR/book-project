@@ -18,7 +18,7 @@ If not, see <https://www.gnu.org/licenses/>.
 import React, { Component, ReactElement } from 'react';
 import { NavBar } from '../shared/navigation/NavBar';
 import Switch from '../settings/Switch';
-import AddBookModal from '../my-books/AddBookModal';
+import AddBookModal from '../add-book-modal/AddBookModal';
 import { Layout } from '../shared/components/Layout';
 import BookList from '../shared/book-display/BookList';
 import { Genres } from '../shared/types/Genres';
