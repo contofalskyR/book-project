@@ -35,6 +35,21 @@ If not, see <https://www.gnu.org/licenses/>.
   display: flex;
 }
 
+
+#root > div > div.pageContent > div > div.pageHeader > div > button {
+  height: auto;
+  width: auto;
+  min-height: 50px;
+  min-width: 100px;
+  background-color: #1C4A45 ;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-size: 14px;
+
+}
+
 .MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated.MuiInputLabel-filled
 {
   height: 50px;
