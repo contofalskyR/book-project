@@ -242,6 +242,7 @@ class BookOverview extends Component<Props, IState> {
                                             onClick={this.handleLikeButtonClick}
                                         >
                                             Like
+                                            <br />
                                             {this.state.book.likes}
                                         </Button>
                                         <Button
@@ -251,6 +252,7 @@ class BookOverview extends Component<Props, IState> {
                                             }
                                         >
                                             Dislike
+                                            <br />
                                             {this.state.book.dislikes}
                                         </Button>
                                     </ButtonGroup>
