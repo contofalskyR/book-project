@@ -242,6 +242,7 @@ class BookOverview extends Component<Props, IState> {
                                             onClick={this.handleLikeButtonClick}
                                         >
                                             Like
+                                            {this.state.book.likes}
                                         </Button>
                                         <Button
                                             startIcon={<ThumbDownIcon />}
@@ -250,6 +251,7 @@ class BookOverview extends Component<Props, IState> {
                                             }
                                         >
                                             Dislike
+                                            {this.state.book.dislikes}
                                         </Button>
                                     </ButtonGroup>
                                 </div>
