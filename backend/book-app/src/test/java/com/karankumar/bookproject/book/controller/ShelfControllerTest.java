@@ -17,6 +17,8 @@ package com.karankumar.bookproject.book.controller;
 import com.karankumar.bookproject.shelf.model.PredefinedShelf;
 import com.karankumar.bookproject.shelf.model.UserCreatedShelf;
 import com.karankumar.bookproject.account.model.User;
+import com.karankumar.bookproject.book.model.Book;
+import com.karankumar.bookproject.book.service.BookService;
 import com.karankumar.bookproject.shelf.service.PredefinedShelfService;
 import com.karankumar.bookproject.shelf.ShelfNameExistsException;
 import com.karankumar.bookproject.shelf.service.UserCreatedShelfService;
@@ -25,8 +27,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -39,6 +47,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class ShelfControllerTest {
@@ -46,11 +56,16 @@ class ShelfControllerTest {
   private final UserCreatedShelfService mockedUserCreatedShelfService;
   private final PredefinedShelfService mockedPredefinedShelfService;
 
+  private MockMvc mockMvc;
+  @InjectMocks
+  private BookController bookController;
+  @Mock
+  private BookService bookService;
+
   ShelfControllerTest() {
     mockedUserCreatedShelfService = mock(UserCreatedShelfService.class);
     mockedPredefinedShelfService = mock(PredefinedShelfService.class);
-    shelfController =
-        new ShelfController(mockedUserCreatedShelfService, mockedPredefinedShelfService);
+    shelfController = new ShelfController(mockedUserCreatedShelfService, mockedPredefinedShelfService);
   }
 
   @Test
@@ -156,7 +171,7 @@ class ShelfControllerTest {
 
   @ParameterizedTest
   @NullSource
-  @ValueSource(strings = {"", "    ", "\t", "\n"})
+  @ValueSource(strings = { "", "    ", "\t", "\n" })
   void create_throws_ifNoNameOrEmptyNameSpecified(String specifiedName) {
     // given
     when(mockedUserCreatedShelfService.createCustomShelf(any()))
@@ -175,10 +190,11 @@ class ShelfControllerTest {
 
   @ParameterizedTest
   @NullSource
-  @ValueSource(strings = {"", "    ", "\t", "\n"})
+  @ValueSource(strings = { "", "    ", "\t", "\n" })
   void renameShelf_ThrowsIfNoNameOrEmptyNameSpecifiedForLocatingShelf(String oldName) {
     // given
-    // Allow calling the real method, because that's where the "lookup by name cannot be null/empty"
+    // Allow calling the real method, because that's where the "lookup by name
+    // cannot be null/empty"
     // is validated
     when(mockedUserCreatedShelfService.findByShelfNameAndLoggedInUser(oldName))
         .thenCallRealMethod();
@@ -197,10 +213,11 @@ class ShelfControllerTest {
 
   @ParameterizedTest
   @NullSource
-  @ValueSource(strings = {"", "    ", "\t", "\n"})
+  @ValueSource(strings = { "", "    ", "\t", "\n" })
   void renameShelf_ThrowsIfNoNameOrEmptyNameSpecifiedForNewName(String newName) {
     // given
-    // Create a *real* UserCreatedShelf instance, because UserCreatedShelf.setShelfName(...) does
+    // Create a *real* UserCreatedShelf instance, because
+    // UserCreatedShelf.setShelfName(...) does
     // the validation
     UserCreatedShelf shelf = new UserCreatedShelf("someShelfName", mock(User.class));
     when(mockedUserCreatedShelfService.findByShelfNameAndLoggedInUser(shelf.getShelfName()))
@@ -239,7 +256,7 @@ class ShelfControllerTest {
 
   @ParameterizedTest
   @NullSource
-  @ValueSource(strings = {"", "    ", "\t", "\n"})
+  @ValueSource(strings = { "", "    ", "\t", "\n" })
   void deleteShelf_returnsBadRequest_ifShelfNameIsBlank(String name) {
     ResponseEntity<String> response = shelfController.delete(name);
 
@@ -267,4 +284,25 @@ class ShelfControllerTest {
           softly.assertThat(response.getBody()).isEqualTo("Specified shelf does not exist");
         });
   }
+
+  @Test
+  void testGetAllFavouriteBooks() throws Exception {
+    // given
+    List<Book> favouriteBooks = new ArrayList<>();
+    // Add some example books to the list
+
+    // Mock the service method
+    when(bookService.findAllFavourite()).thenReturn(favouriteBooks);
+
+    // Set up the mockMvc
+    mockMvc = MockMvcBuilders.standaloneSetup(bookController).build();
+
+    // when & then
+    mockMvc.perform(MockMvcRequestBuilders.get("/favourite")
+        .contentType(MediaType.APPLICATION_JSON));
+
+    // Verify that the service method was called
+    verify(bookService, times(1)).findAllFavourite();
+  }
+
 }
