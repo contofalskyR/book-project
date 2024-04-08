@@ -184,8 +184,7 @@ public class BookService {
   }
 
   public List<Book> getRecommendations() {
-    // TODO: replace function with favourites function
-    List<Book> favourites = this.bookRepository.findAll();
+    List<Book> favourites = this.bookRepository.findAllFavourite();
 
     return this.recommendationService.getRecommendations(favourites);
   }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.ArrayList;
 
 @Service
@@ -31,9 +32,13 @@ public class RecommendationService {
         this.predefinedShelfService = predefinedShelfService;
     }
 
-    public List<Book> getRecommendations(List<Book> userBooks) {
+    public List<Book> getRecommendations(List<Book> favouriteBooks) {
         List<Book> allBooks = this.bookRepository.findAll();
         List<Book> recommendedBooks = new ArrayList<Book>();
+        LOGGER.log(
+                Level.INFO,
+                "Calculating recommendations");
+
         // TODO: perform cosign similarity
         return recommendedBooks;
     }
