@@ -77,7 +77,7 @@ class Favourites extends Component<Record<string, unknown>, IState> {
 
     favouriteBooks(): void {
         //TODO: update endpoint
-        HttpClient.get(Endpoints.favourites)
+        HttpClient.get(Endpoints.favourite)
             .then((favouriteBooks: Book[]) => {
                 this.setState((state) => ({
                     favouriteBooks: Array.isArray(favouriteBooks)

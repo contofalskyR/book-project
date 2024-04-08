@@ -30,6 +30,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import StarIcon from '@material-ui/icons/Star';
+import StarOutlineIcon from '@material-ui/icons/StarOutline';
+import Endpoints from '../shared/api/endpoints';
 interface Props {
     history: History;
     match: {
@@ -62,7 +64,10 @@ class BookOverview extends Component<Props, IState> {
                 bookGenre: '',
                 summary: '',
                 numberOfPages: 0,
-                rating: 0
+                rating: 0,
+                dislikes: 0,
+                likes: 0,
+                favourite: false
             },
             snackbarOpen: false,
             snackbarMessage: ''
@@ -74,6 +79,12 @@ class BookOverview extends Component<Props, IState> {
         this.getBook();
     }
 
+    componentDidUpdate(prevProps: Props, prevState: IState): void {
+        if (this.state.snackbarOpen !== prevState.snackbarOpen) {
+            this.getBook();
+        }
+    }
+
     handleClickToGoBack(): void {
         this.props.history.goBack();
     }
@@ -82,22 +93,75 @@ class BookOverview extends Component<Props, IState> {
         this.setState({ snackbarOpen: false });
     };
 
-    handleLikeButtonClick = () => {
-        //TODO: call backend api
-        this.setState({ snackbarOpen: true, snackbarMessage: 'Liked!' });
+    handleLikeButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        const bookId = this.props.match.params.id.toString();
+        const body = { likes: 1 };
+        console.log('BOOK ID to like: ' + bookId);
+
+        HttpClient.patch(Endpoints.books, bookId, body)
+            .then(() => {
+                this.setState({
+                    snackbarOpen: true,
+                    snackbarMessage: 'Liked!'
+                });
+            })
+            .catch((error: Record<string, string>) => {
+                console.error(error);
+                this.setState({
+                    snackbarOpen: true,
+                    snackbarMessage:
+                        'Some error occured! ' + JSON.stringify(error)
+                });
+            });
     };
 
-    handleDislikeButtonClick = () => {
-        //TODO: call backend api
-        this.setState({ snackbarOpen: true, snackbarMessage: 'Disliked!' });
+    handleDislikeButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        const bookId = this.props.match.params.id.toString();
+        const body = { dislikes: 1 };
+        console.log('BOOK ID to dislike: ' + bookId);
+
+        HttpClient.patch(Endpoints.books, bookId, body)
+            .then(() => {
+                this.setState({
+                    snackbarOpen: true,
+                    snackbarMessage: 'Disliked!'
+                });
+            })
+            .catch((error: Record<string, string>) => {
+                console.error(error);
+                this.setState({
+                    snackbarOpen: true,
+                    snackbarMessage:
+                        'Some error occured! ' + JSON.stringify(error)
+                });
+            });
     };
 
-    handleFavoriteButtonClick = () => {
-        //TODO: call backend api
-        this.setState({
-            snackbarOpen: true,
-            snackbarMessage: 'Added to favorites!'
-        });
+    handleFavoriteButtonClick = (
+        event: React.MouseEvent<HTMLButtonElement>
+    ) => {
+        event.preventDefault();
+        const bookId = this.props.match.params.id.toString();
+        const body = { favourite: !this.state.book.favourite };
+        console.log('BOOK ID to favourite: ' + Endpoints.books + bookId);
+
+        HttpClient.patch(Endpoints.books, bookId, body)
+            .then(() => {
+                this.setState({
+                    snackbarOpen: true,
+                    snackbarMessage: 'Added to favorites!'
+                });
+            })
+            .catch((error: Record<string, string>) => {
+                console.error(error);
+                this.setState({
+                    snackbarOpen: true,
+                    snackbarMessage:
+                        'Some error occured! ' + JSON.stringify(error)
+                });
+            });
     };
 
     async getBook(): Promise<void> {
@@ -120,7 +184,12 @@ class BookOverview extends Component<Props, IState> {
                 });
         }
     }
+
     render(): JSX.Element {
+        console.log("this book's favourites:" + this.state.book.favourite);
+        console.log("this book's likes:" + this.state.book.likes);
+        console.log("this book's dislikes:" + this.state.book.dislikes);
+
         return (
             <div className="layoutContainer">
                 <div className="navBar">
@@ -158,7 +227,13 @@ class BookOverview extends Component<Props, IState> {
                                     <Button
                                         variant="outlined"
                                         color="primary"
-                                        startIcon={<StarIcon />}
+                                        startIcon={
+                                            this.state.book.favourite ? (
+                                                <StarIcon />
+                                            ) : (
+                                                <StarOutlineIcon />
+                                            )
+                                        }
                                         onClick={this.handleFavoriteButtonClick}
                                     >
                                         Favourite
@@ -174,6 +249,8 @@ class BookOverview extends Component<Props, IState> {
                                             onClick={this.handleLikeButtonClick}
                                         >
                                             Like
+                                            <br />
+                                            {this.state.book.likes}
                                         </Button>
                                         <Button
                                             startIcon={<ThumbDownIcon />}
@@ -182,6 +259,8 @@ class BookOverview extends Component<Props, IState> {
                                             }
                                         >
                                             Dislike
+                                            <br />
+                                            {this.state.book.dislikes}
                                         </Button>
                                     </ButtonGroup>
                                 </div>

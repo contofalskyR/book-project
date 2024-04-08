@@ -271,6 +271,8 @@ public class PredefinedShelfService {
         return Optional.of(ShelfName.READ);
       case "Did not finish":
         return Optional.of(ShelfName.DID_NOT_FINISH);
+      case "Favourite":
+        return Optional.of(ShelfName.FAVOURITE);
       default:
         return Optional.empty();
     }

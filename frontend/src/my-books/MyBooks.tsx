@@ -223,10 +223,6 @@ class MyBooks extends Component<Record<string, unknown>, IState> {
                         />
                     }
                 </div>
-                {/* <AddBookModal
-                    open={this.state.showShelfModal}
-                    onClose={this.onAddBookModalClose}
-                /> */}
             </Layout>
         );
     }

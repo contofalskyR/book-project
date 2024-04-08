@@ -96,6 +96,9 @@ public final class TestData {
     book.setPagesRead(generateRandomNumberInRange());
     book.setPublicationYear(generateRandomPublicationYear());
     book.setPublishers(generateRandomPublishers(publishers));
+    book.setLikes(0);
+    book.setDislikes(0);
+    book.setFavourite(false);
 
     return book;
   }
@@ -159,7 +162,7 @@ public final class TestData {
           book.setRating(RatingScale.NO_RATING);
           break;
         case READ:
-        case FAVOURITES:
+        case FAVOURITE:
           book.setRating(
               RatingScale.values()[threadLocalRandom.nextInt(RatingScale.values().length)]);
           book.setDateStartedReading(LocalDate.now().minusDays(2));

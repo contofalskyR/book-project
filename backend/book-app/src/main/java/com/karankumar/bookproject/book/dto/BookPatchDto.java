@@ -64,4 +64,14 @@ public class BookPatchDto {
 
   @JsonProperty("bookReview")
   private String bookReview;
+
+  @JsonProperty("favourite")
+  private Boolean favourite;
+
+  @JsonProperty("likes")
+  private Integer likes;
+
+  @JsonProperty("dislikes")
+  private Integer dislikes;
+
 }

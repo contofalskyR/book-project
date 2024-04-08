@@ -147,6 +147,12 @@ public class Book {
 
   private String summary;
 
+  private boolean favourite;
+
+  private Integer likes;
+
+  private Integer dislikes;
+
   public Book(String title, Author author, PredefinedShelf predefinedShelf) {
     this.title = title;
     this.author = author;

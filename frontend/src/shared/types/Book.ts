@@ -10,6 +10,9 @@ export type Book = {
         shelfName: string;
     };
     bookGenre: string;
+    favourite: boolean;
+    likes: number;
+    dislikes: number;
     summary: string;
     numberOfPages: number;
     rating: number;
