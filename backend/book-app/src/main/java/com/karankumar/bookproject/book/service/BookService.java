@@ -187,14 +187,14 @@ public class BookService {
   }
 
   public Book updateBook(Book book, BookPatchDto bookPatchDto) {
+    LOGGER.log(
+        Level.INFO,
+        "UPDATED A BOOK! DTO:" + bookPatchDto.isFavourite());
     updateBookMetadata(book, bookPatchDto);
     updateAuthor(book, bookPatchDto);
     updateGenres(book, bookPatchDto);
     updatePredefinedShelf(book, bookPatchDto);
     bookRepository.save(book);
-    LOGGER.log(
-        Level.INFO,
-        "UPDATED A BOOK!" + bookPatchDto.isFavourite());
     return book;
   }
 
@@ -212,6 +212,9 @@ public class BookService {
     Optional.ofNullable(bookPatchDto.getYearOfPublication()).ifPresent(book::setYearOfPublication);
     Optional.ofNullable(bookPatchDto.getBookReview()).ifPresent(book::setBookReview);
     Optional.ofNullable(bookPatchDto.isFavourite()).ifPresent(book::setFavourite);
+    LOGGER.log(
+        Level.INFO,
+        "UPDATED A BOOK! BOOK " + book.isFavourite());
     Optional.ofNullable(bookPatchDto.getLikes())
         .ifPresent(likesToAdd -> {
           // Retrieve the current value of the likes column

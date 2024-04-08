@@ -30,6 +30,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import StarIcon from '@material-ui/icons/Star';
+import StarOutlineIcon from '@material-ui/icons/StarOutline';
 import Endpoints from '../shared/api/endpoints';
 interface Props {
     history: History;
@@ -226,7 +227,13 @@ class BookOverview extends Component<Props, IState> {
                                     <Button
                                         variant="outlined"
                                         color="primary"
-                                        startIcon={<StarIcon />}
+                                        startIcon={
+                                            this.state.book.favourite ? (
+                                                <StarIcon />
+                                            ) : (
+                                                <StarOutlineIcon />
+                                            )
+                                        }
                                         onClick={this.handleFavoriteButtonClick}
                                     >
                                         Favourite
