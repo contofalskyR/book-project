@@ -120,7 +120,6 @@ export default class ShelfCarousel extends Component<
                     <div className="book-wrap">
                         {books}
                         {/* <ShelfBook key="test" title="test" img='test' /> */}
-                        <AddBook />
                         <div className="clear" />
                     </div>
                     <div className="shelf"></div>
