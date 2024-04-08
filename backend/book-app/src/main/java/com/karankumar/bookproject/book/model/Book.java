@@ -147,7 +147,7 @@ public class Book {
 
   private String summary;
 
-  private boolean favourite;
+  private Boolean favourite;
 
   private Integer likes;
 

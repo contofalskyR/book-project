@@ -46,8 +46,7 @@ class BookControllerTest {
     mockedBookService = mock(BookService.class);
     PredefinedShelfService mockedPredefinedShelfService = mock(PredefinedShelfService.class);
     ModelMapper mockedModelMapper = mock(ModelMapper.class);
-    bookController =
-        new BookController(mockedBookService, mockedPredefinedShelfService, mockedModelMapper);
+    bookController = new BookController(mockedBookService, mockedPredefinedShelfService, mockedModelMapper);
   }
 
   @Test
@@ -67,11 +66,10 @@ class BookControllerTest {
   @Test
   void all_returnsBadRequest_whenNegativePage() {
     Integer page = -1;
-    String expectedMessage =
-        String.format(
-            "%s \"%s\"",
-            HttpStatus.BAD_REQUEST,
-            String.format(BookController.NEGATIVE_PAGE_ERROR_MESSAGE, page));
+    String expectedMessage = String.format(
+        "%s \"%s\"",
+        HttpStatus.BAD_REQUEST,
+        String.format(BookController.NEGATIVE_PAGE_ERROR_MESSAGE, page));
 
     assertThatExceptionOfType(ResponseStatusException.class)
         .isThrownBy(() -> bookController.all(page))
@@ -112,20 +110,22 @@ class BookControllerTest {
   @Test
   // TODO: finish writing this test
   void findByShelf_returnsNotFound_ifBookDoesNotExist() {
-    //        when(mockedBookService.findByShelfAndTitleOrAuthor(
-    //                any(Shelf.class),
-    //                any(String.class),
-    //                any(String.class))
-    //        ).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
+    // when(mockedBookService.findByShelfAndTitleOrAuthor(
+    // any(Shelf.class),
+    // any(String.class),
+    // any(String.class))
+    // ).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-    //        assertThatExceptionOfType(BookNotFoundException.class)
-    //                .isThrownBy(bookController.findByShelf(new CustomShelf(), "title", "author"));
+    // assertThatExceptionOfType(BookNotFoundException.class)
+    // .isThrownBy(bookController.findByShelf(new CustomShelf(), "title",
+    // "author"));
   }
 
   @Test
   void update_callsService_ifBookPresent() {
     // given
     Book book = new Book();
+    book.setFavourite(true);
     BookPatchDto bookPatchDto = new BookPatchDto();
     when(mockedBookService.findById(anyLong())).thenReturn(Optional.of(book));
 
@@ -134,8 +134,7 @@ class BookControllerTest {
 
     // then
     ArgumentCaptor<Book> bookArgumentCaptor = ArgumentCaptor.forClass(Book.class);
-    ArgumentCaptor<BookPatchDto> bookPatchDtoArgumentCaptor =
-        ArgumentCaptor.forClass(BookPatchDto.class);
+    ArgumentCaptor<BookPatchDto> bookPatchDtoArgumentCaptor = ArgumentCaptor.forClass(BookPatchDto.class);
     verify(mockedBookService)
         .updateBook(bookArgumentCaptor.capture(), bookPatchDtoArgumentCaptor.capture());
     assertThat(bookArgumentCaptor.getValue()).isEqualTo(book);

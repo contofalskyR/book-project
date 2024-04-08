@@ -22,6 +22,8 @@ import com.karankumar.bookproject.account.repository.UserRepository;
 import com.karankumar.bookproject.annotations.DataJpaIntegrationTest;
 import com.karankumar.bookproject.book.model.Author;
 import com.karankumar.bookproject.book.model.Book;
+import com.karankumar.bookproject.book.model.Publisher;
+import com.karankumar.bookproject.book.model.Tag;
 import com.karankumar.bookproject.shelf.repository.PredefinedShelfRepository;
 import com.karankumar.bookproject.shelf.model.PredefinedShelf;
 import com.karankumar.bookproject.account.model.User;
@@ -44,6 +46,7 @@ class BookRepositoryTest {
   private final BookRepository bookRepository;
   private final AuthorRepository authorRepository;
   private final UserRepository userRepository;
+  private final PublisherRepository publisherRepository;
   private final PredefinedShelfRepository predefinedShelfRepository;
   private Author author;
   private PredefinedShelf read;
@@ -53,9 +56,11 @@ class BookRepositoryTest {
       BookRepository bookRepository,
       AuthorRepository authorRepository,
       UserRepository userRepository,
+      PublisherRepository publisherRepository,
       PredefinedShelfRepository predefinedShelfRepository) {
     this.bookRepository = bookRepository;
     this.authorRepository = authorRepository;
+    this.publisherRepository = publisherRepository;
     this.userRepository = userRepository;
     this.predefinedShelfRepository = predefinedShelfRepository;
   }
@@ -65,8 +70,7 @@ class BookRepositoryTest {
     bookRepository.deleteAll();
     User user = getTestUser(userRepository);
     author = authorRepository.save(new Author("firstName lastName"));
-    read =
-        predefinedShelfRepository.save(new PredefinedShelf(PredefinedShelf.ShelfName.READ, user));
+    read = predefinedShelfRepository.save(new PredefinedShelf(PredefinedShelf.ShelfName.READ, user));
     bookRepository.save(new Book("title", author, read));
   }
 
@@ -162,6 +166,28 @@ class BookRepositoryTest {
 
     // when
     List<Book> books = bookRepository.findAllBooksForUser(user);
+
+    // then
+    assertSoftly(
+        softly -> {
+          assertThat(books).isNotEmpty();
+          assertThat(books.size()).isOne();
+        });
+  }
+
+  @Test
+  void canGetAllFavouriteBooksForUser() {
+    // given
+    User user = getTestUser(userRepository);
+    Book book = new Book("Book2", author, read);
+    book.addTag(new Tag("tag"));
+    Publisher publisher = new Publisher("publisher");
+    this.publisherRepository.save(publisher);
+    book.addPublisher(publisher);
+    bookRepository.saveAndFlush(book);
+
+    // when
+    List<Book> books = bookRepository.findAllFavourite();
 
     // then
     assertSoftly(
