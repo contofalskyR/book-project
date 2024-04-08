@@ -36,6 +36,7 @@ import lombok.extern.java.Log;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -189,11 +190,12 @@ public class BookService {
   public Book updateBook(Book book, BookPatchDto bookPatchDto) {
     LOGGER.log(
         Level.INFO,
-        "UPDATED A BOOK! DTO:" + bookPatchDto.isFavourite());
+        "UPDATED A BOOK! DTO:" + bookPatchDto.getFavourite());
     updateBookMetadata(book, bookPatchDto);
     updateAuthor(book, bookPatchDto);
     updateGenres(book, bookPatchDto);
     updatePredefinedShelf(book, bookPatchDto);
+    updateLikesAndDislikes(book, bookPatchDto);
     bookRepository.save(book);
     return book;
   }
@@ -211,10 +213,13 @@ public class BookService {
     Optional.ofNullable(bookPatchDto.getIsbn()).ifPresent(book::setIsbn);
     Optional.ofNullable(bookPatchDto.getYearOfPublication()).ifPresent(book::setYearOfPublication);
     Optional.ofNullable(bookPatchDto.getBookReview()).ifPresent(book::setBookReview);
-    Optional.ofNullable(bookPatchDto.isFavourite()).ifPresent(book::setFavourite);
+    Optional.ofNullable(bookPatchDto.getFavourite()).ifPresent(book::setFavourite);
     LOGGER.log(
         Level.INFO,
-        "UPDATED A BOOK! BOOK " + book.isFavourite());
+        "UPDATED A BOOK! BOOK ");
+  }
+
+  private void updateLikesAndDislikes(Book book, BookPatchDto bookPatchDto) {
     Optional.ofNullable(bookPatchDto.getLikes())
         .ifPresent(likesToAdd -> {
           // Retrieve the current value of the likes column
