@@ -57,7 +57,12 @@ export default class AddBookModal extends Component<
     submitBook = (event: React.MouseEvent<HTMLButtonElement>): void => {
         event.preventDefault();
         const bookId = this.state.bookId;
-        const body = { predefinedShelf: this.props.shelfname };
+        let body = {};
+        if (this.props.shelfname === 'FAVOURITES') {
+            body = { favourite: true };
+        } else {
+            body = { predefinedShelf: this.props.shelfname };
+        }
         console.log('BOOK ID: ' + this.state.bookId);
 
         HttpClient.patch(Endpoints.books, bookId as string, body)
