@@ -17,6 +17,7 @@
 
 package com.karankumar.bookproject.book.service;
 
+import com.karankumar.bookproject.book.dto.BookPatchDto;
 import com.karankumar.bookproject.book.model.Author;
 import com.karankumar.bookproject.book.model.Book;
 import com.karankumar.bookproject.shelf.model.PredefinedShelf;
@@ -146,6 +147,29 @@ class BookServiceTest {
 
     // then
     verify(bookRepository).findByTitleContainingIgnoreCase(filter);
+  }
+
+  @Test
+  void updateBook_updatesFavoritesLikesAndDislikes() {
+    // given
+    User user = User.builder().build();
+    PredefinedShelf predefinedShelf = new PredefinedShelf(PredefinedShelf.ShelfName.READ, user);
+    Book book = new Book("title", null, predefinedShelf);
+    book.setLikes(1);
+    book.setDislikes(1);
+    BookPatchDto bookPatchDto = new BookPatchDto();
+    bookPatchDto.setFavourite(true);
+    bookPatchDto.setLikes(100);
+    bookPatchDto.setDislikes(50);
+
+    // when
+    this.bookService.updateBook(book, bookPatchDto);
+
+    // then
+    assertThat(book.getFavourite()).isTrue();
+    assertThat(book.getLikes()).isEqualTo(101);
+    assertThat(book.getDislikes()).isEqualTo(51);
+    verify(bookRepository).save(book);
   }
 
   @Test

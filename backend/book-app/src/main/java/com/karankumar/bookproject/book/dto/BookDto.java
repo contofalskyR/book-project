@@ -75,7 +75,7 @@ public class BookDto {
   private String summary;
 
   @JsonProperty("favourite")
-  private boolean favourite;
+  private Boolean favourite;
 
   @JsonProperty("likes")
   private Integer likes;
