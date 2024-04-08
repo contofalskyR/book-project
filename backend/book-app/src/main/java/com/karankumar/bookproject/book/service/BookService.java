@@ -180,6 +180,9 @@ public class BookService {
   }
 
   public List<Book> findAllFavourite() {
+    LOGGER.log(
+        Level.INFO,
+        "getting all favourites....");
     return bookRepository.findAllFavourite();
   }
 

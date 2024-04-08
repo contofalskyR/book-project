@@ -81,6 +81,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         @Query("SELECT b "
                         + "FROM Book b "
                         + "INNER JOIN FETCH b.author "
+                        + "LEFT JOIN FETCH b.predefinedShelf "
                         + "INNER JOIN FETCH b.tags "
                         + "INNER JOIN FETCH b.publishers "
                         + "WHERE b.favourite = true")
