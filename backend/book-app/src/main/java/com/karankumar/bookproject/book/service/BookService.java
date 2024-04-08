@@ -189,6 +189,9 @@ public class BookService {
     updateGenres(book, bookPatchDto);
     updatePredefinedShelf(book, bookPatchDto);
     bookRepository.save(book);
+    LOGGER.log(
+        Level.INFO,
+        "UPDATED A BOOK!" + bookPatchDto.isFavourite());
     return book;
   }
 

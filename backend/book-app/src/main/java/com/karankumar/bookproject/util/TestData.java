@@ -96,6 +96,9 @@ public final class TestData {
     book.setPagesRead(generateRandomNumberInRange());
     book.setPublicationYear(generateRandomPublicationYear());
     book.setPublishers(generateRandomPublishers(publishers));
+    book.setLikes(0);
+    book.setDislikes(0);
+    book.setFavourite(false);
 
     return book;
   }
