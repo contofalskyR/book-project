@@ -1,3 +1,4 @@
+
 /*
 The book project lets a user keep track of different books they would like to read, are currently
 reading, have read or did not finish.
@@ -25,7 +26,13 @@ import { Book } from '../shared/types/Book';
 import HttpClient from '../shared/http/HttpClient';
 import Endpoints from '../shared/api/endpoints';
 import './Recommendations.css';
-import { FormControl, InputLabel, Select } from '@material-ui/core';
+import {
+    CircularProgress,
+    FormControl,
+    InputLabel,
+    LinearProgress,
+    Select
+} from '@material-ui/core';
 import ShelfCarouselSingle from '../shared/book-display/ShelfCarouselSingle';
 interface IState {
     showShelfModal: boolean;
@@ -33,6 +40,7 @@ interface IState {
     recommendedBooks: Book[];
     searchVal: string;
     genre: string;
+    loading: boolean;
 }
 
 class Recommendations extends Component<Record<string, unknown>, IState> {
@@ -43,7 +51,8 @@ class Recommendations extends Component<Record<string, unknown>, IState> {
             showListView: false,
             genre: '',
             recommendedBooks: [],
-            searchVal: ''
+            searchVal: '',
+            loading: true
         };
         this.onAddShelf = this.onAddShelf.bind(this);
         this.onAddShelfModalClose = this.onAddShelfModalClose.bind(this);
@@ -65,17 +74,19 @@ class Recommendations extends Component<Record<string, unknown>, IState> {
     });
 
     recommendedBooks(): void {
-        // TODO: update endpoint for recommendations
-        HttpClient.get(Endpoints.read)
+        this.setState({ loading: true });
+        HttpClient.get(Endpoints.recommendations)
             .then((recommendedBooks: Book[]) => {
                 this.setState((state) => ({
                     recommendedBooks: Array.isArray(recommendedBooks)
                         ? recommendedBooks
-                        : state.recommendedBooks
+                        : state.recommendedBooks,
+                    loading: false
                 }));
             })
             .catch((error: Record<string, string>) => {
                 console.error('error: ', error);
+                this.setState({ loading: false });
             });
     }
 
@@ -140,23 +151,29 @@ class Recommendations extends Component<Record<string, unknown>, IState> {
                 }
             >
                 <NavBar />
-                <div>
-                    {this.state.showListView ? (
-                        <BookList
-                            key={
-                                this.state.recommendedBooks.length +
-                                this.state.searchVal
-                            }
-                            bookListData={this.state.recommendedBooks}
-                            searchText={this.state.searchVal}
-                        />
-                    ) : (
-                        <ShelfCarouselSingle
-                            books={this.state.recommendedBooks}
-                            genre={this.state.genre}
-                        />
-                    )}
-                </div>
+                {this.state.loading ? (
+                    <div className="spinner-container">
+                        <LinearProgress />
+                    </div>
+                ) : (
+                    <div>
+                        {this.state.showListView ? (
+                            <BookList
+                                key={
+                                    this.state.recommendedBooks.length +
+                                    this.state.searchVal
+                                }
+                                bookListData={this.state.recommendedBooks}
+                                searchText={this.state.searchVal}
+                            />
+                        ) : (
+                            <ShelfCarouselSingle
+                                books={this.state.recommendedBooks}
+                                genre={this.state.genre}
+                            />
+                        )}
+                    </div>
+                )}
                 <div className="my-book-switch-container">
                     <div className="toggle-text">Shelf View</div>
                     <Switch onClick={this.onToggleListView} />
