@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BOOK_OVERVIEW } from '../routes';
 import { Paper, Tooltip } from '@material-ui/core';
+import { getRandomColor, getRandomGradient } from './BookCover';
 
 type BookProps = {
     id: string | number;
@@ -9,6 +10,7 @@ type BookProps = {
     author: string;
     big: boolean;
 };
+
 export default function ShelfBook(props: BookProps): JSX.Element {
     const bookClass = props.big ? 'book' : 'book-single-carousel';
     const displayTitle =
@@ -23,9 +25,14 @@ export default function ShelfBook(props: BookProps): JSX.Element {
             style={{ textDecoration: 'none', color: 'black' }}
         >
             <Tooltip title={props.title} arrow>
-                <Paper className={bookClass} variant="elevation" square={false}>
+                <Paper
+                    className={bookClass}
+                    variant="elevation"
+                    square={false}
+                    style={{ backgroundImage: getRandomGradient() }}
+                >
                     {<div className="book-spine"></div>}
-                    {displayTitle}
+                    {<p style={{ color: 'white' }}>{displayTitle}</p>}
                 </Paper>
             </Tooltip>
         </Link>
